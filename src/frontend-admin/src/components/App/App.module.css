@@ -30,14 +30,12 @@ nav {
   display: flex;
   flex-direction: row;  
   justify-content: flex-end;
-  z-index: 3;
 }
 
 nav h1 {
   flex-grow: 1;
   align-self: flex-start;
   margin: auto;
-  margin-left: 100px;
   
   
   color: #000000;	
@@ -59,7 +57,6 @@ nav h1 {
 
   position: absolute;
   left: 355px;
-  z-index: 1;
 }
 
 .linkContainer {
@@ -71,7 +68,6 @@ nav h1 {
   display: flex;
   align-content: center;
 
-  z-index: 2;
   height: 80px;
 }
 
@@ -111,10 +107,12 @@ nav h1 {
 
 .active {
   color: #fff;
-  background-color: #009EFF;
+  background: #009EFF;
 }
 
 footer {
   width: 100%;
+  position: fixed;
+  bottom: 0px;
   border-top: 1px solid black;
 }

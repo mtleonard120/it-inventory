@@ -23,7 +23,7 @@ export const App: React.FC = () => {
         </a>
       </header>
   </div>*/
-    <div>
+    <div className={styles.app}>
       {/*header*/}
 
       <Router>
