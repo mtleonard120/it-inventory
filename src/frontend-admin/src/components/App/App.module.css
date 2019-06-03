@@ -47,7 +47,6 @@
 
 .navRectangle {
   background: #f4f4f4;
-  /*background: #a07373;*/
   position: relative;
   top: 15px;
   left: 40px;
@@ -119,7 +118,6 @@
 }
 
 .active .navTabRectangle{
-  color: #fff;
   background: #009EFF;
 }
 
