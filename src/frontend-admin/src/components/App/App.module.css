@@ -89,7 +89,6 @@
   width: 20px;
   height: 20px;
   border-radius:  0 0px 0px -18px; 
-  
 }
 
 .linkContainer {
@@ -103,7 +102,7 @@
 }
 
 .navTab {
-  width: 120px;
+  width: 123px;
   padding: 0px 35px 5px 35px;
   color: #fff;
   text-decoration:none;
@@ -117,11 +116,13 @@
 
 .navTab:first-Child {
   border-radius: 0 18px 18px 0px;
+  
 }
 
 
 .navTab label{
   margin: auto;
+  margin-left: 0px;
   font-size: 18px;
   line-height: 18px;
   text-transform: uppercase;	
