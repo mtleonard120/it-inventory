@@ -7,7 +7,7 @@
 
 [build]
   base    = "src/frontend-admin"
-  command = "npm build"
+  command = "npm run build"
   publish = "src/frontend-admin/build"
 
 # Production context: All deploys to the main
