@@ -5602,7 +5602,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "BaY+sUxDQun3GmnRmLfDFD+m1mw7eH65p5zKml9GfXQdSZrFFkV5RsB+HNcT4udmDHKOp4wm6Ds7/w3Km/1cZA==",
+      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "hasTools": true,
@@ -7919,7 +7919,7 @@
       ]
     },
     "System.Diagnostics.Contracts/4.3.0": {
-      "sha512": "nmVAOq/VrzVP/kByUxkyowvlWNbGu5a4IC+2WV02uCw8J2bM/QssSinuO3dMYZcqCCLWem8TehtX5IdAMnwkGA==",
+      "sha512": "eelRRbnm+OloiQvp9CXS0ixjNQldjjkHO4iIkR5XH2VIP8sUB/SIpa1TdUW6/+HDcQ+MlhP3pNa1u5SbzYuWGA==",
       "type": "package",
       "path": "system.diagnostics.contracts/4.3.0",
       "files": [
@@ -8946,7 +8946,7 @@
       ]
     },
     "System.Linq.Queryable/4.0.1": {
-      "sha512": "gNXycVZOmctmiRl2vCM2l8DPaIDRcjUAqsnTuzaCZ4xdhUxEJIiKT6YYNjgrXOM/Y9eAEfnmWjOweNq1Oy9xPg==",
+      "sha512": "Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
       "type": "package",
       "path": "system.linq.queryable/4.0.1",
       "files": [
@@ -11349,7 +11349,7 @@
       ]
     },
     "System.Threading.Tasks.Parallel/4.3.0": {
-      "sha512": "y+kYZtbKTtg7xjn4eqYUDUvyvUwtHLOqL+hbiIu+byTEQWKTotqSrU/CjfHkhzMQzrNJ9mkj78FCR0B/vvQxQQ==",
+      "sha512": "cbjBNZHf/vQCfcdhzx7knsiygoCKgxL8mZOeocXZn5gWhCdzHIq6bYNKWX0LAJCWYP7bds4yBK8p06YkP0oa0g==",
       "type": "package",
       "path": "system.threading.tasks.parallel/4.3.0",
       "files": [
@@ -11405,7 +11405,7 @@
       ]
     },
     "System.Threading.Thread/4.3.0": {
-      "sha512": "LGRNKF0XO9A+TA5pni/Fo1iKzsfWxha4nEdUtXFiP54oi8Fuu9HEjYn0MDrVDNZi2KN4rSa66I/vvajh9Ea/cQ==",
+      "sha512": "OHmbT+Zz065NKII/ZHcH9XO1dEuLGI1L2k7uYss+9C1jLxTC9kTZZuzUOyXHayRk+dft9CiDf3I/QZ0t8JKyBQ==",
       "type": "package",
       "path": "system.threading.thread/4.3.0",
       "files": [
@@ -11793,23 +11793,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\michael.leonard\\.nuget\\packages\\": {},
+    "C:\\Users\\charles.kornoelje\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\backend-api.csproj",
+      "projectUniqueName": "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\backend-api.csproj",
       "projectName": "backend-api",
-      "projectPath": "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\backend-api.csproj",
-      "packagesPath": "C:\\Users\\michael.leonard\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\obj\\",
+      "projectPath": "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\backend-api.csproj",
+      "packagesPath": "C:\\Users\\charles.kornoelje\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\michael.leonard\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\charles.kornoelje\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11817,7 +11817,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.cqlcorp.local/api/v2/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
