@@ -37,30 +37,6 @@
 
 .navEllipse {
   position: relative;
-  left: 40px;
-  background: #333;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.navRectangle {
-  background: #f4f4f4;
-  /*background: #a07373;*/
-  position: relative;
-  top: 12px;
-  left: 0px;
-  width: 40px;
-  height: 20px;
-  z-index: 2;
-  border-radius: 0px 2px 0px 0px;
-}
-
-
-/*might not use*/
-.navEllipse {
-  position: relative;
   left: 0px;
   background: #333;
   width: 30px;
@@ -80,7 +56,6 @@
   border-radius: 0px 2px 0px 0px;
   z-index: 3;
 }
-/***************/
 
 .navTabRectangle {
   background: #333;
@@ -118,7 +93,6 @@
   border-radius: 0 18px 18px 0px;
   
 }
-
 
 .navTab label{
   margin: auto;
