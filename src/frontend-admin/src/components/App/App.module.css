@@ -37,8 +37,8 @@
 
 .navEllipse {
   position: relative;
-  left: 0px;
-  background: #333;
+  left: 1px;
+  background: #555;
   width: 40px;
   height: 30px;
   border-radius: 50%;
@@ -49,10 +49,9 @@
   background: #f4f4f4;
   position: relative;
   top: 15px;
-  left: 40px;
+  left: 41px;
   width: 50px;
-  height: 20px;
-  border-radius: 0px 2px 0px 0px;
+  height: 65px;
   z-index: 3;
 }
 
@@ -110,10 +109,10 @@
   letter-spacing: -0.49px;	
   line-height: 18px;	
   text-align: center;
+  cursor: pointer;
 }
 
 .active {
-  color: #fff;
   background: #009EFF;
 }
 
