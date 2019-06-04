@@ -13,13 +13,14 @@
 
 .navBar {
   width: 100%;
-  height: 68px;
+  height: 65px;
   background: #f4f4f4;
-  position: fixed;
+  position: relative;
   top: 75px;
   display: flex;
   flex-direction: row;  
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .navBar h1 {
@@ -34,34 +35,68 @@
   letter-spacing: -1.38px;
 }
 
+.navEllipse {
+  position: relative;
+  left: 50px;
+  top: -15px;
+  background: #555;
+  width: 40px;
+  height: 30px;
+  border-radius: 50%;
+  z-index: 4;
+}
+
+.navRectangle {
+  background: #f4f4f4;
+  position: relative;
+  width: 50px;
+  height: 65px;
+  z-index: 5;
+}
+
+.navTabRectangle {
+  background: #333;
+  position: relative;
+  left: -50px;
+  width: 20px;
+  height: 20px;
+  border-radius:  0 0px 0px -18px; 
+}
+
 .linkContainer {
   align-self: flex-end;
   margin-right: 60px;
-  background: #333;
   border-radius: 0 18px 18px 18px; 
   display: flex;
   align-content: center;
   height: 80px;
+  flex-direction: row-reverse;
 }
 
 .navTab {
-  width: 120px;
+  width: 123px;
   padding: 0px 35px 5px 35px;
   color: #fff;
   text-decoration:none;
   font-size: 15px;
   line-height: 18px;
   background: #333;
-  border-radius: 0 18px 0px 18px;
+  border-radius: 0 18px 0px 0px;
   display: flex;
+  z-index: 3;
 }
 
-.navTab:last-Child {
-  border-radius: 0 18px 18px 18px;
+.navTab:first-child {
+  border-radius: 0 18px 18px 0;
+}
+
+.navTab:last-child {
+  border-radius: 0 18px 0 18px;
 }
 
 .navTab label{
   margin: auto;
+  margin-left: 0px;
   font-size: 18px;
   line-height: 18px;
   text-transform: uppercase;	
@@ -73,10 +108,14 @@
   letter-spacing: -0.49px;	
   line-height: 18px;	
   text-align: center;
+  cursor: pointer;
 }
 
 .active {
-  color: #fff;
+  background: #009EFF;
+}
+
+.active .navTabRectangle{
   background: #009EFF;
 }
 
