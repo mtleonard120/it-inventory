@@ -1,0 +1,47 @@
+.barContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.barMain {
+    height: 20px;
+    width: 80%;
+    border-radius: 50px;
+    margin: 5px;
+    margin-right: 0px;
+    background: #333;
+    display: flex;
+    text-align: right;
+}
+
+.barFiller {
+    background: #CC4A14;
+    height: 100%;
+    border-radius: inherit;
+    text-align: right;
+    padding-right: 10px;
+    color: #eee;
+}
+
+.barTitle {
+    text-transform: capitalize;
+    color: #fff;
+    height: 100%;
+    text-align: left;
+    /*TODO: remove comment when we have font*/
+    /*font-family: CQL;*/
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+.fraction {
+    height: 19px;	
+    width: 59px;	
+    color: #333;	
+    /*TODO: remove comment when we have font*/
+    /*font-family: "SF Pro Text";*/	
+    font-size: 16px;	
+    font-weight: bold;	
+    line-height: 19px;
+}
