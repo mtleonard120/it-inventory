@@ -5,7 +5,7 @@
 }
 
 .barMain {
-    height: 20px;
+    height: 25px;
     width: 80%;
     border-radius: 50px;
     margin: 5px;
@@ -27,7 +27,8 @@
 .barTitle {
     text-transform: capitalize;
     color: #fff;
-    height: 100%;
+    font-size: 16px;
+    line-height: 25px;
     text-align: left;
     /*TODO: remove comment when we have font*/
     /*font-family: CQL;*/
@@ -36,12 +37,11 @@
 }
 
 .fraction {
-    height: 19px;	
+    line-height: 20px;
     width: 59px;	
     color: #333;	
     /*TODO: remove comment when we have font*/
     /*font-family: "SF Pro Text";*/	
     font-size: 16px;	
-    font-weight: bold;	
-    line-height: 19px;
+    font-weight: bold;
 }

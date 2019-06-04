@@ -15,9 +15,11 @@ export const HorizontalBarChart: React.FC<IProps> = (props) => {
         amount > outOf ? null : (
             <div className={styles.barContainer}>
                 <div className={styles.barMain}>
+                    {amount <= 0 ? <div className={styles.barTitle}>{title}</div> : (
                     <div className={styles.barFiller} style={{width: `${amount / outOf * 100}%`}}>
                         <div className={styles.barTitle}>{title}</div>
                     </div>
+                    )}
                 </div>
                 <div className={styles.fraction}>{amount + "/" + outOf}</div>
             </div>
