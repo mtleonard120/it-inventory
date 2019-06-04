@@ -37,22 +37,22 @@
 
 .navEllipse {
   position: relative;
-  left: 1px;
+  left: 50px;
+  top: -15px;
   background: #555;
   width: 40px;
   height: 30px;
   border-radius: 50%;
-  z-index: 3;
+  z-index: 4;
 }
 
 .navRectangle {
   background: #f4f4f4;
   position: relative;
-  top: 15px;
-  left: 41px;
+  left: 0px;
   width: 50px;
   height: 65px;
-  z-index: 3;
+  z-index: 5;
 }
 
 .navTabRectangle {
@@ -91,7 +91,7 @@
   border-radius: 0 18px 18px 0;
 }
 
-.navTab:nth-child(5) {
+.navTab:last-child {
   border-radius: 0 18px 0 18px;
 }
 

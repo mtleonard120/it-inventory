@@ -14,6 +14,8 @@ export const App: React.FC = () => {
         <div className={styles.navContainer}>
           <nav className={styles.navBar}>
             <h1>CQL</h1>
+            <div className={styles.navEllipse} />
+            <div className={styles.navRectangle} />
             <div className={styles.linkContainer}>
               <NavLink className={styles.navTab} 
                 activeClassName={styles.active}
@@ -49,9 +51,6 @@ export const App: React.FC = () => {
                 <div className={styles.navTabRectangle} />
                 <label>Dashboard</label>
               </NavLink>
-
-              <div className={styles.navEllipse} />
-              <div className={styles.navRectangle} />
             </div>
           </nav>
         </div>
