@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backend_api.Models
+namespace backend-api.Models
 {
     public partial class Computer
     {
@@ -16,7 +16,7 @@ namespace backend_api.Models
         public string MonitorOutput { get; set; }
         public DateTime? EndOfLife { get; set; }
         public int? EmployeeId { get; set; }
-        public bool? IsAssigned { get; set; }
+        public bool IsAssigned { get; set; }
         public string TextField { get; set; }
         public double? ScreenSize { get; set; }
         public double? CostPerYear { get; set; }

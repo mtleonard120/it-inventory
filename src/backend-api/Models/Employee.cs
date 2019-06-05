@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backend_api.Models
+namespace backend-api.Models
 {
     public partial class Employee
     {
@@ -23,8 +23,11 @@ namespace backend_api.Models
         public int DepartmentId { get; set; }
         public bool IsDeleted { get; set; }
         public string UserSettings { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
 
-        public Department Department { get; set; }
         public ICollection<Computer> Computer { get; set; }
         public ICollection<HardwareHistory> HardwareHistoryCurrentOwner { get; set; }
         public ICollection<HardwareHistory> HardwareHistoryPreviousOwner { get; set; }

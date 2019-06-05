@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backend_api.Models
+namespace backend-api.Models
 {
     public partial class ProgramHistory
     {

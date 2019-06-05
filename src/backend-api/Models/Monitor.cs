@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backend_api.Models
+namespace backend-api.Models
 {
     public partial class Monitor
     {
@@ -11,7 +11,7 @@ namespace backend_api.Models
         public int? Resolution { get; set; }
         public string Outputs { get; set; }
         public int? EmployeeId { get; set; }
-        public bool? IsAssigned { get; set; }
+        public bool IsAssigned { get; set; }
         public string TextField { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public double? FlatCost { get; set; }

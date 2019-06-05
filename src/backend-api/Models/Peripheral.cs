@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backend_api.Models
+namespace backend-api.Models
 {
     public partial class Peripheral
     {
@@ -10,7 +10,7 @@ namespace backend_api.Models
         public string PeripheralType { get; set; }
         public string TextField { get; set; }
         public int? EmployeeId { get; set; }
-        public bool? IsAssigned { get; set; }
+        public bool IsAssigned { get; set; }
         public double? FlatCost { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public double? CostPerYear { get; set; }
