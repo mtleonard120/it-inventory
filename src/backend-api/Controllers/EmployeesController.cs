@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend_api.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.DirectoryServices.AccountManagement;
 
 namespace backend_api.Controllers
 {
@@ -27,6 +28,31 @@ namespace backend_api.Controllers
         public IEnumerable<Employee> GetEmployee()
         {
             return _context.Employee;
+        }
+
+        // GET: api/employees/string
+        // Fill in this method with a username and domain and it will pull information from active directory.
+        [Route("string")]
+        [HttpGet]
+        public string GetString()
+        {
+            // TODO: provide the username
+            var username = "username";
+            string result = "empty";
+            // TODO: provide the name
+            using (var context = new PrincipalContext(ContextType.Domain, "domain"))
+            {
+                var user = UserPrincipal.FindByIdentity(context, username);
+                if (user != null)
+                {
+                    result = user.Name;
+                    result += "\n" + user.EmailAddress;
+                    result += "\n" + user.Guid;
+                    result += "\n" + user.DistinguishedName;
+                }
+            }
+            return result;
+
         }
 
         // GET: api/Employees/5

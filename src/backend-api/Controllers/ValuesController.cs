@@ -7,14 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend_api.Controllers
 {
-    // [Authorize]
-    [Authorize(Roles = "NextGen")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         // GET api/values
-        // [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {

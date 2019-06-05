@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using backend_api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace backend_api
 {
@@ -27,6 +28,14 @@ namespace backend_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Allows for logged-in windows users to be authenticated.
+            // Only works with IIS apps and not running as a console app.
+            services.Configure<IISOptions>(options =>
+            {
+                options.AutomaticAuthentication = true;
+            });
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // TODO: Currently the server is hardcoded in. This will have to be changed to an environment var.
@@ -47,6 +56,7 @@ namespace backend_api
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
