@@ -14,8 +14,8 @@ namespace backend_api.Models
         public bool IsAssigned { get; set; }
         public string TextField { get; set; }
         public DateTime? PurchaseDate { get; set; }
-        public double? FlatCost { get; set; }
-        public double? CostPerYear { get; set; }
+        public decimal? FlatCost { get; set; }
+        public decimal? CostPerYear { get; set; }
         public bool IsDeleted { get; set; }
         public double? ScreenSize { get; set; }
 

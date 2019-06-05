@@ -22,6 +22,7 @@ namespace backend_api.Models
         public virtual DbSet<HardwareHistory> HardwareHistory { get; set; }
         public virtual DbSet<Monitor> Monitor { get; set; }
         public virtual DbSet<Peripheral> Peripheral { get; set; }
+        public virtual DbSet<Plugins> Plugins { get; set; }
         public virtual DbSet<Program> Program { get; set; }
         public virtual DbSet<ProgramHistory> ProgramHistory { get; set; }
         public virtual DbSet<Server> Server { get; set; }
@@ -56,6 +57,8 @@ namespace backend_api.Models
 
                 entity.Property(e => e.ComputerName).HasMaxLength(100);
 
+                entity.Property(e => e.CostPerYear).HasColumnType("money");
+
                 entity.Property(e => e.Cpu)
                     .HasColumnName("CPU")
                     .HasMaxLength(50);
@@ -64,6 +67,8 @@ namespace backend_api.Models
 
                 entity.Property(e => e.EndOfLife).HasColumnType("date");
 
+                entity.Property(e => e.FlatCost).HasColumnType("money");
+
                 entity.Property(e => e.MonitorOutput).HasMaxLength(50);
 
                 entity.Property(e => e.PurchaseDate).HasColumnType("date");
@@ -71,6 +76,8 @@ namespace backend_api.Models
                 entity.Property(e => e.Ramgb).HasColumnName("RAMGB");
 
                 entity.Property(e => e.RenewalDate).HasColumnType("date");
+
+                entity.Property(e => e.ScreenSize).HasColumnType("decimal(9, 2)");
 
                 entity.Property(e => e.Ssdgb).HasColumnName("SSDGB");
 
@@ -82,7 +89,9 @@ namespace backend_api.Models
 
             modelBuilder.Entity<Department>(entity =>
             {
-                entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
+                entity.Property(e => e.DepartmentId)
+                    .HasColumnName("DepartmentID")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.DefaultHardware).IsRequired();
 
@@ -91,11 +100,22 @@ namespace backend_api.Models
                 entity.Property(e => e.DepartmentName)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.HasOne(d => d.DepartmentNavigation)
+                    .WithOne(p => p.InverseDepartmentNavigation)
+                    .HasForeignKey<Department>(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Department_Department");
             });
 
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.Adguid)
+                    .IsRequired()
+                    .HasColumnName("ADGUID")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
 
@@ -116,6 +136,12 @@ namespace backend_api.Models
                 entity.Property(e => e.Role)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.Employee)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Employee_Department");
             });
 
             modelBuilder.Entity<HardwareHistory>(entity =>
@@ -149,7 +175,11 @@ namespace backend_api.Models
             {
                 entity.Property(e => e.MonitorId).HasColumnName("MonitorID");
 
+                entity.Property(e => e.CostPerYear).HasColumnType("money");
+
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.FlatCost).HasColumnType("money");
 
                 entity.Property(e => e.Make).HasMaxLength(100);
 
@@ -169,7 +199,11 @@ namespace backend_api.Models
             {
                 entity.Property(e => e.PeripheralId).HasColumnName("PeripheralID");
 
+                entity.Property(e => e.CostPerYear).HasColumnType("money");
+
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.FlatCost).HasColumnType("money");
 
                 entity.Property(e => e.PeripheralName).HasMaxLength(100);
 
@@ -183,11 +217,35 @@ namespace backend_api.Models
                     .HasConstraintName("FK_Peripheral_Employee");
             });
 
+            modelBuilder.Entity<Plugins>(entity =>
+            {
+                entity.HasKey(e => e.PluginId);
+
+                entity.Property(e => e.PluginId).HasColumnName("PluginID");
+
+                entity.Property(e => e.PluginName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+
+                entity.Property(e => e.TextField).HasMaxLength(50);
+
+                entity.HasOne(d => d.Program)
+                    .WithMany(p => p.Plugins)
+                    .HasForeignKey(d => d.ProgramId)
+                    .HasConstraintName("FK_Plugins_Program");
+            });
+
             modelBuilder.Entity<Program>(entity =>
             {
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.ProgramCostPerEmployee).HasColumnType("money");
+
+                entity.Property(e => e.ProgramCostPerYear).HasColumnType("money");
 
                 entity.Property(e => e.ProgramLicenseKey).HasMaxLength(100);
 
@@ -234,9 +292,13 @@ namespace backend_api.Models
             {
                 entity.Property(e => e.ServerId).HasColumnName("ServerID");
 
+                entity.Property(e => e.CostPerYear).HasColumnType("money");
+
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.EndOfLife).HasColumnType("date");
+
+                entity.Property(e => e.FlatCost).HasColumnType("money");
 
                 entity.Property(e => e.Fqdn).HasColumnName("FQDN");
 

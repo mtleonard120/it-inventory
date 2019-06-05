@@ -11,7 +11,7 @@ using System.DirectoryServices.AccountManagement;
 
 namespace backend_api.Controllers
 {
-    [Authorize]
+// [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -24,6 +24,7 @@ namespace backend_api.Controllers
         }
 
         // GET: api/Employees
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Employee> GetEmployee()
         {

@@ -10,6 +10,8 @@ namespace backend_api.Models
         public DateTime? CurrentOwnerStartDate { get; set; }
         public int? PreviousOwnerId { get; set; }
         public int ProgramId { get; set; }
+        public string EventName { get; set; }
+        public string EventDescription { get; set; }
 
         public Employee CurrentOwner { get; set; }
         public Employee PreviousOwner { get; set; }

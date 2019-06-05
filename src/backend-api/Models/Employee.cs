@@ -27,7 +27,9 @@ namespace backend_api.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }
+        public string Adguid { get; set; }
 
+        public Department Department { get; set; }
         public ICollection<Computer> Computer { get; set; }
         public ICollection<HardwareHistory> HardwareHistoryCurrentOwner { get; set; }
         public ICollection<HardwareHistory> HardwareHistoryPreviousOwner { get; set; }
