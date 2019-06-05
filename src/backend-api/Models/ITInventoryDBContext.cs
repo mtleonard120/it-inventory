@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace backend-api.Models
+namespace backend_api.Models
 {
     public partial class ITInventoryDBContext : DbContext
     {
