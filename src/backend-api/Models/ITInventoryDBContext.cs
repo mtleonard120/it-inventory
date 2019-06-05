@@ -223,13 +223,15 @@ namespace backend_api.Models
 
                 entity.Property(e => e.PluginId).HasColumnName("PluginID");
 
+                entity.Property(e => e.PluginCostPerYear).HasColumnType("money");
+
+                entity.Property(e => e.PluginFlatCost).HasColumnType("money");
+
                 entity.Property(e => e.PluginName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
-
-                entity.Property(e => e.TextField).HasMaxLength(50);
 
                 entity.HasOne(d => d.Program)
                     .WithMany(p => p.Plugins)
