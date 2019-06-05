@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using backend_api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend_api
 {
@@ -26,6 +28,11 @@ namespace backend_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // TODO: Currently the server is hardcoded in. This will have to be changed to an environment var.
+            // Creates a connection to the db in order to make ITInventoryDBContext available to MVC Controllers.
+            var connection = @"Server=CQL-INTERN04;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<ITInventoryDBContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
