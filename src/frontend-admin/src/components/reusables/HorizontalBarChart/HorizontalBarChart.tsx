@@ -3,14 +3,14 @@ import React from 'react'
 import styles from './HorizontalBarChart.module.css'
 
 //Prop Type
-interface IProps {
+export interface IHorizontalBarChartProps {
     title: string,
     amount: number,
     outOf: number,
     onClick: any 
 }
 
-export const HorizontalBarChart: React.FC<IProps> = (props) => {
+export const HorizontalBarChart: React.FC<IHorizontalBarChartProps> = (props) => {
     const { title, amount, outOf, onClick } = props
     return (
         amount > outOf ? null : (

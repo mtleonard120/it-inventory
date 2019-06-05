@@ -31,8 +31,6 @@
     font-size: 16px;
     line-height: 25px;
     text-align: left;
-    /*TODO: remove comment when we have font*/
-    /*font-family: CQL;*/
     padding-left: 10px;
     white-space: nowrap;
 }

@@ -6,8 +6,8 @@ import cx from 'classnames' //allows use of more than 1 classname
 type JustifyType = 'start' | 'end' | 'between' | 'around' | 'even'
 type DirectionType = 'row' | 'column'
 
-interface IProps {
-    children: JSX.Element[], 
+interface IGroupProps {
+    children: any[], 
     direction?: DirectionType,
     justify?: JustifyType,
     className?: string,
@@ -15,7 +15,7 @@ interface IProps {
 
 // Component for arranging groups of similar items with flexbox
 // have to pass at least 2 children to use
-export const Group: React.FC<IProps> = (props) => {
+export const Group: React.FC<IGroupProps> = (props) => {
     const { children, direction = 'row', justify = 'start', className } = props
     return (
         <div className={cx(styles[justify], styles[direction], styles.group, className)} >
