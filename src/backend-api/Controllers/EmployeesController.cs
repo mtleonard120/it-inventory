@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using backend_api.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.DirectoryServices.AccountManagement;
+using Microsoft.AspNet.OData;
 
 namespace backend_api.Controllers
 {
@@ -26,6 +27,7 @@ namespace backend_api.Controllers
         // GET: api/Employees
         [AllowAnonymous]
         [HttpGet]
+        [EnableQuery()]
         public IEnumerable<Employee> GetEmployee()
         {
             return _context.Employee;

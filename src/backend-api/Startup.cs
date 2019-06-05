@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using backend_api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNet.OData.Extensions;
 
 namespace backend_api
 {
@@ -42,6 +43,9 @@ namespace backend_api
             // Creates a connection to the db in order to make ITInventoryDBContext available to MVC Controllers.
             var connection = @"Server=CQL-INTERN04;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ITInventoryDBContext>(options => options.UseSqlServer(connection));
+
+            // Allows OData for powerful querying.
+            services.AddOData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +62,13 @@ namespace backend_api
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            // Allows for the URL to be appending with query keywords in the API calls.
+            app.UseMvc(routeBuilder =>
+            {
+                routeBuilder.EnableDependencyInjection();
+                routeBuilder.Expand().Select().Count().OrderBy();
+            });
         }
     }
 }
