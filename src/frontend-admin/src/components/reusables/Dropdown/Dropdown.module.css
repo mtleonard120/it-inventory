@@ -1,0 +1,71 @@
+/*Need design from seiarra*/
+
+.dropdownContainer {
+    position: absolute;
+}
+
+.dropdownButton {
+    background: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+    text-transform: capitalize;
+    color: #000;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: left;
+}
+
+.dropdownTitle {
+    /*get font size etc. from seiarra*/
+}
+
+.dropdownListContainer {
+
+}
+
+.dropdownList {
+    font-size: 14px;
+    line-height: 1.25;
+    /*white-space: nowrap;*/
+    padding: 0;
+}
+
+.dropdownList a {
+    text-transform: capitalize;
+    border-radius: 2px;
+    color: #4a4a4a;
+    display: block;
+    padding: 0.5em;
+    text-decoration: none;
+}
+
+.dropdownList a:hover {
+    background-color:#ccc;
+    color: #363636;
+}
+
+.dropdownList a.isActive {
+    background-color: #3273dc;
+    color: #fff;
+}
+
+.dropdownListItem {
+    padding-left:0; 
+    list-style-type: none;
+    margin: 0px; 
+    padding: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+.trigger {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.dropdownContent {
+    position: absolute;
+    background: #eee;
+    border: 1px solid black;
+    border-radius: 5px;
+}
