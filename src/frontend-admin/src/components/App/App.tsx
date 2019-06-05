@@ -16,6 +16,7 @@ export const App: React.FC = () => {
             <h1>CQL</h1>
             <div className={styles.navEllipse} />
             <div className={styles.navRectangle} />
+
             <div className={styles.linkContainer}>
               <NavLink className={styles.navTab} 
                 activeClassName={styles.active}
@@ -59,7 +60,7 @@ export const App: React.FC = () => {
           {/* <Route />'s go here */}
           
         </Switch>
-    </Router>
+      </Router>
     <footer className={styles.appFooter}>
 
     </footer>
