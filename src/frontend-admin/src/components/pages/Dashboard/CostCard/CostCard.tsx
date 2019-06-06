@@ -1,5 +1,5 @@
 import React from 'react';
-import './CostCard.css';
+import styles from'./CostCard.module.css';
 import Card from '../../Card';
 // will need to install react-icons and import
 // IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats
@@ -14,7 +14,7 @@ export const CostCard = (props:ICostCardProps) => {
     return(
         <Card>
             {icon}
-            <h1 className='title' >${cost}</h1>
+            <h1 className={styles.title} >${cost}</h1>
         </Card>
     );
 };

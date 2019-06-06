@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\backend-api.csproj": {}
+    "C:\\Users\\alex.mcdowell\\it-inventory\\src\\backend-api\\backend-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\backend-api.csproj": {
+    "C:\\Users\\alex.mcdowell\\it-inventory\\src\\backend-api\\backend-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\backend-api.csproj",
+        "projectUniqueName": "C:\\Users\\alex.mcdowell\\it-inventory\\src\\backend-api\\backend-api.csproj",
         "projectName": "backend-api",
-        "projectPath": "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\backend-api.csproj",
-        "packagesPath": "C:\\Users\\michael.leonard\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\michael.leonard\\Documents\\it-inventory\\src\\backend-api\\obj\\",
+        "projectPath": "C:\\Users\\alex.mcdowell\\it-inventory\\src\\backend-api\\backend-api.csproj",
+        "packagesPath": "C:\\Users\\alex.mcdowell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex.mcdowell\\it-inventory\\src\\backend-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\michael.leonard\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alex.mcdowell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.cqlcorp.local/api/v2/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
