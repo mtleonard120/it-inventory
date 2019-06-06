@@ -1,0 +1,80 @@
+.dropdownMain {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.dropdownContainer {
+    display: inline-block;
+    position: relative;
+    align-self: flex-start;
+}
+
+.dropdownButton {
+    background: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    border: none;
+    text-transform: capitalize;
+    color: #000;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: left;
+    position: relative;
+    align-self: left;
+}
+
+.dropdownTitle {
+    display: flex;
+}
+
+.dropdownArrow {	
+    box-sizing: border-box;	
+    height: 10px;	
+    width: 10px;	
+    border-left: 2px solid #333333;	
+    border-top: 2px solid #333333;	
+    transform: rotate(225deg);
+    position: relative;
+    left: 5px;
+    top: 7px;
+}
+
+.dropdownList {
+    font-size: 14px;
+    padding: 0;
+}
+
+.dropdownListItemButton {
+    background: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    width: 100%;
+    text-transform: capitalize;
+    color: #fff;
+    display: block;
+    padding: 0.5em;
+    text-decoration: none;
+}
+.dropdownList a {
+    text-transform: capitalize;
+    color: #fff;
+    display: block;
+    padding: 0.5em;
+    text-decoration: none;
+}
+
+.dropdownListItemButton:hover {
+    background-color: #009EFF;
+}
+
+.dropdownListItem {
+    width: 100%;
+    line-height: 20px;
+    text-align: left;
+    list-style-type: none;
+}
+
+.dropdownItemLabel {
+    padding-left: 20px;
+}
