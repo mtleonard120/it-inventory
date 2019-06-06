@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNet.OData;
 using backend_api.Models;
 
 namespace backend_api.Controllers
@@ -20,104 +21,94 @@ namespace backend_api.Controllers
             _context = context;
         }
 
-
-
-        // GET: api/Departments
+        // GET: api/departments
+        // To query only the name and id, use the route below.
+        // GET: api/departments?$select=departmentname,departmentid
+        // Return is a list of departments and their ID's.
         [HttpGet]
-        public IEnumerable<Department> GetDepartment()
+        [EnableQuery()]
+        public IActionResult GetDepartment()
         {
-            return _context.Department.ToList();
+            return Ok(_context.Department.ToList());
         }
 
-        //// GET: api/Departments/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetDepartment([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // GET: api/dropdown/{departmentID}
+        // Returns [ {Name, Count, Cost},.. ] of the programs in the department.
+        [HttpGet]
+        [Route("dropdown/{departmentID}")]
+        public IActionResult GetDepartmentPrograms([FromRoute] int departmentID)
+        {
 
-        //    var department = await _context.Department.FindAsync(id);
+            // Get the Employees table and make a list to hold each EmployeeID. 
+            var allEmployees = _context.Employee;
+            List<int?> employeeIDsInDepartment = new List<int?>();
 
-        //    if (department == null)
-        //    {
-        //        return NotFound();
-        //    }
+            // Gets the employees that are in the department requested. 
+            foreach (Employee emp in allEmployees)
+            {
+                if (emp.DepartmentId == departmentID)
+                {
+                    // Adds the IDs of each of the employees.
+                    employeeIDsInDepartment.Add(emp.EmployeeId);
+                }
+            }
 
-        //    return Ok(department);
-        //}
+            var allPrograms = _context.Program;
+            // Need to qualify Program with Models
+            // so it does not conflict with Program.cs that runs the program.
+            List<Models.Program> programsOfEmpsInDepartment = new List<Models.Program>();
 
-        //// PUT: api/Departments/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutDepartment([FromRoute] int id, [FromBody] Department department)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            // For each program, add to the list of deparment programs if an employee in the 
+            // department owns that program.
+            foreach (Models.Program prog in allPrograms)
+            {
+                // Checks to see if the program employee ID is in the department.
+                if (employeeIDsInDepartment.Contains(prog.EmployeeId))
+                {
+                    programsOfEmpsInDepartment.Add(prog);
+                }
+            }
 
-        //    if (id != department.DepartmentId)
-        //    {
-        //        return BadRequest();
-        //    }
+            //// Make a list of the distinct programs of the employees
+            //// in the department.
+            //List<string> DistinctPrograms = new List<string>();
+            //foreach (Models.Program prog in ProgramsOfEmpsInDepartment)
+            //{
+            //    // If the list does not have the name yet, add it.
+            //    if (!DistinctPrograms.Contains(prog.ProgramName))
+            //    {
+            //        DistinctPrograms.Add(prog.ProgramName);
+            //    }
+            //}
 
-        //    _context.Entry(department).State = EntityState.Modified;
+            // Joseph's one liner does the same thing as the loop above
+            // making a list of distinct programs of the employeess in the department.
+            var distinctPrograms = programsOfEmpsInDepartment.GroupBy(prog => prog.ProgramName).Select(name => name.FirstOrDefault()).Select(program => program.ProgramName);
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!DepartmentExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            // Create a list with name, count, costPerYear containing the unique programs in the department
+            List<DepartmentTableProgram> listOfTablePrograms = new List<DepartmentTableProgram>();
+            foreach (string prog in distinctPrograms)
+            {
+                // Construct a new object to be added to the list.
+                listOfTablePrograms.Add(new DepartmentTableProgram(prog, 0, 0.0m));
+            }
 
-        //    return NoContent();
-        //}
+            // Aggregate the programs in the department that are the same name.
+            // Count the programs and add the cost.
+            foreach (Models.Program departmentProgram in programsOfEmpsInDepartment)
+            {
+                // The index of the unique program that has the same name as the employee's program in the department
+                int index = listOfTablePrograms.FindIndex(uniqueProgram => uniqueProgram.ProgramName == departmentProgram.ProgramName);
+                if (index >= 0)
+                {
+                    listOfTablePrograms[index].ProgramCount += 1;
+                    // ?? operator to make sure CostPerYear is not null. If it is, add 0.
+                    listOfTablePrograms[index].ProgramCost += departmentProgram.ProgramCostPerYear ?? 0.0m;
+                }
+            }
 
-        //// POST: api/Departments
-        //[HttpPost]
-        //public async Task<IActionResult> PostDepartment([FromBody] Department department)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _context.Department.Add(department);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetDepartment", new { id = department.DepartmentId }, department);
-        //}
-
-        //// DELETE: api/Departments/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteDepartment([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var department = await _context.Department.FindAsync(id);
-        //    if (department == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Department.Remove(department);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(department);
-        //}
+            return Ok(listOfTablePrograms);
+        }
 
         private bool DepartmentExists(int id)
         {

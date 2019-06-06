@@ -5,11 +5,11 @@ namespace backend_api.Models
 {
     public partial class Program
     {
-        public Program()
-        {
-            Plugins = new HashSet<Plugins>();
-            ProgramHistory = new HashSet<ProgramHistory>();
-        }
+        //public Program()
+        //{
+        //    Plugins = new HashSet<Plugins>();
+        //    ProgramHistory = new HashSet<ProgramHistory>();
+        //}
 
         public int ProgramId { get; set; }
         public string ProgramName { get; set; }
@@ -23,8 +23,8 @@ namespace backend_api.Models
         public bool HasPlugIn { get; set; }
         public bool IsDeleted { get; set; }
 
-        public Employee Employee { get; set; }
-        public ICollection<Plugins> Plugins { get; set; }
-        public ICollection<ProgramHistory> ProgramHistory { get; set; }
+        //public Employee Employee { get; set; }
+        //public ICollection<Plugins> Plugins { get; set; }
+        //public ICollection<ProgramHistory> ProgramHistory { get; set; }
     }
 }
