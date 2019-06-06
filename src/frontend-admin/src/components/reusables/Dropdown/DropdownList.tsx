@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './Dropdown.module.css'
+import styles from './DropdownList.module.css'
 
 //Props to pass to the Dropdown Prop renderTRigger
 interface IRendererProps {
@@ -27,7 +27,6 @@ export const DropdownList: React.FC<IDropdownListProps> = (props) => {
 
     return (
         <div className={styles.dropdownListContainer}>
-            
             <div className={styles.trigger}>{triggerElement(rendererProps)}</div>
             {isOpen && ( //if dropdown isOpen then render the choices list
                 <div className={styles.dropdownContent} onClick={() => setIsOpen(false)} >

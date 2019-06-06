@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from './Dropdown.module.css'
 import { DropdownList } from './DropdownList'
 //import title to put the button inside of the corner brackets
 
 interface IDropdownProps {
-    content: {name: string, item?: any, onClick?: Function}[]
+    content: {
+        name: string, 
+        item?: any, 
+        onClick?: Function
+    }[]
 }
 
 export const Dropdown: React.FC<IDropdownProps> = (props) => {
@@ -27,20 +31,22 @@ export const Dropdown: React.FC<IDropdownProps> = (props) => {
                     choicesList={() => (
                         <ul className={styles.dropdownList}>
                             {content.map(i => (
-                                <li className={styles.dropdownListItem} key={i.name} onClick={() => {
-                                    setSelected(i)
-                                    selected.onClick && selected.onClick()}}>
-                                    <a href="#0">
+                                <li className={styles.dropdownListItem} 
+                                    key={i.name} 
+                                    onClick={() => {
+                                        setSelected(i)
+                                        selected.onClick && selected.onClick()
+                                    }
+                                }>
+                                    <button className={styles.dropdownListItemButton}>
                                         <div className={styles.dropdownItemLabel}>{i.name}</div>
-                                    </a>
+                                    </button>
                                 </li> 
                             ))}
-
                         </ul>
                     )}
                 />
                 <div/>
-                
             </div>
             <div className={styles.selected}>{selected.item}</div>
         </div>
