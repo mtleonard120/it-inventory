@@ -1,17 +1,20 @@
 import React from 'react';
 import { Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'; 
+import {HelloUser} from '../HelloUser/HelloUser'
 
 // Styles
 import styles from './App.module.css';
 
 // Primary Component
 export const App: React.FC = () => {
+  
   return (
     <div className={styles.app}>
       {/*header*/}
 
       <Router>
         <div className={styles.navContainer}>
+          <HelloUser name={"dan"}/> {/* Need to get name from contex? */}
           <nav className={styles.navBar}>
             <h1>CQL</h1>
             <div className={styles.navEllipse} />
