@@ -26,4 +26,5 @@
     border-left: 2px solid #333;	
     border-top: 2px solid #333;
     transform: rotate(225deg);
+    cursor: pointer;
 }
