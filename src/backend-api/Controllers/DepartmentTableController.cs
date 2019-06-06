@@ -10,20 +10,20 @@ using backend_api.Models;
 
 namespace backend_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/departmentTable")]
     [ApiController]
-    public class DepartmentsController : ControllerBase
+    public class DepartmentTableController : ControllerBase
     {
         private readonly ITInventoryDBContext _context;
 
-        public DepartmentsController(ITInventoryDBContext context)
+        public DepartmentTableController(ITInventoryDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/departments
+        // GET: api/departmentTable
         // To query only the name and id, use the route below.
-        // GET: api/departments?$select=departmentname,departmentid
+        // GET: api/departmentTable?$select=departmentName,departmentID
         // Return is a list of departments and their ID's.
         [HttpGet]
         [EnableQuery()]
@@ -32,10 +32,10 @@ namespace backend_api.Controllers
             return Ok(_context.Department.ToList());
         }
 
-        // GET: api/dropdown/{departmentID}
+        // GET: api/departmentTable/{departmentID}
         // Returns [ {Name, Count, Cost},.. ] of the programs in the department.
         [HttpGet]
-        [Route("dropdown/{departmentID}")]
+        [Route("{departmentID}")]
         public IActionResult GetDepartmentPrograms([FromRoute] int departmentID)
         {
 
@@ -83,6 +83,7 @@ namespace backend_api.Controllers
 
             // Joseph's one liner does the same thing as the loop above
             // making a list of distinct programs of the employeess in the department.
+            // What is prefered/more efficient?
             var distinctPrograms = programsOfEmpsInDepartment.GroupBy(prog => prog.ProgramName).Select(name => name.FirstOrDefault()).Select(program => program.ProgramName);
 
             // Create a list with name, count, costPerYear containing the unique programs in the department
@@ -103,9 +104,22 @@ namespace backend_api.Controllers
                 {
                     listOfTablePrograms[index].ProgramCount += 1;
                     // ?? operator to make sure CostPerYear is not null. If it is, add 0.
-                    listOfTablePrograms[index].ProgramCost += departmentProgram.ProgramCostPerYear ?? 0.0m;
+                    // TODO: The fixed costs are not added. CostPerYear is currently the only thing added.
+                    // Will need to talk to Dan to see what costs will be.
+                    listOfTablePrograms[index].ProgramCostPerYear += departmentProgram.ProgramCostPerYear ?? 0.0m;
                 }
             }
+
+            //// Strip programs from list that cost 0.
+            //// Programs that cost 0 will be put under the Utilities with the utility cost.
+            //// TODO: Check with Dan to see.
+            //foreach (DepartmentTableProgram tableProgram in listOfTablePrograms.ToList())
+            //{
+            //    if (tableProgram.ProgramCostPerYear <= 0)
+            //    {
+            //        listOfTablePrograms.Remove(tableProgram);
+            //    }
+            //}
 
             return Ok(listOfTablePrograms);
         }

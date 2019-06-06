@@ -17,14 +17,14 @@ namespace backend_api.Models
         {
             ProgramName = name;
             ProgramCount = count;
-            ProgramCost = cost;
+            ProgramCostPerYear = cost;
         }
         public string ProgramName { get; set; }
         public int ProgramCount { get; set; }
 
         // TODO: Find out of the table is on a PerYearBasis
         // TODO: Find out if the table also includes fixed software costs.
-        public decimal ProgramCost { get; set; }
+        public decimal ProgramCostPerYear { get; set; }
     }
 
 
