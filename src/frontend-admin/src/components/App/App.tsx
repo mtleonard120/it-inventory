@@ -3,6 +3,8 @@ import React from 'react';
 // Styles
 import styles from './App.module.css';
 
+import {DashboardTable} from '../reusables/DashboardTable/DashboardTable';
+
 // Primary Component
 export const App: React.FC = () => {
   return (
@@ -20,6 +22,7 @@ export const App: React.FC = () => {
           Learn React
         </a>
       </header>
+      <DashboardTable data={[]}/>
     </div>
   );
 }

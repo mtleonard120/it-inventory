@@ -1,34 +1,34 @@
 import React from 'react';
-import './DashboardTable.css';
 
-// onRowClick = (url: string) => {window.replace(url)}
+import s from 'classnames'
+
+import styles from './DashboardTable.module.css';
+
 //types
-export interface IDatum{
+export interface IDashboardTableDatum{
     name:string
     numberOf:number
     cost:number
     url: string
 }
 
-interface IProps{
-    data:IDatum[];
-    onRowClick?: (url: string) => void
+interface IDashboardTableProps{
+    data:IDashboardTableDatum[];
+    onRowClick?: (datum:IDashboardTableDatum) => void
 }
 
-const LastTable = (props: IProps) => {
-    const {data} = props;
-
-const onRowClick =(datum:IDatum) => {
-    console.log(datum.url)
-} 
+export const DashboardTable = (props: IDashboardTableProps) => {
+    const {data, onRowClick} = props;
+    const isClickable = Boolean(onRowClick);
 
     return(
-        <table>
+        <table className={s(styles.table,{[styles.clickable]: isClickable})}>
+
             {data.map((datum) => (
-                <tr className= 'row' onClick={(e) => {onRowClick(datum)}}>
-                    <td>{datum.name}</td>
-                    <td>{datum.numberOf}</td>
-                    <td>${datum.cost}</td>
+                <tr className={s(styles.tr, {[styles.row]: isClickable})} onClick={onRowClick ? (e) => {onRowClick(datum)} : undefined}>
+                    <td className={styles.td}>{datum.name}</td>
+                    <td className={styles.td}>{datum.numberOf}</td>
+                    <td className={styles.td}>${datum.cost}</td>
                 </tr>
             ))}
         </table>

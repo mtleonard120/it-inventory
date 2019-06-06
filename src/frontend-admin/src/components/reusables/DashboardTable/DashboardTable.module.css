@@ -1,19 +1,22 @@
-table{
+.table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+  }
+
+  .table.clickable {
     cursor: pointer;
   }
   
-  td, th {
+  .td {
     text-align: left;
     padding: 16px;
   }
   
-  tr:nth-child(odd) {
+  .tr:nth-child(odd) {
     background-color: rgba(99,99,99,0.08);
   }
 
-  .row:hover{
+  .tr.row:hover{
       background: grey
   }
