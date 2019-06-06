@@ -1,4 +1,5 @@
 .barContainer {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -6,7 +7,7 @@
 
 .barMain {
     height: 25px;
-    width: 80%;
+    width: 85%;
     border-radius: 50px;
     margin: 5px;
     margin-right: 0px;
