@@ -12,3 +12,17 @@ C:\Users\michael.leonard\Documents\it-inventory\src\backend-api\obj\Debug\netcor
 C:\Users\michael.leonard\Documents\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorTargetAssemblyInfo.cache
 C:\Users\michael.leonard\Documents\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.dll
 C:\Users\michael.leonard\Documents\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.pdb
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.deps.json
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.runtimeconfig.json
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.runtimeconfig.dev.json
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.dll
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.pdb
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.csprojAssemblyReference.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.csproj.CoreCompileInputs.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorAssemblyInfo.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorAssemblyInfo.cs
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.AssemblyInfoInputs.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.AssemblyInfo.cs
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorTargetAssemblyInfo.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.dll
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.pdb
