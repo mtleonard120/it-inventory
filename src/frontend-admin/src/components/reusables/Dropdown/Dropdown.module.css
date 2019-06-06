@@ -1,23 +1,44 @@
-/*Need design from seiarra*/
+.dropdownMain {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
 
 .dropdownContainer {
-    position: absolute;
+    display: inline-block;
+    position: relative;
+    align-self: flex-start;
 }
 
 .dropdownButton {
     background: rgba(0, 0, 0, 0);
     cursor: pointer;
-    white-space: nowrap;
     border: none;
     text-transform: capitalize;
     color: #000;
     font-size: 22px;
     line-height: 27px;
     text-align: left;
+
+    position: relative;
+    align-self: left;
 }
 
 .dropdownTitle {
-    /*get font size etc. from seiarra*/
+    display: flex;
+}
+
+.dropdownArrow {	
+    box-sizing: border-box;	
+    height: 10px;	
+    width: 10px;	
+    border-left: 2px solid #333333;	
+    border-top: 2px solid #333333;	
+    transform: rotate(225deg);
+
+    position: relative;
+    left: 5px;
+    top: 7px;
 }
 
 .dropdownListContainer {
@@ -26,36 +47,35 @@
 
 .dropdownList {
     font-size: 14px;
-    line-height: 1.25;
-    /*white-space: nowrap;*/
     padding: 0;
 }
 
 .dropdownList a {
     text-transform: capitalize;
-    border-radius: 2px;
-    color: #4a4a4a;
+    color: #fff;
     display: block;
     padding: 0.5em;
     text-decoration: none;
 }
 
 .dropdownList a:hover {
-    background-color:#ccc;
-    color: #363636;
+    background-color: #009EFF;
 }
 
 .dropdownList a.isActive {
-    background-color: #3273dc;
-    color: #fff;
+    background-color: #009EFF;
+    
 }
 
 .dropdownListItem {
-    padding-left:0; 
+    width: 100%;
+    line-height: 20px;
+    text-align: left;
     list-style-type: none;
-    margin: 0px; 
-    padding: 0px;
-    border-bottom: 1px solid #ccc;
+}
+
+.dropdownItemLabel {
+    padding-left: 20px;
 }
 
 .trigger {
@@ -64,8 +84,23 @@
 }
 
 .dropdownContent {
+    
     position: absolute;
-    background: #eee;
-    border: 1px solid black;
-    border-radius: 5px;
+    background: #333;
+    border-radius: 15px;
+    width: 150px;
+    top: 50px;
+}
+
+.dropdownSquare {
+    position: absolute;
+    left: 25px;
+    top: -8px;
+    background: #333;
+    width: 15px;
+    height: 15px;
+    transform: rotate(225deg);
+}
+
+.selected {
 }

@@ -27,9 +27,11 @@ export const DropdownList: React.FC<IDropdownListProps> = (props) => {
 
     return (
         <div className={styles.dropdownListContainer}>
+            
             <div className={styles.trigger}>{triggerElement(rendererProps)}</div>
             {isOpen && ( //if dropdown isOpen then render the choices list
                 <div className={styles.dropdownContent} onClick={() => setIsOpen(false)} >
+                    <div className={styles.dropdownSquare} />
                     {choicesList(rendererProps)}
                 </div>
             )}
