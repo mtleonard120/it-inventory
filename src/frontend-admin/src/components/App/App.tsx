@@ -14,7 +14,7 @@ export const App: React.FC = () => {
 
       <Router>
         <div className={styles.navContainer}>
-          <HelloUser name={"dan"}/> {/* Need to get name from contex? */}
+          <HelloUser name={"dan"}/> {/* TODO Update with real name from context when available*/}
           <nav className={styles.navBar}>
             <h1>CQL</h1>
             <div className={styles.navEllipse} />
