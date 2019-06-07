@@ -23,15 +23,26 @@ namespace backend_api.Controllers
             _context = context;
         }
 
-        // GET: api/Cost
+        /* GET: api/Cost/Dashboard
+         * Returns [
+         *          Program Cost Per Year,
+         *          Plugin Cost Per Year
+         *         ] of all the programs and their plugins in our database
+         */
+
         [Route("Dashboard")]
         [HttpGet]
-        [EnableQuery]
+        [EnableQuery()]
 
-        public async Task<ActionResult<object>> GetDashboardCost()
+        public async Task<ActionResult<Array>> GetDashboardCost()
         {
-        //Getting cost from the program table
+            //Array that will be returned with Programs cost and plugins cost
+            decimal?[] ReturningArray = new decimal?[2];
+
+            //Getting cost from the program table
+
             var ProgramsList = await _context.Program.ToListAsync();
+            
 
             decimal? CostOfProgramsPerYear = 0;
             // looping through programs table and finding programs that are not "deleted" 
@@ -44,7 +55,7 @@ namespace backend_api.Controllers
                 }
             }
 
-        //getting cost from plugin table
+            //getting cost from plugin table
 
             decimal? CostOfPluginsPerYear = 0;
             var PluginsList = await _context.Plugins.ToListAsync();
@@ -54,36 +65,22 @@ namespace backend_api.Controllers
             //looping through those distinct programs and if they have plugins, calculating the cost of these plugins
             foreach (var Program in DistinctProgramsList)
             {
-                if(Program.HasPlugIn == true)
+                if (Program.HasPlugIn == true)
                 {
-                    var PluginsForThatProgram = PluginsList.Where(x => x.ProgramId == Program.ProgramID);
-                    foreach( var PluginForThatProgram in PluginsForThatProgram)
+                    //creating a list of plugins for that program which are not deleted
+                    var PluginsForThatProgram = PluginsList.Where(x => x.ProgramId == Program.ProgramID && x.IsDeleted ==false);
+                    foreach (var PluginForThatProgram in PluginsForThatProgram)
                     {
                         CostOfPluginsPerYear += PluginForThatProgram.PluginCostPerYear;
 
                     }
                 }
             }
-        //getting cost from Server table
-            var ServerList = await _context.Server.ToListAsync();
-            decimal? CostOfServersPerYear = 0;
-
-            // looping through server table and finding servers that are not "deleted" 
-            // and that are not null. Adding up the cost of those servers
-            foreach (var Server in ServerList)
-            {
-                if (Server.IsDeleted == false && Server.CostPerYear != null)
-                {
-                    CostOfServersPerYear += Server.CostPerYear;
-                }
-            }
-
-            var DistinctProgramsList1 = ProgramsList.GroupBy(x => x.ProgramName).Select(x => x.FirstOrDefault()).Select(x => x.ProgramName);
-            decimal? monthlyCost = CostOfProgramsPerYear / 12;
-            var done = new { CostOfProgramsPerYear, CostOfPluginsPerYear, CostOfServersPerYear};
-            return Ok(DistinctProgramsList1);
+            ReturningArray[0] = CostOfProgramsPerYear;
+            ReturningArray[1] = CostOfPluginsPerYear;
+            return Ok(ReturningArray);
         }
 
-        
+
     }
 }
