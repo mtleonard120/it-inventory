@@ -9,20 +9,16 @@ import {DashboardTable} from '../reusables/DashboardTable/DashboardTable';
 export const App: React.FC = () => {
   return (
     <div className={styles.app}>
-      <header className={styles.appHeader}>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className={styles.appLink}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <DashboardTable data={[]}/>
+      
+      <DashboardTable data={[
+                    { name: 'Developers', numberOf: 20, cost:20, yearOrMonth:'year', url:'0'},
+                    { name: 'Designers', numberOf: 40, cost:20, yearOrMonth:'year', url:'1'},
+                    { name: 'PM\'s', numberOf: 40, cost:20, yearOrMonth:'month', url:'2'},
+                    { name: 'Sales Reps', numberOf: 5, cost:20, yearOrMonth:'month', url:'3' },
+                    { name: 'Other', numberOf: 25, cost:20, yearOrMonth:'year', url:'4' },
+                    { name: 'Sales Reps', numberOf: 5, cost:20, yearOrMonth:'month', url:'5' },
+                    { name: 'Other', numberOf: 25, cost:20, yearOrMonth:'year', url:'6' }
+                    ]} />
     </div>
   );
 }

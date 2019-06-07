@@ -1,22 +1,54 @@
 .table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 700px;
+}
 
-  .table.clickable {
-    cursor: pointer;
-  }
-  
-  .td {
-    text-align: left;
-    padding: 16px;
-  }
-  
-  .tr:nth-child(odd) {
-    background-color: rgba(99,99,99,0.08);
-  }
+.table.clickable {
+  cursor: pointer;
+}
 
-  .tr.row:hover{
-      background: grey
-  }
+.nameHeading{
+  text-align: left;
+  font-size: 18px;
+  font-style:bold;
+}
+
+.numberOfHeading{
+  font-size: 18px;
+  font-style:bold;
+}
+
+.costHeading{
+  text-align:right;
+  font-size: 18px;
+  font-style:bold;
+}
+
+.yearOrMonth{
+  text-align: left;
+  padding: 16px;
+  color: rgb(48, 48, 48)
+}
+
+.name{
+  text-align: left;
+  padding: 16px;
+}
+
+.td {
+  padding: 16px;
+}
+
+.cost{
+  text-align: right;
+  padding: 16px;
+}
+
+.tr:nth-child(odd) {
+  background-color: rgba(99,99,99,0.08);
+}
+
+.tr.row:hover{
+    background: grey
+}
