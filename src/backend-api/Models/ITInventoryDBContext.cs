@@ -101,11 +101,13 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.DepartmentNavigation)
-                    .WithOne(p => p.InverseDepartmentNavigation)
-                    .HasForeignKey<Department>(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Department_Department");
+                // TODO: Remove the attribute that handles the navigation.
+                // This creates an endless loop.
+                //entity.HasOne(d => d.DepartmentNavigation)
+                //    .WithOne(p => p.InverseDepartmentNavigation)
+                //    .HasForeignKey<Department>(d => d.DepartmentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Department_Department");
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -233,10 +235,10 @@ namespace backend_api.Models
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.HasOne(d => d.Program)
-                    .WithMany(p => p.Plugins)
-                    .HasForeignKey(d => d.ProgramId)
-                    .HasConstraintName("FK_Plugins_Program");
+                //entity.HasOne(d => d.Program)
+                //    .WithMany(p => p.Plugins)
+                //    .HasForeignKey(d => d.ProgramId)
+                //    .HasConstraintName("FK_Plugins_Program");
             });
 
             modelBuilder.Entity<Program>(entity =>
@@ -255,10 +257,10 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Program)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK_Program_Employee");
+                //entity.HasOne(d => d.Employee)
+                //    .WithMany(p => p.Program)
+                //    .HasForeignKey(d => d.EmployeeId)
+                //    .HasConstraintName("FK_Program_Employee");
             });
 
             modelBuilder.Entity<ProgramHistory>(entity =>
@@ -283,11 +285,11 @@ namespace backend_api.Models
                     .HasForeignKey(d => d.PreviousOwnerId)
                     .HasConstraintName("FK_ProgramHistory_Employee1");
 
-                entity.HasOne(d => d.Program)
-                    .WithMany(p => p.ProgramHistory)
-                    .HasForeignKey(d => d.ProgramId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProgramHistory_Program");
+                //entity.HasOne(d => d.Program)
+                //    .WithMany(p => p.ProgramHistory)
+                //    .HasForeignKey(d => d.ProgramId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_ProgramHistory_Program");
             });
 
             modelBuilder.Entity<Server>(entity =>
