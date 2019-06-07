@@ -12,6 +12,8 @@ namespace backend_api.Models
         public string TextField { get; set; }
         public decimal? PluginCostPerYear { get; set; }
 
-        public Program Program { get; set; }
+    
+
+    //       public Program Program { get; set; }
     }
 }

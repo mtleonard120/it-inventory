@@ -32,7 +32,7 @@ namespace backend_api.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=CQL-INTERN04;Database=ITInventoryDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=CQL-INTERN03;Database=ITInventoryDB;Trusted_Connection=True;");
             }
         }
 
@@ -221,7 +221,7 @@ namespace backend_api.Models
             {
                 entity.HasKey(e => e.PluginId);
 
-                entity.Property(e => e.PluginId).HasColumnName("PluginID");
+                //entity.Property(e => e.ProgramID).HasColumnName("PluginID");
 
                 entity.Property(e => e.PluginCostPerYear).HasColumnType("money");
 
@@ -231,19 +231,19 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+               // entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.HasOne(d => d.Program)
-                    .WithMany(p => p.Plugins)
-                    .HasForeignKey(d => d.ProgramId)
-                    .HasConstraintName("FK_Plugins_Program");
+                //entity.HasOne(d => d.Program)
+                //    .WithMany(p => p.Plugins)
+                //    .HasForeignKey(d => d.ProgramId)
+                //    .HasConstraintName("FK_Plugins_Program");
             });
 
             modelBuilder.Entity<Program>(entity =>
             {
-                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+                //entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+                //entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.ProgramCostPerEmployee).HasColumnType("money");
 
@@ -255,10 +255,10 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Program)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK_Program_Employee");
+                //entity.HasOne(d => d.Employee)
+                //    .WithMany(p => p.Program)
+                //    .HasForeignKey(d => d.EmployeeId)
+                //    .HasConstraintName("FK_Program_Employee");
             });
 
             modelBuilder.Entity<ProgramHistory>(entity =>
@@ -283,11 +283,11 @@ namespace backend_api.Models
                     .HasForeignKey(d => d.PreviousOwnerId)
                     .HasConstraintName("FK_ProgramHistory_Employee1");
 
-                entity.HasOne(d => d.Program)
-                    .WithMany(p => p.ProgramHistory)
-                    .HasForeignKey(d => d.ProgramId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProgramHistory_Program");
+                //entity.HasOne(d => d.Program)
+                //    .WithMany(p => p.ProgramHistory)
+                //    .HasForeignKey(d => d.ProgramId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_ProgramHistory_Program");
             });
 
             modelBuilder.Entity<Server>(entity =>

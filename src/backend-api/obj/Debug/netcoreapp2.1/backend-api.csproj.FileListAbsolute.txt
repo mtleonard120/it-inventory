@@ -26,3 +26,17 @@ C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-a
 C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorTargetAssemblyInfo.cache
 C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.dll
 C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.pdb
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.deps.json
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.runtimeconfig.json
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.runtimeconfig.dev.json
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.dll
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\bin\Debug\netcoreapp2.1\backend-api.pdb
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.csprojAssemblyReference.cache
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.csproj.CoreCompileInputs.cache
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorAssemblyInfo.cache
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorAssemblyInfo.cs
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.AssemblyInfoInputs.cache
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.AssemblyInfo.cs
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.RazorTargetAssemblyInfo.cache
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.dll
+C:\Users\joseph.turnbull\source\repos\it-inventory\src\backend-api\obj\Debug\netcoreapp2.1\backend-api.pdb

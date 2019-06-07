@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\backend-api.csproj": {}
+    "C:\\Users\\joseph.turnbull\\source\\repos\\it-inventory\\src\\backend-api\\backend-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\backend-api.csproj": {
+    "C:\\Users\\joseph.turnbull\\source\\repos\\it-inventory\\src\\backend-api\\backend-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\backend-api.csproj",
+        "projectUniqueName": "C:\\Users\\joseph.turnbull\\source\\repos\\it-inventory\\src\\backend-api\\backend-api.csproj",
         "projectName": "backend-api",
-        "projectPath": "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\backend-api.csproj",
-        "packagesPath": "C:\\Users\\charles.kornoelje\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\charles.kornoelje\\Documents\\LocalDevelopment\\it-inventory\\src\\backend-api\\obj\\",
+        "projectPath": "C:\\Users\\joseph.turnbull\\source\\repos\\it-inventory\\src\\backend-api\\backend-api.csproj",
+        "packagesPath": "C:\\Users\\joseph.turnbull\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joseph.turnbull\\source\\repos\\it-inventory\\src\\backend-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\charles.kornoelje\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\joseph.turnbull\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,6 +57,7 @@
               "version": "[2.1.2, )"
             },
             "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
