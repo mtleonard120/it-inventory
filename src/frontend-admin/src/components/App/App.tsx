@@ -2,6 +2,7 @@ import React from 'react';
 
 // Styles
 import styles from './App.module.css';
+import { CostCard } from '../pages/Dashboard/CostCard/CostCard';
 
 // Primary Component
 export const App: React.FC = () => {
@@ -20,6 +21,7 @@ export const App: React.FC = () => {
           Learn React
         </a>
       </header>
+      <CostCard data={[100, 200]} />
     </div>
   );
 }
