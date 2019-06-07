@@ -13,18 +13,17 @@ namespace backend_api.Models
     {
 
         // Explicit constructor.
-        public DepartmentTableProgram(string name, int count, decimal cost)
+        public DepartmentTableProgram(string name, int count, decimal costPerYear, decimal oneTimeCost)
         {
             ProgramName = name;
             ProgramCount = count;
-            ProgramCostPerYear = cost;
+            ProgramCostPerYear = costPerYear;
+            ProgramOneTimeCost = oneTimeCost;
         }
         public string ProgramName { get; set; }
         public int ProgramCount { get; set; }
-
-        // TODO: Find out of the table is on a PerYearBasis
-        // TODO: Find out if the table also includes fixed software costs.
         public decimal ProgramCostPerYear { get; set; }
+        public decimal ProgramOneTimeCost { get; set; }
     }
 
 

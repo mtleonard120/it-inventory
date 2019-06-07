@@ -32,8 +32,14 @@ namespace backend_api.Controllers
             return Ok(_context.Department.ToList());
         }
 
-        // GET: api/departmentTable/{departmentID}
-        // Returns [ {Name, Count, Cost},.. ] of the programs in the department.
+        /* GET: api/departmentTable/{departmentID}
+         * Returns [ {
+         *              ProgramName,
+         *              ProgramCount,
+         *              ProgramCostPerYear,
+         *              ProgramOneTimeCost,
+         *          },.. ] of the programs in the department.
+         */
         [HttpGet]
         [Route("{departmentID}")]
         public IActionResult GetDepartmentPrograms([FromRoute] int departmentID)
@@ -91,7 +97,7 @@ namespace backend_api.Controllers
             foreach (string prog in distinctPrograms)
             {
                 // Construct a new object to be added to the list.
-                listOfTablePrograms.Add(new DepartmentTableProgram(prog, 0, 0.0m));
+                listOfTablePrograms.Add(new DepartmentTableProgram(prog, 0, 0.0m, 0.0m));
             }
 
             // Aggregate the programs in the department that are the same name.
@@ -104,22 +110,20 @@ namespace backend_api.Controllers
                 {
                     listOfTablePrograms[index].ProgramCount += 1;
                     // ?? operator to make sure CostPerYear is not null. If it is, add 0.
-                    // TODO: The fixed costs are not added. CostPerYear is currently the only thing added.
-                    // Will need to talk to Dan to see what costs will be.
                     listOfTablePrograms[index].ProgramCostPerYear += departmentProgram.ProgramCostPerYear ?? 0.0m;
+                    listOfTablePrograms[index].ProgramOneTimeCost += departmentProgram.ProgramCostPerEmployee ?? 0.0m;
                 }
             }
 
-            //// Strip programs from list that cost 0.
-            //// Programs that cost 0 will be put under the Utilities with the utility cost.
-            //// TODO: Check with Dan to see.
-            //foreach (DepartmentTableProgram tableProgram in listOfTablePrograms.ToList())
-            //{
-            //    if (tableProgram.ProgramCostPerYear <= 0)
-            //    {
-            //        listOfTablePrograms.Remove(tableProgram);
-            //    }
-            //}
+            // Strip programs from list that cost 0.
+            // Programs that cost 0 will be put under the Utilities with the utility cost.
+            foreach (DepartmentTableProgram tableProgram in listOfTablePrograms.ToList())
+            {
+                if (tableProgram.ProgramCostPerYear <= 0 && tableProgram.ProgramOneTimeCost <= 0)
+                {
+                    listOfTablePrograms.Remove(tableProgram);
+                }
+            }
 
             return Ok(listOfTablePrograms);
         }
