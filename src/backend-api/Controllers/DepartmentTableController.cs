@@ -37,11 +37,12 @@ namespace backend_api.Controllers
          *              ProgramName : String,
          *              ProgramCount : Int,
          *              ProgramCostPerYear : Decimal,
-         *              ProgramOneTimeCost : Deciaml,
+         *              ProgramIsCostPerYear : Bool,
          *          },.. ] of the programs in the department.
+         *          
+         * If IsCostPerYear is false, then the front end will say 'projected'
+         *  for the yearly cost.
          */
-         // TODO: Once the db model is updated. Add the flag of IsCostPerYear
-         // so the front end can display if the costPerYear is projected or not.
          // NOTE: The plugin cost is not included in this table.
         [HttpGet]
         [Route("{departmentID}")]
@@ -91,7 +92,7 @@ namespace backend_api.Controllers
             foreach (var name in distinctPrograms)
             {
                 // Construct a new object to be added to the list.
-                listOfTablePrograms.Add(new DepartmentTableProgram(name, 0, 0.0m, 0.0m));
+                listOfTablePrograms.Add(new DepartmentTableProgram(name, 0, 0.0m, true));
             }
 
             // Aggregate the programs in the department that are the same name.
@@ -105,7 +106,7 @@ namespace backend_api.Controllers
                     listOfTablePrograms[index].ProgramCount += 1;
                     // ?? operator to make sure CostPerYear is not null. If it is, add 0.
                     listOfTablePrograms[index].ProgramCostPerYear += departmentProgram.ProgramCostPerYear ?? 0.0m;
-                    listOfTablePrograms[index].ProgramOneTimeCost += departmentProgram.ProgramCostPerEmployee ?? 0.0m;
+                    listOfTablePrograms[index].ProgramIsCostPerYear = departmentProgram.IsCostPerYear ? true : false;
                 }
             }
 
@@ -113,7 +114,7 @@ namespace backend_api.Controllers
             // Programs that cost 0 will be put under the Utilities with the utility cost.
             foreach (DepartmentTableProgram tableProgram in listOfTablePrograms.ToList())
             {
-                if (tableProgram.ProgramCostPerYear <= 0 && tableProgram.ProgramOneTimeCost <= 0)
+                if (tableProgram.ProgramCostPerYear <= 0)
                 {
                     listOfTablePrograms.Remove(tableProgram);
                 }

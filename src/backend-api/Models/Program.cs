@@ -22,6 +22,7 @@ namespace backend_api.Models
         public string ProgramPurchaseLink { get; set; }
         public bool HasPlugIn { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsCostPerYear { get; set; }
 
         //public Employee Employee { get; set; }
         //public ICollection<Plugins> Plugins { get; set; }
