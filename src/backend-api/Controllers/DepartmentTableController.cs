@@ -34,12 +34,15 @@ namespace backend_api.Controllers
 
         /* GET: api/departmentTable/{departmentID}
          * Returns [ {
-         *              ProgramName,
-         *              ProgramCount,
-         *              ProgramCostPerYear,
-         *              ProgramOneTimeCost,
+         *              ProgramName : String,
+         *              ProgramCount : Int,
+         *              ProgramCostPerYear : Decimal,
+         *              ProgramOneTimeCost : Deciaml,
          *          },.. ] of the programs in the department.
          */
+         // TODO: Once the db model is updated. Add the flag of IsCostPerYear
+         // so the front end can display if the costPerYear is projected or not.
+         // NOTE: The plugin cost is not included in this table.
         [HttpGet]
         [Route("{departmentID}")]
         public IActionResult GetDepartmentPrograms([FromRoute] int departmentID)
@@ -68,36 +71,27 @@ namespace backend_api.Controllers
             // department owns that program.
             foreach (Models.Program prog in allPrograms)
             {
-                // Checks to see if the program employee ID is in the department.
-                if (employeeIDsInDepartment.Contains(prog.EmployeeId))
+                // Make sure the program is not deleted.
+                if (prog.IsDeleted == false)
                 {
-                    programsOfEmpsInDepartment.Add(prog);
+                    // Checks to see if the program employee ID is in the department.
+                    if (employeeIDsInDepartment.Contains(prog.EmployeeId))
+                    {
+                        programsOfEmpsInDepartment.Add(prog);
+                    }
                 }
             }
 
-            //// Make a list of the distinct programs of the employees
-            //// in the department.
-            //List<string> DistinctPrograms = new List<string>();
-            //foreach (Models.Program prog in ProgramsOfEmpsInDepartment)
-            //{
-            //    // If the list does not have the name yet, add it.
-            //    if (!DistinctPrograms.Contains(prog.ProgramName))
-            //    {
-            //        DistinctPrograms.Add(prog.ProgramName);
-            //    }
-            //}
-
-            // Joseph's one liner does the same thing as the loop above
-            // making a list of distinct programs of the employeess in the department.
-            // What is prefered/more efficient?
+            // Make a list of the distinct programs of the employees
+            // in the department.
             var distinctPrograms = programsOfEmpsInDepartment.GroupBy(prog => prog.ProgramName).Select(name => name.FirstOrDefault()).Select(program => program.ProgramName);
 
             // Create a list with name, count, costPerYear containing the unique programs in the department
             List<DepartmentTableProgram> listOfTablePrograms = new List<DepartmentTableProgram>();
-            foreach (string prog in distinctPrograms)
+            foreach (var name in distinctPrograms)
             {
                 // Construct a new object to be added to the list.
-                listOfTablePrograms.Add(new DepartmentTableProgram(prog, 0, 0.0m, 0.0m));
+                listOfTablePrograms.Add(new DepartmentTableProgram(name, 0, 0.0m, 0.0m));
             }
 
             // Aggregate the programs in the department that are the same name.
