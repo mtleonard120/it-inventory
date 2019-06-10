@@ -50,43 +50,6 @@ export class AxiosService {
         })
     }
 
-    //verify username & password
-    /*public login = (username: string, password: string) => {
-        //authenticate user w/ post request
-        this.instance.post("/login", {
-            //data
-            username,
-            password,
-        })
-        .then(response => {
-            if (response.status === 200) {//TODO: find out what success status is
-                console.log(response);
-                //joe says token might not have name??? might have to do a get request for it?
-                //Ideal jwt payload = {
-                //    name: string,
-                //    isAdmin: boolean,
-                //} 
-
-                //TODO: decode token and get info
-                let decoded = 
-
-                //TODO: These variable names are probably incorrect
-                this.user = {
-                    token: response.data.jwt,
-                    refreshToken: response.data.refresh,
-                    name: decoded.,
-                    isAdmin: decoded.,
-                }
-            } else if (response.status === 401) {//Unauthorized
-                //redirect back to login page
-
-            }
-        }).catch(err => console.log(err));
-
-        //this will return a user: IUserInfo obj for App to store in a context
-        return this.user
-    }*/
-
     //function for <login /> to call to store token when they get response.status === successStatus
     public login = (response : any) => {
         //joe says token might not have name?? might have to do a get request for it?
