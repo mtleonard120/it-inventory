@@ -23,6 +23,7 @@ namespace backend_api.Models
         public bool HasPlugIn { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsCostPerYear { get; set; }
+        public DateTime? DateBought { get; set; }
 
         //public Employee Employee { get; set; }
         //public ICollection<Plugins> Plugins { get; set; }
