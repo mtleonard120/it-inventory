@@ -8,19 +8,19 @@ import Card from '../../Card';
 
 interface ICostCardProps{
     icon:any
-    data:number[]
+    data:{programsCost:number, pluginsCost:number}
 }
 
 export const CostCard = (props:ICostCardProps) => {
-    const{icon,  data}=props;
-    const totalCost = data[0] + data[1];
+    const{icon,  data:{programsCost, pluginsCost}}=props;
+    const totalCost = programsCost + pluginsCost;
 
     return(
         <Card>
             {icon}
             <h1 className={styles.title} >Total: ${totalCost}</h1>
-            <h1 className={styles.title} >Programs: ${data[0]}</h1>
-            <h1 className={styles.title} >Plugins: ${data[1]}</h1>
+            <h1 className={styles.title} >Programs: ${programsCost}</h1>
+            <h1 className={styles.title} >Plugins: ${pluginsCost}</h1>
         </Card>
     );
 };
