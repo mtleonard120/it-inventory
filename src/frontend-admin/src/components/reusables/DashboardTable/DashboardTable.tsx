@@ -32,7 +32,7 @@ export const DashboardTable = (props: IDashboardTableProps) => {
             {data.map((datum) => (
                 <tr className={s(styles.tr, {[styles.row]: isClickable})} onClick={onRowClick ? (e) => {onRowClick(datum)} : undefined}>
                     <td className={styles.name}>{datum.name}</td>
-                    <td className={styles.numberOf}>{datum.numberOf}</td>
+                    <td>{datum.numberOf}</td>
                     <td className={styles.cost}>${datum.cost}</td>
                     <td className={styles.yearOrMonth}>/{datum.yearOrMonth}</td>
                 </tr>

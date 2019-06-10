@@ -4,51 +4,41 @@
   width: 700px;
 }
 
-.table.clickable {
-  cursor: pointer;
-}
-
 .nameHeading{
   text-align: left;
   font-size: 18px;
   font-style:bold;
 }
-
 .numberOfHeading{
   font-size: 18px;
   font-style:bold;
 }
-
 .costHeading{
   text-align:right;
   font-size: 18px;
   font-style:bold;
 }
 
+.name{
+  text-align: left;
+  padding: 16px;
+}
+.cost{
+  text-align: right;
+  padding: 16px;
+}
 .yearOrMonth{
   text-align: left;
   padding: 16px;
   color: rgb(48, 48, 48)
 }
 
-.name{
-  text-align: left;
-  padding: 16px;
+.tr{
+  cursor:pointer;
 }
-
-.td {
-  padding: 16px;
-}
-
-.cost{
-  text-align: right;
-  padding: 16px;
-}
-
 .tr:nth-child(even) {
   background-color: rgba(99,99,99,0.08);
 }
-
-.tr.row:hover{
-    background: grey
+.tr:hover{
+    background-color: grey
 }

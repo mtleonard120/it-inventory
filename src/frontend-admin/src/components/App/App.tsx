@@ -8,7 +8,7 @@ import {DashboardTable} from '../reusables/DashboardTable/DashboardTable';
 // Primary Component
 export const App: React.FC = () => {
   return (
-    <div className={styles.app}>
+    <div>
       
       <DashboardTable data={[
                     { name: 'Developers', numberOf: 20, cost:20, yearOrMonth:'year', url:'0'},
