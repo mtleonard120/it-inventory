@@ -37,21 +37,16 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = (props
         console.log(softwareData[index].id)
     };
   
-
-    //##########################################
-    //TODO:
-    //  add the little cirlces that correlate to 
-    //  each slice
-    //#######################################
     const legendContent =() => {
         return(
-            <div  className={styles.legendList}>
-                {softwareData.map((datum) =>(
-                    <div>
-                        {/* <div className={styles.legendList} /> */}
-                        <li className={styles.legendList}>{datum.name}</li>
-                    </div>
+            <div>
+                {softwareData.map((datum, index) =>(
+                    <li className={styles.legendList}>
+                        <div className={styles.circle} style={{backgroundColor:colors[index]}}> </div>
+                        {datum.name}
+                    </li>
                 ))}
+
             </div>
         )
     }

@@ -1,8 +1,11 @@
 .legendList{
-    display: inline;
+    display: inline-block;
+    padding-left: 2em;
 }
 
 .circle{
+    margin-right:5px;
+    display: inline-block;
     background: black;
     width:16px;
     height:16px;
