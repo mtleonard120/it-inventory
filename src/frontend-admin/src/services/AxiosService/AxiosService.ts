@@ -1,44 +1,30 @@
 import axios, {AxiosInstance} from 'axios'
-//import qs from 'qs' ??
 //import buildQuery from 'odata-query' ??
-import decode from 'jwt-decode'
 
 export interface IUserInfo {
     name: string
-    token: string
+    accessToken: string
     refreshToken: string
     isAdmin: boolean
 }
 
-//TODO: find out actual baseURL && secret or import from somewhere?
-const URL= "";
-const secret = ""
+//TODO: get url from environment variable
+const URL= process.env.REACT_APP_API_URL
 
 export class AxiosService {
     private user: IUserInfo = {
         name: "",
-        token: "",
+        accessToken: "",
         refreshToken: "",
         isAdmin: false,
     }
-    /*private token: string
-    private refreshToken: string*/
     private instance: AxiosInstance
 
     public constructor(token: string, refreshToken: string) {
-        //TODO: decode token and get/store info
-        let decoded: any
-        try {
-            decoded = decode(token)
-        } catch (err) {
-            console.log(err)
-        }
-
         this.user = {
-            name: decoded.name,
-            token: token,
+            ...this.user,
+            accessToken: token,
             refreshToken: refreshToken,
-            isAdmin: decoded.isAdmin,
         }
 
         this.instance = axios.create({
@@ -52,26 +38,12 @@ export class AxiosService {
 
     //function for <login /> to call to store token when they get response.status === successStatus
     public login = (response : any) => {
-        //joe says token might not have name?? might have to do a get request for it?
-        //Ideal jwt payload = {
-        //    name: string,
-        //    isAdmin: boolean,
-        //} 
-
-        //TODO: decode token and get info
-        let decoded: any
-        try {
-            decoded = decode(response.data.token)
-        } catch (err) {
-            console.log(err)
-        }
-
         //TODO: These variable names are probably incorrect
         this.user = {
-            token: response.data.token,
+            accessToken: response.data.token,
             refreshToken: response.data.refreshToken,
-            name: decoded.name,
-            isAdmin: decoded.isAdmin,
+            name: response.data.name,
+            isAdmin: response.data.isAdmin,
         }
 
         //caller should save the user obj in context
@@ -79,10 +51,10 @@ export class AxiosService {
     }
 
     //get rid of token?
-    public logout = (redirect: string) => {
+    public logout = () => {
         this.user = {
             name: "",
-            token: "",
+            accessToken: "",
             refreshToken: "",
             isAdmin: false,
         }
@@ -93,39 +65,43 @@ export class AxiosService {
     //wrapper for get requests return the promise
     public get = (url: string) => {
         return this.instance.get(url, { headers:{
-            "Authorization" : `Bearer ${this.user.token}`
+            "Authorization" : `Bearer ${this.user.accessToken}`
         }})
-        .then(this.checkTokenExpired)
+        .then(response => this.checkTokenExpired(response, url))
     }
 
     //wrapper method for post requests return the promise
     public post = (url: string, data: any) => {
         return this.instance.post(url, data, { headers:{
-            "Authorization" : `Bearer ${this.user.token}`
+            "Authorization" : `Bearer ${this.user.accessToken}`
         }})
-        .then(this.checkTokenExpired)
+        .then(response => this.checkTokenExpired(response, url, data))
     }
 
     //check if token needs refreshing
-    public checkTokenExpired = (response: any) => {
+    public checkTokenExpired = (response: any, url: string, data?: any) => {
         if (response.data.expired) {//TODO: find out real name
-            this.refreshToken()
+            this.refreshToken(url, data)
         }
     }
 
     //refresh access token w/ refresh token
-    public refreshToken  = () => {
+    public refreshToken  = (url: string, data?: any) => {
         this.instance.post('/', {//TODO: get correct url
-            token: this.user.token, //TODO: find out where to post tokens to
+            //TODO: find out where to post tokens to
             refresh: this.user.refreshToken 
         }).then(response => {
             if (response.status === 200/*TODO: find out what success status is*/) {
                 //TODO: These variable names are probably incorrect
                 this.user = {
                     ...this.user,
-                    token: response.data.token,
+                    accessToken: response.data.token,
                     refreshToken: response.data.refreshToken,
                 }
+
+                //re-try get/post request
+                data? this.post(url, data) : this.get(url)
+
             } else if (response.status === 401) {//Unauthorized
                 //redirect back to login page
 
