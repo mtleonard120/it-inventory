@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using backend_api.Models;
 
 namespace backend_api.Controllers
 {
+    // TODO: Authorize when we have OAuth set up.
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProgramsController : ControllerBase
@@ -20,102 +23,158 @@ namespace backend_api.Controllers
             _context = context;
         }
 
-        // GET: api/Programs
+        /* GET: api/programs/softwareTable
+         * Return = [
+         *          { softwareName : string
+         *            softwareID : int      // TODO: Is this needed? We will be navigating to the general detail page.
+         *            numberOfUsers : int
+         *            perMonth: decimal
+         *            perYear : decimal
+         *            isCostPerYear : bool
+         *          }, ... ]
+         * NOTE: If isCostPerYear == false, need to make a note on the 
+         *  front end that the yearly cost is a projection.
+         */
         [HttpGet]
-        public IEnumerable<Models.Program> GetProgram()
+        [Route("softwareTable")]
+        public IActionResult GetSoftwareTable()
         {
-            return _context.Program;
-        }
+            // Only software, not licenses. Nothing deleted. Only ones in use.
+            var software = _context.Program.Where(program => program.IsLicense == false && program.IsDeleted == false && program.EmployeeId != null);
 
-        // GET: api/Programs/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetProgram([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
+            // List of distinct software
+            var distinctSoftware = software.GroupBy(prog => prog.ProgramName).Select(name => name.FirstOrDefault());
+
+            // Create a list of the distinct software table objects to return.
+            List<SoftwareTableItem> listOfTableSoftware = new List<SoftwareTableItem>();
+            foreach (Models.Program sw in distinctSoftware)
             {
-                return BadRequest(ModelState);
+                listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, sw.ProgramId, 0, 0, 0, sw.IsCostPerYear));
             }
 
-            var program = await _context.Program.FindAsync(id);
-
-            if (program == null)
+            // Count up the users of each software, and calclate the price. 
+            foreach (Models.Program sw in software)
             {
-                return NotFound();
-            }
-
-            return Ok(program);
-        }
-
-        // PUT: api/Programs/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProgram([FromRoute] int id, [FromBody] Models.Program program)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != program.ProgramId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(program).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProgramExists(id))
+                // Find the item in the return object that matches the software.
+                int index = listOfTableSoftware.FindIndex(uniqueSoftware => uniqueSoftware.softwareName == sw.ProgramName);
+                if (index >= 0)
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    listOfTableSoftware[index].numberOfUsers += 1;
+                    // ?? operator to make sure costPerYear is not null. If it is, add 0.
+                    listOfTableSoftware[index].costPerYear += sw.ProgramCostPerYear ?? 0.0m;
+                    listOfTableSoftware[index].costPerMonth += sw.ProgramCostPerYear / 12 ?? 0.0m;
                 }
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Programs
-        [HttpPost]
-        public async Task<IActionResult> PostProgram([FromBody] Models.Program program)
-        {
-            if (!ModelState.IsValid)
+            // Round to 4 decimals because division can be weird.
+            foreach (SoftwareTableItem sw in listOfTableSoftware)
             {
-                return BadRequest(ModelState);
+                sw.costPerMonth = Math.Round(sw.costPerMonth, 4);
             }
 
-            _context.Program.Add(program);
-            await _context.SaveChangesAsync();
+            return Ok(listOfTableSoftware);
 
-            return CreatedAtAction("GetProgram", new { id = program.ProgramId }, program);
+            // TODO: order by activity.
+            // TODO: Show max of ten
+            // TODO: Let the user settings dictate what is pinned to the top.
         }
 
-        // DELETE: api/Programs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProgram([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Programs
+        //[HttpGet]
+        //public IEnumerable<Models.Program> GetProgram()
+        //{
+        //    return _context.Program;
+        //}
 
-            var program = await _context.Program.FindAsync(id);
-            if (program == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Programs/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetProgram([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            _context.Program.Remove(program);
-            await _context.SaveChangesAsync();
+        //    var program = await _context.Program.FindAsync(id);
 
-            return Ok(program);
-        }
+        //    if (program == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(program);
+        //}
+
+        //// PUT: api/Programs/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutProgram([FromRoute] int id, [FromBody] Models.Program program)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (id != program.ProgramId)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(program).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ProgramExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
+
+        //// POST: api/Programs
+        //[HttpPost]
+        //public async Task<IActionResult> PostProgram([FromBody] Models.Program program)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    _context.Program.Add(program);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetProgram", new { id = program.ProgramId }, program);
+        //}
+
+        //// DELETE: api/Programs/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteProgram([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var program = await _context.Program.FindAsync(id);
+        //    if (program == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Program.Remove(program);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(program);
+        //}
 
         private bool ProgramExists(int id)
         {
