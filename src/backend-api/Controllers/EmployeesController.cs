@@ -12,7 +12,7 @@ using Microsoft.AspNet.OData;
 
 namespace backend_api.Controllers
 {
-// [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase

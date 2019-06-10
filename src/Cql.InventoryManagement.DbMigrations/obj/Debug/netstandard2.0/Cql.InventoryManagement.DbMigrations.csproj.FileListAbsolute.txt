@@ -1,0 +1,9 @@
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\bin\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.deps.json
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\bin\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.dll
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\bin\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.pdb
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\obj\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.csprojAssemblyReference.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\obj\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.csproj.CoreCompileInputs.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\obj\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.AssemblyInfoInputs.cache
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\obj\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.AssemblyInfo.cs
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\obj\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.dll
+C:\Users\charles.kornoelje\Documents\LocalDevelopment\it-inventory\src\Cql.InventoryManagement.DbMigrations\obj\Debug\netstandard2.0\Cql.InventoryManagement.DbMigrations.pdb
