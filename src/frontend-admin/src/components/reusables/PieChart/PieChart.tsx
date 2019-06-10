@@ -6,17 +6,23 @@ import styles from './PieChart.module.css';
 
 // Types
 export interface IRechartPieDatum {
-    name: string, value: number, id:string //the id is to rout to the dept detail page
+    name: string
+    value: number
+    id:string //the id is to rout to the dept detail page
+}
+
+export interface IDataProps{
+    headingName: string
+    data: IRechartPieDatum[]
 }
 
 interface IRechartPieProps {
-    softwareData: IRechartPieDatum[]
-    hardwareData: IRechartPieDatum[]
+    pieChartsData: IDataProps[]
     initialColors: string[]
 }
 
 export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = (props) => {   
-    const {softwareData, hardwareData, initialColors} = props;
+    const {pieChartsData, initialColors} = props;
 
     const [colors, setColors] = useState(initialColors);
     //colors off of invision: ['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']
@@ -34,72 +40,51 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = (props
     //map the links in the data that is passed through as a prop in the component
     const onClick = (data:IRechartPieDatum[],index:number) => {
         //will go to the links to other pages
-        console.log(softwareData[index].id)
     };
-  
-    const legendContent =() => {
-        return(
-            <div>
-                {softwareData.map((datum, index) =>(
-                    <li className={styles.legendList}>
-                        <div className={styles.circle} style={{backgroundColor:colors[index]}}> </div>
-                        {datum.name}
-                    </li>
-                ))}
-
-            </div>
-        )
-    }
- 
 
     return(
         <div>
-            <h3 className={styles.header}>Hardware Breakdown</h3>
-            <h3 className={styles.header}>Software Breakdown</h3>
-            <PieChart width={750} height={300}>
-                <Pie
-                    data = {softwareData}
-                    cx={200}
-                    cy={150}
-                    dataKey = "value"
-                    fill="#8884d8"
-                    labelLine={false}
-                    label={<CustomLabel data={softwareData}/>}
-                    isAnimationActive={false}
-                    onMouseOver={onMouseOver}
-                    onMouseOut={onMouseOut}
-                    onClick={onClick}
-                >
-                    {
-                        softwareData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
-                    } 
-                </Pie>
-
-                <Pie
-                    data = {hardwareData}
-                    cx={550}
-                    cy={150}
-                    dataKey = "value"
-                    fill="#8884d8"
-                    labelLine={false}
-                    label={<CustomLabel data={hardwareData}/>}
-                    isAnimationActive={false}
-                    onMouseOver={onMouseOver}
-                    onMouseOut={onMouseOut}
-                    onClick={onClick}
-                >
-                    {
-                        hardwareData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
-                    } 
-                </Pie>
-
-                <Legend 
-                    iconType='circle' 
-                    iconSize={18} 
-                    content={legendContent}
-                />
-                
+            {/* Headers */}
+            <div className={styles.inline} style={{}}>
+                {pieChartsData.map((datum) => (
+                    <h3 className={styles.header}>{datum.headingName}</h3>    
+                ))}
+            </div>
+            
+            {/* Pie Charts */}
+            <div  className={styles.inline}>
+            <PieChart width={400*pieChartsData.length} height={300}>
+                {pieChartsData.map((datum, i) => (
+                        <Pie
+                            data = {pieChartsData[0].data}
+                            cx={200+400*i}
+                            cy={150}
+                            dataKey = "value"
+                            fill="#8884d8"
+                            labelLine={false}
+                            label={<CustomLabel data={datum.data}/>}
+                            isAnimationActive={false}
+                            onMouseOver={onMouseOver}
+                            onMouseOut={onMouseOut}
+                            onClick={onClick}
+                        >
+                            {
+                                datum.data.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
+                            } 
+                        </Pie> 
+                ))}
             </PieChart>
+            </div>
+
+            {/* Legend */}
+            <div className={styles.inline}>
+                {pieChartsData[0].data.map((datum, index) =>(
+                    <div className={styles.legendList}>
+                        <div className={styles.circle} style={{backgroundColor:colors[index]}}> </div>
+                        {datum.name}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
