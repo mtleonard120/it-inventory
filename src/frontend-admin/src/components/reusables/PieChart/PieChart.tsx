@@ -53,49 +53,53 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = (props
  
 
     return(
-        <PieChart width={750} height={300}>
-            <Pie
-                data = {softwareData}
-                cx={200}
-                cy={150}
-                dataKey = "value"
-                fill="#8884d8"
-                labelLine={false}
-                label={<CustomLabel data={softwareData}/>}
-                isAnimationActive={false}
-                onMouseOver={onMouseOver}
-                onMouseOut={onMouseOut}
-                onClick={onClick}
-            >
-                {
-                    softwareData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
-                } 
-            </Pie>
+        <div>
+            <h3 className={styles.header}>Hardware Breakdown</h3>
+            <h3 className={styles.header}>Software Breakdown</h3>
+            <PieChart width={750} height={300}>
+                <Pie
+                    data = {softwareData}
+                    cx={200}
+                    cy={150}
+                    dataKey = "value"
+                    fill="#8884d8"
+                    labelLine={false}
+                    label={<CustomLabel data={softwareData}/>}
+                    isAnimationActive={false}
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}
+                    onClick={onClick}
+                >
+                    {
+                        softwareData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
+                    } 
+                </Pie>
 
-            <Pie
-                data = {hardwareData}
-                cx={550}
-                cy={150}
-                dataKey = "value"
-                fill="#8884d8"
-                labelLine={false}
-                label={<CustomLabel data={hardwareData}/>}
-                isAnimationActive={false}
-                onMouseOver={onMouseOver}
-                onMouseOut={onMouseOut}
-                onClick={onClick}
-            >
-                {
-                    hardwareData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
-                } 
-            </Pie>
+                <Pie
+                    data = {hardwareData}
+                    cx={550}
+                    cy={150}
+                    dataKey = "value"
+                    fill="#8884d8"
+                    labelLine={false}
+                    label={<CustomLabel data={hardwareData}/>}
+                    isAnimationActive={false}
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}
+                    onClick={onClick}
+                >
+                    {
+                        hardwareData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]} />)
+                    } 
+                </Pie>
 
-            <Legend 
-                iconType='circle' 
-                iconSize={18} 
-                content={legendContent}
-            />
-            
-        </PieChart>
+                <Legend 
+                    iconType='circle' 
+                    iconSize={18} 
+                    content={legendContent}
+                />
+                
+            </PieChart>
+        </div>
     );
 };

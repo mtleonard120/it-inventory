@@ -11,3 +11,11 @@
     height:16px;
     border-radius: 50%;
 }
+
+.header{
+    display:inline-block;
+    margin-right: 10em;
+    position: relative;
+    right:19em;
+    top:2em;
+}  
