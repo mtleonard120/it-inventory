@@ -1,5 +1,8 @@
 import React from 'react'
 
+// Packages
+import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io'
+
 // Styles
 import styles from './App.module.css'
 
@@ -16,8 +19,18 @@ export const App: React.FC = () => {
                     programsCost: 200,
                     pluginsCost: 100,
                 }}
+                icon={<IoIosStats />}
             />
-            <CostCard cardTitle='Monthly Cost' data={{programsCost: 100, pluginsCost: 200}} />
+            <CostCard
+                cardTitle='Monthly Cost'
+                data={{programsCost: 100, pluginsCost: 200}}
+                icon={
+                    <span>
+                        <IoIosArrowRoundUp />
+                        <IoIosArrowRoundDown />
+                    </span>
+                }
+            />
         </div>
     )
 }
