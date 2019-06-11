@@ -16,7 +16,7 @@ interface ICostCardProps {
         programsCost: number
         pluginsCost: number
     }
-    icon?: any
+    icon: any
 }
 
 export const CostCard = (props: ICostCardProps) => {
@@ -29,7 +29,7 @@ export const CostCard = (props: ICostCardProps) => {
 
     return (
         <Card title={cardTitle}>
-            {icon}
+            <div>{icon}</div>
             <h1 className={styles.title}>Total: ${totalCost}</h1>
             <h1 className={styles.title}>Programs: ${programsCost}</h1>
             <h1 className={styles.title}>Plugins: ${pluginsCost}</h1>

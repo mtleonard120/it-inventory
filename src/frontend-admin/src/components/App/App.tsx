@@ -19,15 +19,15 @@ export const App: React.FC = () => {
                     programsCost: 200,
                     pluginsCost: 100,
                 }}
-                icon={<IoIosStats />}
+                icon={<IoIosStats className={styles.statsIcon} />}
             />
             <CostCard
                 cardTitle='Monthly Cost'
                 data={{programsCost: 100, pluginsCost: 200}}
                 icon={
                     <span>
-                        <IoIosArrowRoundUp />
-                        <IoIosArrowRoundDown />
+                        <IoIosArrowRoundUp className={styles.upArrowIcon} />
+                        <IoIosArrowRoundDown className={styles.downArrowIcon} />
                     </span>
                 }
             />
