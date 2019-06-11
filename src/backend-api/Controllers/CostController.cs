@@ -58,7 +58,7 @@ namespace backend_api.Controllers
             //getting cost from plugin table
 
             decimal? CostOfPluginsPerYear = 0;
-            var PluginsList = await _context.Programs.ToListAsync();
+            var PluginsList = await _context.Plugins.ToListAsync();
             //Selecting distinct programs by name so that they match up with the plugin table
 
             var DistinctProgramsList = ProgramsList.GroupBy(x => x.ProgramName).Select(x => x.FirstOrDefault());
@@ -171,7 +171,7 @@ namespace backend_api.Controllers
                     if (prog.DateBought != null)
                     {
                         //adding 30 days to the the date bought and then checking if we are now past those 30 days
-                        //if we are not then then add the cost of the recent software purchase
+                        //if we are not then add the cost of the recent software purchase
                         DateTime? startDate = prog.DateBought;
                         DateTime? relevantDate = startDate.Value.AddDays(30);
                         if (!(DateTime.Now > relevantDate))

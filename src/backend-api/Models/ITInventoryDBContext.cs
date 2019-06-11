@@ -22,7 +22,7 @@ namespace backend_api.Models
         public virtual DbSet<HardwareHistory> HardwareHistory { get; set; }
         public virtual DbSet<Monitor> Monitor { get; set; }
         public virtual DbSet<Peripheral> Peripheral { get; set; }
-        public virtual DbSet<Plugins> Programs { get; set; }
+        public virtual DbSet<Plugins> Plugins { get; set; }
         public virtual DbSet<Program> Program { get; set; }
         public virtual DbSet<ProgramHistory> ProgramHistory { get; set; }
         public virtual DbSet<Server> Server { get; set; }
