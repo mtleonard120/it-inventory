@@ -3,8 +3,8 @@ using System;
 
 namespace Cql.InventoryManagement.DbMigrations.Migrations._2019._06
 {
-    [Migration(201906101513)]
-    public class _201906101513_update_field_DateBought : AutoReversingMigration
+    [Migration(20190610151310)]
+    public class _20190610151310_update_field_DateBought : AutoReversingMigration
     {
         public override void Up()
         {
