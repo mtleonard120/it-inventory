@@ -79,9 +79,9 @@ export class AxiosService {
   public get: any = (url: string, saveData: Function) => {
     return this.instance
       .get(url, {
-        headers: {
+        /*headers: {
           Authorization: `Bearer ${this.user.accessToken}`
-        }
+        }*/
       })
       .then(response => {
         this.checkTokenExpired(response, url);
@@ -94,9 +94,9 @@ export class AxiosService {
   public post = (url: string, data: any) => {
     return this.instance
       .post(url, data, {
-        headers: {
+        /*headers: {
           Authorization: `Bearer ${this.user.accessToken}`
-        }
+        }*/
       })
       .then(response => this.checkTokenExpired(response, url, data))
       .catch(err => console.log(err));
