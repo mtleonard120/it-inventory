@@ -11,13 +11,13 @@ export const App: React.FC = () => {
     <div>
       
       <DashboardTable data={[
-                    { name: 'Developers', numberOf: 20, cost:20, yearOrMonth:'year', url:'0'},
-                    { name: 'Designers', numberOf: 40, cost:20, yearOrMonth:'year', url:'1'},
-                    { name: 'PM\'s', numberOf: 40, cost:20, yearOrMonth:'month', url:'2'},
-                    { name: 'Sales Reps', numberOf: 5, cost:20, yearOrMonth:'month', url:'3' },
-                    { name: 'Other', numberOf: 25, cost:20, yearOrMonth:'year', url:'4' },
-                    { name: 'Sales Reps', numberOf: 5, cost:20, yearOrMonth:'month', url:'5' },
-                    { name: 'Other', numberOf: 25, cost:20, yearOrMonth:'year', url:'6' }
+                    { name: 'Developers', numberOf: 20, costPerMonth:20, projected:'*'},
+                    { name: 'Designers', numberOf: 40, costPerMonth:20, projected:'*'},
+                    { name: 'PM\'s', numberOf: 40, costPerMonth:20,projected:''},
+                    { name: 'Sales Reps', numberOf: 5, costPerMonth:20, projected:''},
+                    { name: 'Other', numberOf: 25, costPerMonth:20,projected:'*'},
+                    { name: 'Sales Reps', numberOf: 5, costPerMonth:20, projected:'*'},
+                    { name: 'Other', numberOf: 25, costPerMonth:20, projected:''}
                     ]} />
     </div>
   );

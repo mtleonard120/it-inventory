@@ -8,9 +8,10 @@ import styles from './DashboardTable.module.css';
 export interface IDashboardTableDatum{
     name:string
     numberOf:number
-    cost:number
-    yearOrMonth:string //a string that is either year or month -> the breakdown is either per month or per year
-    url: string
+    costPerMonth:number
+    projected:string //might be a bool, and if true throw in the *
+                     //otherwise the string is either '' or '*'
+                     //'*' means that it is projected 
 }
 
 interface IDashboardTableProps{
@@ -22,19 +23,22 @@ export const DashboardTable = (props: IDashboardTableProps) => {
     const {data, onRowClick} = props;
     const isClickable = Boolean(onRowClick);
 
+
     return(
         <table className={s(styles.table,{[styles.clickable]: isClickable})}>
-            <tr>
+            {/* leaving this commented out in case we actually do want headings
+            <tr> 
                 <th className={styles.nameHeading}>License</th>
                 <th className={styles.numberOfHeading}># in use</th>
                 <th className={styles.costHeading}>Cost</th>
-            </tr>
+            </tr> */}
             {data.map((datum) => (
                 <tr className={s(styles.tr, {[styles.row]: isClickable})} onClick={onRowClick ? (e) => {onRowClick(datum)} : undefined}>
                     <td className={styles.name}>{datum.name}</td>
-                    <td>{datum.numberOf}</td>
-                    <td className={styles.cost}>${datum.cost}</td>
-                    <td className={styles.yearOrMonth}>/{datum.yearOrMonth}</td>
+                    <td className={styles.numberOf}>{datum.numberOf} users</td>
+                    <td className={styles.cost}>
+                        ${datum.costPerMonth}/month | ${datum.costPerMonth * 12}/year{datum.projected}
+                    </td>
                 </tr>
             ))}
         </table>
