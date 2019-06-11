@@ -1,0 +1,32 @@
+.group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.start {
+    justify-content: flex-start;
+}
+
+.end {
+    justify-content: flex-end;
+}
+
+.between {
+    justify-content: space-between;
+}
+.around {
+    justify-content: space-around;
+}
+.even {
+    justify-content: space-evenly;
+}
+
+.row {
+    flex-direction: row;
+    width: 100%;
+}
+
+.column {
+    flex-direction: column;
+    align-items: flex-start;
+}
