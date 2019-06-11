@@ -11,22 +11,22 @@ namespace backend_api.Models
     public class SoftwareTableItem
     {
 
-        public SoftwareTableItem(string name, int ID, int users, decimal month, decimal year, bool perYear)
+        public SoftwareTableItem(string name, int users, decimal month, decimal year, bool projected, bool pinned)
         {
             softwareName = name;
-            softwareID = ID;
             numberOfUsers = users;
             costPerMonth = month;
             costPerYear = year;
-            isCostPerYear = perYear;
+            isProjected = projected;
+            isPinned = pinned;
         }
 
         public string softwareName { get; set; }
-        public int softwareID { get; set; }
         public int numberOfUsers { get; set; }
         public decimal costPerMonth { get; set; }
         public decimal costPerYear { get; set; }
-        public bool isCostPerYear { get; set; }
+        public bool isProjected { get; set; }
+        public bool isPinned { get; set; }
 
     }
 }

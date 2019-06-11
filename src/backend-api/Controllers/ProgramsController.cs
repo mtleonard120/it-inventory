@@ -26,30 +26,58 @@ namespace backend_api.Controllers
         /* GET: api/programs/softwareTable
          * Return = [
          *          { softwareName : string
-         *            softwareID : int      // TODO: Is this needed? We will be navigating to the general detail page.
          *            numberOfUsers : int
          *            perMonth: decimal
          *            perYear : decimal
-         *            isCostPerYear : bool
+         *            isProjected : bool
+         *            isPinned : bool
          *          }, ... ]
-         * NOTE: If isCostPerYear == false, need to make a note on the 
-         *  front end that the yearly cost is a projection.
+         *   NOTE: isProjected = true when the costPerYear is false.
          */
         [HttpGet]
         [Route("softwareTable")]
         public IActionResult GetSoftwareTable()
         {
+            // TODO: Currently we have Dan as user 1. 
+            // This is not the correct way to get his settings
+            //  but we want to get the pinned part working.
+            // We can update this once we get OAuth 2.0 working.
+            var firstEmp = _context.Employee.Where(emp => emp.EmployeeId == 1).ToList();
+
+            // Make sure there is an employee.
+            if (firstEmp.Count < 0)
+            {
+                return StatusCode(500);
+            }
+            // Separate the list nicely.
+            string pinned = firstEmp[0].UserSettings;
+            var list = pinned.Replace(" ", string.Empty).Split(',').ToList();
+
             // Only software, not licenses. Nothing deleted. Only ones in use.
             var software = _context.Program.Where(program => program.IsLicense == false && program.IsDeleted == false && program.EmployeeId != null);
+
+            // All of the software names that are on the settings list.
+            var distinctPinnedSoftware = software.Where(sw => list.Contains(sw.ProgramName)).GroupBy(sw => sw.ProgramName).Select(name => name.FirstOrDefault());
+            var distinctPinnedSoftwareNames = distinctPinnedSoftware.Select(program => program.ProgramName);
 
             // List of distinct software
             var distinctSoftware = software.GroupBy(prog => prog.ProgramName).Select(name => name.FirstOrDefault());
 
             // Create a list of the distinct software table objects to return.
             List<SoftwareTableItem> listOfTableSoftware = new List<SoftwareTableItem>();
+
+            // Add the pinned software on the table software list first.
+            foreach (Models.Program sw in distinctPinnedSoftware)
+            {
+                listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, 0, 0, 0, sw.IsCostPerYear ? false : true, true));
+            }
+
+            // Add the software to the list if it is not already int the list. Limit the list length to 10.
+            // NOTE: If the user settings specify more than 10, it will display all of them.
             foreach (Models.Program sw in distinctSoftware)
             {
-                listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, sw.ProgramId, 0, 0, 0, sw.IsCostPerYear));
+                if (!(distinctPinnedSoftwareNames.Contains(sw.ProgramName)) && listOfTableSoftware.Count <= 10)
+                    listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, 0, 0, 0, sw.IsCostPerYear ? false : true, false));
             }
 
             // Count up the users of each software, and calclate the price. 
@@ -75,106 +103,7 @@ namespace backend_api.Controllers
             return Ok(listOfTableSoftware);
 
             // TODO: order by activity.
-            // TODO: Show max of ten
-            // TODO: Let the user settings dictate what is pinned to the top.
         }
-
-        //// GET: api/Programs
-        //[HttpGet]
-        //public IEnumerable<Models.Program> GetProgram()
-        //{
-        //    return _context.Program;
-        //}
-
-        //// GET: api/Programs/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetProgram([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var program = await _context.Program.FindAsync(id);
-
-        //    if (program == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(program);
-        //}
-
-        //// PUT: api/Programs/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutProgram([FromRoute] int id, [FromBody] Models.Program program)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != program.ProgramId)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(program).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ProgramExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Programs
-        //[HttpPost]
-        //public async Task<IActionResult> PostProgram([FromBody] Models.Program program)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _context.Program.Add(program);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetProgram", new { id = program.ProgramId }, program);
-        //}
-
-        //// DELETE: api/Programs/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteProgram([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var program = await _context.Program.FindAsync(id);
-        //    if (program == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Program.Remove(program);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(program);
-        //}
 
         private bool ProgramExists(int id)
         {
