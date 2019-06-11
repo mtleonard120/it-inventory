@@ -10,7 +10,7 @@ import { CostCard } from '../pages/Dashboard/CostCard/CostCard';
 export const App: React.FC = () => {
   return (
     <div className={styles.app}>
-      <CostCard data={[100,200]} />
+      <CostCard data={{programsCost:200, pluginsCost:100}} />
     </div>
   );
 }

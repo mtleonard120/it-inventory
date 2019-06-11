@@ -7,7 +7,7 @@ import Card from '../../Card';
 
 
 interface ICostCardProps{
-    icon:any
+    icon?:any
     data:{programsCost:number, pluginsCost:number}
 }
 
