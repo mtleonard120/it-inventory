@@ -13,8 +13,8 @@ namespace backend_api.Models
         public string EventName { get; set; }
         public string EventDescription { get; set; }
 
-        public Employee CurrentOwner { get; set; }
-        public Employee PreviousOwner { get; set; }
-        public Program Program { get; set; }
+        //public Employee CurrentOwner { get; set; }
+        //public Employee PreviousOwner { get; set; }
+        //public Program Program { get; set; }
     }
 }

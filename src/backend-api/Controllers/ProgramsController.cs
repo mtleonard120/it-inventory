@@ -33,6 +33,9 @@ namespace backend_api.Controllers
          *            isPinned : bool
          *          }, ... ]
          *   NOTE: isProjected = true when the costPerYear is false.
+         *   Will return the object with the programs sorted first
+         *      by the user settings, and then the most recently
+         *      changed programs on the ProgramHistoryTable.
          */
         [HttpGet]
         [Route("softwareTable")]
@@ -49,12 +52,50 @@ namespace backend_api.Controllers
             {
                 return StatusCode(500);
             }
+
             // Separate the list nicely.
             string pinned = firstEmp[0].UserSettings;
             var list = pinned.Replace(" ", string.Empty).Split(',').ToList();
 
             // Only software, not licenses. Nothing deleted. Only ones in use.
             var software = _context.Program.Where(program => program.IsLicense == false && program.IsDeleted == false && program.EmployeeId != null);
+
+            /* TODO: Update the programHistory model to have an event Date. Same with the start hardwareHistory.
+            *  TODO: Add the program name field to the programHistory. Would make this a lot eaiser.
+            *  TODO: This is a stupidly complicated way to get the
+            *  desired data.
+            */
+            // Sorts the program history with the most recent changes.
+            var programHistory = _context.ProgramHistory.ToList();
+            var sortedProgramHistory = programHistory.OrderByDescending(ph => ph.CurrentOwnerStartDate);
+
+            // Create a list of programs that have the programs with the most recent changes first.
+            List<Models.Program> sortedSoftware = new List<Models.Program>();
+            List<Models.Program> noSoftwareHistory = new List<Models.Program>();
+            foreach (ProgramHistory sph in sortedProgramHistory)
+            {
+                foreach (Models.Program prog in software)
+                {
+                    // Is the history entry matches to software, add it.
+                    if (sph.ProgramId == prog.ProgramId)
+                    {
+                        sortedSoftware.Add(prog);
+                    }
+                }
+            }
+
+            // If there is no history for a program, then add it.
+            foreach (Models.Program prog in software)
+            {
+                if (!sortedSoftware.Contains(prog))
+                    noSoftwareHistory.Add(prog);
+            }
+
+            // Combine the lists.
+            sortedSoftware.AddRange(noSoftwareHistory);
+
+            // List of distinct software
+            var distinctSortedSoftware = sortedSoftware.GroupBy(prog => prog.ProgramName).Select(name => name.FirstOrDefault());
 
             // All of the software names that are on the settings list.
             var distinctPinnedSoftware = software.Where(sw => list.Contains(sw.ProgramName)).GroupBy(sw => sw.ProgramName).Select(name => name.FirstOrDefault());
@@ -66,7 +107,7 @@ namespace backend_api.Controllers
             // Create a list of the distinct software table objects to return.
             List<SoftwareTableItem> listOfTableSoftware = new List<SoftwareTableItem>();
 
-            // Add the pinned software on the table software list first.
+            // Add the pinned software (from the user settings) on the table software list first.
             foreach (Models.Program sw in distinctPinnedSoftware)
             {
                 listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, 0, 0, 0, sw.IsCostPerYear ? false : true, true));
@@ -74,13 +115,15 @@ namespace backend_api.Controllers
 
             // Add the software to the list if it is not already int the list. Limit the list length to 10.
             // NOTE: If the user settings specify more than 10, it will display all of them.
-            foreach (Models.Program sw in distinctSoftware)
+            foreach (Models.Program sw in distinctSortedSoftware)
             {
                 if (!(distinctPinnedSoftwareNames.Contains(sw.ProgramName)) && listOfTableSoftware.Count <= 10)
+                {
                     listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, 0, 0, 0, sw.IsCostPerYear ? false : true, false));
+                }
             }
 
-            // Count up the users of each software, and calclate the price. 
+            // Count up the users of each software, and calculate the price. 
             foreach (Models.Program sw in software)
             {
                 // Find the item in the return object that matches the software.
@@ -101,8 +144,6 @@ namespace backend_api.Controllers
             }
 
             return Ok(listOfTableSoftware);
-
-            // TODO: order by activity.
         }
 
         private bool ProgramExists(int id)
