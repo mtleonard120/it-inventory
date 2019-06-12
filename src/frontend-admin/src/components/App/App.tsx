@@ -6,10 +6,11 @@ import {
   Switch
 } from "react-router-dom";
 
+// Components
+import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
+
 // Styles
 import styles from "./App.module.css";
-
-import { DashboardTable } from "../reusables/DashboardTable/DashboardTable";
 
 // Primary Component
 export const App: React.FC = () => {
@@ -73,7 +74,10 @@ export const App: React.FC = () => {
           </nav>
         </div>
 
-        <Switch>{/* <Route />'s go here */}</Switch>
+        <Switch>
+          {/* <Route />'s go here */}
+          <Route path="/dashboard" component={DashboardPage} />
+        </Switch>
       </Router>
       <footer className={styles.appFooter} />
     </div>
