@@ -30,8 +30,8 @@ pipelines:
                     - cd src/frontend-admin
                     - npm install
                     - npm run build
-                    - mv build ../../../artifacts/frontend-admin
-                    - cd ../../..
+                    - mv build ../../artifacts/frontend-admin
+                    - cd ../..
 
         - step:
             name: Archive Artifacts
