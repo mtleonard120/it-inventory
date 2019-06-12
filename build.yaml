@@ -27,7 +27,7 @@ pipelines:
                 checkout: false
                 image: node:10.13.0-jessie
                 script:
-                    - cd src/frontend-admin/parfait
+                    - cd src/frontend-admin
                     - npm install
                     - npm run build
                     - mv build ../../../artifacts/frontend-admin
