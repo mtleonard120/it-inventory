@@ -1,6 +1,6 @@
 @font-face {
   font-family: cqlBlackFont;
-  src: url("./components/Content/Fonts/CQL-Black.otf");
+  src: url("./content/Fonts/CQL-Black.otf");
 }
 .body {
   font-family: cqlBlackFont;
