@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Card.module.css'
 import {Title} from '../Title/Title'
-import cx from 'classnames'
+import {concatStyles} from '../../../utilities/mikesConcat'
 
 interface ICardProps {
     title?: any
@@ -16,7 +16,7 @@ export const Card: React.FC<ICardProps> = props => {
     return (
         <div className={styles.cardMain}>
             {title && <Title title={title} className={titleClassName} />}
-            <div className={cx(styles.cardChildren, className)}>{children}</div>
+            <div className={concatStyles(styles.cardChildren, className)}>{children}</div>
         </div>
     )
 }

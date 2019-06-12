@@ -12,28 +12,6 @@ import {CostCard} from '../pages'
 
 // Primary Component
 export const App: React.FC = () => {
-    // return (
-    //     <div className={styles.app}>
-    //         <CostCard
-    //             cardTitle='Yearly Cost'
-    //             data={{
-    //                 programsCost: 200,
-    //                 pluginsCost: 100,
-    //             }}
-    //             icon={<IoIosStats className={styles.statsIcon} />}
-    //         />
-    //         <CostCard
-    //             cardTitle='Monthly Cost'
-    //             data={{programsCost: 100, pluginsCost: 200}}
-    //             icon={
-    //                 <span>
-    //                     <IoIosArrowRoundUp className={styles.upArrowIcon} />
-    //                     <IoIosArrowRoundDown className={styles.downArrowIcon} />
-    //                 </span>
-    //             }
-    //         />
-    //     </div>
-    // )
     return (
         <div className={styles.app}>
             {/*header*/}
@@ -75,6 +53,24 @@ export const App: React.FC = () => {
                 </div>
 
                 <Switch>{/* <Route />'s go here */}</Switch>
+
+                <div className={styles.app}>
+                    <CostCard
+                        cardTitle='Yearly Cost'
+                        // data={{programsCost: 200,pluginsCost: 100,}}
+                        icon={<IoIosStats className={styles.statsIcon} />}
+                    />
+                    <CostCard
+                        cardTitle='Monthly Cost'
+                        // data={{programsCost: 100, pluginsCost: 200}}
+                        icon={
+                            <span>
+                                <IoIosArrowRoundUp className={styles.upArrowIcon} />
+                                <IoIosArrowRoundDown className={styles.downArrowIcon} />
+                            </span>
+                        }
+                    />
+                </div>
             </Router>
             <footer className={styles.appFooter}></footer>
         </div>
