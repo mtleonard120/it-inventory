@@ -23,7 +23,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     const axios = new AxiosService('accessToken', 'refreshToken')
 
     //Liscence Bar Chart State
-    const initLicenses: {
+    let initLicenses: {
         programName: string
         CountProgInUse: number
         CountProgOverall: number
@@ -35,7 +35,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     const [softwareTableData, setSoftwareTableData] = useState(initSoftwareTableData)
 
     //Cost Card State
-    const initCosts: {
+    let initCosts: {
         costOfProgramsPerYear: number
         costOfPluginsPerYear: number
     } = {
@@ -45,7 +45,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     const [costs, setCosts] = useState(initCosts)
 
     //Pie State
-    const initPieData: IPieDataProps[] = [
+    let initPieData: IPieDataProps[] = [
         {
             headingName: 'Software',
             data: [
@@ -69,15 +69,13 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
 
     //Department Tables State
 
-    const initDeptList: {departmentName: string; departmentID: number}[] = [
-        {departmentName: 'example', departmentID: -1},
-    ]
-    const initDeptTable: {} = {}
-    const initDropdownContent: IDropdownItem[] = [
+    let initDeptList: {departmentName: string; departmentID: number}[] = [{departmentName: 'example', departmentID: -1}]
+    let initDeptTable: IDashboardTableDatum[] = [{name: 'Init', numberOf: 5, costPerMonth: 5, projected: '*'}]
+    let initDropdownContent: IDropdownItem[] = [
         {name: 'init', component: <DashboardTable data={softwareTableData} onRowClick={() => {}} />},
     ]
     const [deptList, setDeptList] = useState(initDeptList)
-    const [deptTable, setDeptTable] = useState(initDeptTable)
+    const [deptTableData, setDeptTableData] = useState(initDeptTable)
     const [dropdownContent, setDropdownContent] = useState(initDropdownContent)
 
     //Click Handling
@@ -89,9 +87,17 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         //TODO: route to `/programs/${datum.name}`
     }
 
-    const pickDepartment = () => {
-        //axios.get(`/departmentTable/${departmentID}`, setDeptTable)
-        return <DashboardTable data={softwareTableData} onRowClick={deptOnRowClick} />
+    const pickDepartment = (id: number) => {
+        axios.get(`/departmentTable/${id}`, setDeptTableData)
+        return <DashboardTable data={deptTableData} onRowClick={deptOnRowClick} />
+    }
+
+    const updateDropdownContent = () => {
+        let array: IDropdownItem[] = []
+        deptList.map(i => {
+            array.push({name: i.departmentName, onClick: () => pickDepartment(i.departmentID)})
+        })
+        setDropdownContent(array)
     }
 
     useEffect(() => {
@@ -101,12 +107,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         axios.get('/cost/dashboard', setCosts)
         axios.get('/cost/CostPieChart', setPieData)
         axios.get('/departmentTable?$select=departmentName,departmentID', setDeptList)
-        let array: IDropdownItem[] = []
-        deptList.map(i => {
-            array.push({name: i.departmentName, onClick: pickDepartment})
-        })
-        setDropdownContent(array)
-    }, [setLicenses, setSoftwareTableData, setCosts, setPieData, setDeptList])
+        // updateDropdownContent()
+    }, [axios, setLicenses, setSoftwareTableData, setCosts, setPieData, setDeptList])
 
     return (
         <div className={styles.dashMain}>
@@ -115,6 +117,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     <Group>
                         {licenses.map(i => (
                             <HorizontalBarChart
+                                key={i.programName}
                                 title={i.programName}
                                 amount={i.CountProgInUse}
                                 outOf={i.CountProgOverall}
@@ -155,7 +158,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             <div className={styles.dashColumn}>
                 <Card title={'Departments'} titleClassName={styles.linkedTitle}>
                     <RechartPieChart
-                        pieChartData={initPieData}
+                        pieChartData={pieData}
                         initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']}
                     />
                 </Card>

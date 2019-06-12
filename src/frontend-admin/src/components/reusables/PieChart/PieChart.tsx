@@ -59,7 +59,9 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
             {/* Headers */}
             <div className={styles.inline} style={{}}>
                 {pieChartData.map(datum => (
-                    <h3 className={styles.header}>{datum.headingName}</h3>
+                    <h3 key={datum.headingName} className={styles.header}>
+                        {datum.headingName}
+                    </h3>
                 ))}
             </div>
 
@@ -68,6 +70,7 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
                 <PieChart width={400 * pieChartData.length} height={300}>
                     {pieChartData.map((datum, i) => (
                         <Pie
+                            key={i}
                             data={pieChartData[0].data}
                             cx={200 + 400 * i}
                             cy={150}
@@ -91,7 +94,7 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
             {/* Legend */}
             <div className={styles.inline}>
                 {pieChartData[0].data.map((datum, index) => (
-                    <div className={styles.legendList}>
+                    <div key={index} className={styles.legendList}>
                         <div className={styles.circle} style={{backgroundColor: colors[index]}} />
                         {datum.name}
                     </div>
