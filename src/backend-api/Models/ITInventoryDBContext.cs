@@ -32,7 +32,7 @@ namespace backend_api.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=CQL-INTERN04;Database=ITInventoryDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=CQL-INTERN03\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;");
             }
         }
 
@@ -223,7 +223,7 @@ namespace backend_api.Models
             {
                 entity.HasKey(e => e.PluginId);
 
-                entity.Property(e => e.PluginId).HasColumnName("PluginID");
+                //entity.Property(e => e.ProgramID).HasColumnName("PluginID");
 
                 entity.Property(e => e.PluginCostPerYear).HasColumnType("money");
 
@@ -233,7 +233,7 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+               // entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
                 //entity.HasOne(d => d.Program)
                 //    .WithMany(p => p.Plugins)
@@ -243,9 +243,9 @@ namespace backend_api.Models
 
             modelBuilder.Entity<Program>(entity =>
             {
-                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+                //entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+                //entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.ProgramCostPerEmployee).HasColumnType("money");
 
