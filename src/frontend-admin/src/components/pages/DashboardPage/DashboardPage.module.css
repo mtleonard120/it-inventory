@@ -1,0 +1,15 @@
+.dashMain {
+  display: flex;
+  height: 80vh;
+}
+
+.dashColumn {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.dashRow {
+  display: flex;
+  flex-direction: row;
+}
