@@ -23,7 +23,7 @@ export const LicensesCard: React.SFC<{ className?: string }> = props => {
 
   useEffect(() => {
     //TODO: find out endpoint name
-    axios.get("/Licenses", setLicenses);
+    axios.get("/Programs/Licenses", setLicenses);
   }, [setLicenses]);
 
   return (
