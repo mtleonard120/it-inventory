@@ -34,7 +34,7 @@ namespace Cql.InventoryManagement.Web.StartupHelpers
             using (var scope = services.CreateScope())
             {
                 var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-                runner.MigrateUp();
+      //          runner.MigrateUp();
             }
         }
 

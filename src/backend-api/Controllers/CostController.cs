@@ -24,17 +24,17 @@ namespace backend_api.Controllers
         }
 
         /* GET: api/Cost/CostBreakDown
-         * Returns [
+         * Returns {
          *          Program Cost Per Year,
          *          Plugin Cost Per Year
-         *         ] of all the programs and their plugins in our database
+         *         } which is comprised of all the programs and their plugins in our database
          */
 
         [Route("CostBreakdown")]
         [HttpGet]
         [EnableQuery()]
 
-        public async Task<ActionResult<Array>> GetDashboardCostBreakDown()
+        public async Task<ActionResult<object>> GetDashboardCostBreakDown()
         {
             //Array that will be returned with Programs cost and plugins cost
             decimal?[] ReturningArray = new decimal?[2];
@@ -76,9 +76,8 @@ namespace backend_api.Controllers
                     }
                 }
             }
-            ReturningArray[0] = CostOfProgramsPerYear;
-            ReturningArray[1] = CostOfPluginsPerYear;
-            return Ok(ReturningArray);
+            var CostBreakDownObject = new { CostOfProgramsPerYear, CostOfPluginsPerYear };
+            return Ok(CostBreakDownObject);
         }
 
         /* GET: api/Cost/CostPieCharts
