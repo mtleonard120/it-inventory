@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Login.module.css";
 import logo from "../../../Content/Images/CQL-Logo-Reversed.png"
+import axios from 'axios';
 
 export const Login: React.FunctionComponent = props => {
   const [username, setUsername] = useState("");
@@ -10,24 +11,13 @@ export const Login: React.FunctionComponent = props => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    // Create a POST request to be sent.
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    };
-
-    // Authenticate the user by sending the POST request.\
-    // Respones is outputted.
-    fetch("https://localhost:44358/users/authenticate", requestOptions).then(
-      response => {
-        if (response.ok) {
-          console.log(""); //redirect to the dashboard
-        } else {
-          setFailMssg("Incorrect username or password");
-        }
-      }
-    );
+    axios.post('idk where yet', {
+      username: username,
+      password: password
+    })
+    .then(function (response:any) {
+      console.log(response.data)
+    })
   };
 
   return (

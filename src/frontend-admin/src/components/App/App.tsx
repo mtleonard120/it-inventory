@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'; 
 import {Login} from '../reusables/Login/Login';
 
 // Styles
