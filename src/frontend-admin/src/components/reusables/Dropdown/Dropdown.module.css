@@ -1,7 +1,6 @@
 .dropdownMain {
     display: flex;
     flex-direction: column;
-    width: 500px;
 }
 
 .dropdownContainer {
@@ -27,12 +26,12 @@
     display: flex;
 }
 
-.dropdownArrow {	
-    box-sizing: border-box;	
-    height: 10px;	
-    width: 10px;	
-    border-left: 2px solid #333333;	
-    border-top: 2px solid #333333;	
+.dropdownArrow {
+    box-sizing: border-box;
+    height: 10px;
+    width: 10px;
+    border-left: 2px solid #333333;
+    border-top: 2px solid #333333;
     transform: rotate(225deg);
     position: relative;
     left: 5px;
@@ -65,7 +64,7 @@
 }
 
 .dropdownListItemButton:hover {
-    background-color: #009EFF;
+    background-color: #009eff;
 }
 
 .dropdownListItem {

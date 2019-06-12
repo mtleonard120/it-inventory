@@ -7,7 +7,7 @@ import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io
 import styles from './DashboardPage.module.css'
 
 // Components
-
+import {Dropdown, IDropdownItem} from '../../reusables/Dropdown/Dropdown'
 import {Card} from '../../reusables/Card/Card'
 import {Group} from '../../reusables/Group/Group'
 import {HorizontalBarChart} from '../../reusables/HorizontalBarChart/HorizontalBarChart'
@@ -69,18 +69,44 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
 
     //Department Tables State
 
-    useEffect(() => {
-        // Data Fetching
-        axios.get('/Programs/Licenses', setLicenses)
-        axios.get('/', setSoftwareTableData) //TODO: find out endpoint name
-        axios.get('/cost/dashboard', setCosts)
-        axios.get('/cost/CostPieChart', setPieData)
-    }, [setLicenses])
+    const initDeptList: {departmentName: string; departmentID: number}[] = [
+        {departmentName: 'example', departmentID: -1},
+    ]
+    const initDeptTable: {} = {}
+    const initDropdownContent: IDropdownItem[] = [
+        {name: 'init', component: <DashboardTable data={softwareTableData} onRowClick={() => {}} />},
+    ]
+    const [deptList, setDeptList] = useState(initDeptList)
+    const [deptTable, setDeptTable] = useState(initDeptTable)
+    const [dropdownContent, setDropdownContent] = useState(initDropdownContent)
 
     //Click Handling
     const softwareOnRowClick = (datum: IDashboardPageProps) => {
         //TODO: route to `/programs/${datum.name}`
     }
+
+    const deptOnRowClick = (datum: IDashboardPageProps) => {
+        //TODO: route to `/programs/${datum.name}`
+    }
+
+    const pickDepartment = () => {
+        //axios.get(`/departmentTable/${departmentID}`, setDeptTable)
+        return <DashboardTable data={softwareTableData} onRowClick={deptOnRowClick} />
+    }
+
+    useEffect(() => {
+        // Data Fetching
+        axios.get('/Programs/Licenses', setLicenses)
+        axios.get('/programs/softwareTable', setSoftwareTableData) //TODO: find out endpoint name
+        axios.get('/cost/dashboard', setCosts)
+        axios.get('/cost/CostPieChart', setPieData)
+        axios.get('/departmentTable?$select=departmentName,departmentID', setDeptList)
+        let array: IDropdownItem[] = []
+        deptList.map(i => {
+            array.push({name: i.departmentName, onClick: pickDepartment})
+        })
+        setDropdownContent(array)
+    }, [setLicenses, setSoftwareTableData, setCosts, setPieData, setDeptList])
 
     return (
         <div className={styles.dashMain}>
@@ -121,17 +147,19 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                         }
                     />
                 </div>
-                <div>Replace with Department Tables</div>
+                <Card>
+                    <Dropdown content={dropdownContent} titleClassName={styles.linkedTitle} />
+                </Card>
             </div>
 
             <div className={styles.dashColumn}>
-                <Card title={'Departments'}>
+                <Card title={'Departments'} titleClassName={styles.linkedTitle}>
                     <RechartPieChart
                         pieChartData={initPieData}
                         initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']}
                     />
                 </Card>
-                <Card title={'software'}>
+                <Card title={'software'} titleClassName={styles.linkedTitle}>
                     <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
                 </Card>
             </div>
