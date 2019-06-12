@@ -7,10 +7,10 @@ import { HorizontalBarChart } from "../reusables/HorizontalBarChart/HorizontalBa
 import { AxiosService } from "../../services/AxiosService/AxiosService";
 
 // Styles
-import styles from "./BarChartCard.module.css";
+import styles from "./LicensesCard.module.css";
 
 // Primary Component
-export const BarChartCard: React.SFC<{ className?: string }> = props => {
+export const LicensesCard: React.SFC<{ className?: string }> = props => {
   const { className } = props;
 
   const axios = new AxiosService("accessToken", "refreshToken");
