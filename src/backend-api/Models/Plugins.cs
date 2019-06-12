@@ -13,6 +13,9 @@ namespace backend_api.Models
         public decimal? PluginCostPerYear { get; set; }
         public bool IsDeleted { get; set; }
 
+  
+       
+
 
 
         //       public Program Program { get; set; }

@@ -101,11 +101,13 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.DepartmentNavigation)
-                    .WithOne(p => p.InverseDepartmentNavigation)
-                    .HasForeignKey<Department>(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Department_Department");
+                // TODO: Remove the attribute that handles the navigation.
+                // This creates an endless loop.
+                //entity.HasOne(d => d.DepartmentNavigation)
+                //    .WithOne(p => p.InverseDepartmentNavigation)
+                //    .HasForeignKey<Department>(d => d.DepartmentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Department_Department");
             });
 
             modelBuilder.Entity<Employee>(entity =>
