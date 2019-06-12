@@ -68,7 +68,7 @@ namespace backend_api.Controllers
                 if (Program.HasPlugIn == true)
                 {
                     //creating a list of plugins for that program which are not deleted
-                    var PluginsForThatProgram = PluginsList.Where(x => x.ProgramId == Program.ProgramID && x.IsDeleted == false);
+                    var PluginsForThatProgram = PluginsList.Where(x => x.ProgramId == Program.ProgramId && x.IsDeleted == false);
                     foreach (var PluginForThatProgram in PluginsForThatProgram)
                     {
                         CostOfPluginsPerYear += PluginForThatProgram.PluginCostPerYear;
@@ -151,7 +151,7 @@ namespace backend_api.Controllers
                     if (prog.IsDeleted == false)
                     {
                         // Checks to see if the program employee ID is in the department.
-                        if (employeeIDsInDepartment.Contains(prog.EmployeeID))
+                        if (employeeIDsInDepartment.Contains(prog.EmployeeId))
                         {
                             programsOfEmpsInDepartment.Add(prog);
                         }
