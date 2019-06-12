@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Legend, Cell } from "recharts";
+import React, { useState } from "react";
+import { PieChart, Pie, Cell } from "recharts";
 import { CustomLabel } from "./CustomLabel/CustomLabel";
 import styles from "./PieChart.module.css";
 
@@ -16,14 +16,14 @@ export interface IDataProps {
 }
 
 interface IRechartPieProps {
-  // pieChartData: IDataProps[]
+  pieChartData: IDataProps[];
   initialColors: string[];
 }
 
 export const RechartPieChart: React.FunctionComponent<
   IRechartPieProps
 > = props => {
-  const { initialColors } = props;
+  const { pieChartData, initialColors } = props;
 
   const [colors, setColors] = useState(initialColors);
   //colors off of invision: ['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']
@@ -43,34 +43,34 @@ export const RechartPieChart: React.FunctionComponent<
     //will go to the links to other pages
   };
 
-  //axios
-  const axios = new AxiosService("", "");
-  let x: {
-    pieChartData: IDataProps[];
-  } = {
-    pieChartData: [{ headingName: "", data: [{ name: "", value: 0, id: "" }] }]
-  };
-  const [val, setVal] = useState(x);
-  useEffect(() => {
-    axios.get("/API/cost/dashboard", setVal);
-  }, [setVal]);
-  console.log(val);
+  //axios stuff for dashboard
+  // const axios = new AxiosService("access token", "refresh token");
+  // let x: {
+  //   pieChartData: IDataProps[];
+  // } = {
+  //   pieChartData: [{ headingName: "", data: [{ name: "", value: 0, id: "" }] }]
+  // };
+  // const [val, setVal] = useState(x);
+  // useEffect(() => {
+  //   axios.get("cost/CostPieChart", setVal);
+  // }, [setVal]);
+  // console.log(val);
 
   return (
     <div>
       {/* Headers */}
       <div className={styles.inline} style={{}}>
-        {val.pieChartData.map(datum => (
+        {pieChartData.map(datum => (
           <h3 className={styles.header}>{datum.headingName}</h3>
         ))}
       </div>
 
       {/* Pie Charts */}
       <div className={styles.inline}>
-        <PieChart width={400 * val.pieChartData.length} height={300}>
-          {val.pieChartData.map((datum, i) => (
+        <PieChart width={400 * pieChartData.length} height={300}>
+          {pieChartData.map((datum, i) => (
             <Pie
-              data={val.pieChartData[0].data}
+              data={pieChartData[0].data}
               cx={200 + 400 * i}
               cy={150}
               dataKey="value"
@@ -92,14 +92,12 @@ export const RechartPieChart: React.FunctionComponent<
 
       {/* Legend */}
       <div className={styles.inline}>
-        {val.pieChartData[0].data.map((datum, index) => (
+        {pieChartData[0].data.map((datum, index) => (
           <div className={styles.legendList}>
             <div
               className={styles.circle}
               style={{ backgroundColor: colors[index] }}
-            >
-              {" "}
-            </div>
+            />
             {datum.name}
           </div>
         ))}
