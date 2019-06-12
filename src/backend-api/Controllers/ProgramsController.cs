@@ -49,7 +49,7 @@ namespace backend_api.Controllers
                 var CountProgOverall = UsefulProgramsList.Where(x => x.ProgramName == prog.ProgramName).Count();
                 //Second lamda counts all the programs in the useful program list where the name is the same as the 
                 //name in the distinct programs list and where the license is being used
-                var CountProgInUse = UsefulProgramsList.Where(x => x.ProgramName == prog.ProgramName && x.EmployeeID != null).Count();
+                var CountProgInUse = UsefulProgramsList.Where(x => x.ProgramName == prog.ProgramName && x.EmployeeId != null).Count();
                 //adding all the necessary returnables(is that a word?)
                 int difference = CountProgOverall - CountProgInUse;
                 ThrowAwayList.Add(new LicenseBarGraph(prog.ProgramName, CountProgInUse, CountProgOverall, difference));
