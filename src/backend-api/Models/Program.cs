@@ -11,18 +11,19 @@ namespace backend_api.Models
         //    ProgramHistory = new HashSet<ProgramHistory>();
         //}
 
-        public int ProgramID { get; set; }
+        public int ProgramId { get; set; }
         public string ProgramName { get; set; }
         public decimal? ProgramCostPerYear { get; set; }
         public decimal? ProgramCostPerEmployee { get; set; }
         public string ProgramLicenseKey { get; set; }
         public bool IsLicense { get; set; }
-        public int? EmployeeID { get; set; }
+        public int? EmployeeId { get; set; }
         public string Description { get; set; }
         public string ProgramPurchaseLink { get; set; }
         public bool HasPlugIn { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsCostPerYear { get; set; }
+        public DateTime? DateBought { get; set; }
 
         //public Employee Employee { get; set; }
         //public ICollection<Plugins> Plugins { get; set; }
