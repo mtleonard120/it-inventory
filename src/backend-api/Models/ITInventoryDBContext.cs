@@ -32,7 +32,7 @@ namespace backend_api.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=CQL-INTERN03;Database=ITInventoryDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=CQL-INTERN03\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;");
             }
         }
 
@@ -101,11 +101,13 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.DepartmentNavigation)
-                    .WithOne(p => p.InverseDepartmentNavigation)
-                    .HasForeignKey<Department>(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Department_Department");
+                // TODO: Remove the attribute that handles the navigation.
+                // This creates an endless loop.
+                //entity.HasOne(d => d.DepartmentNavigation)
+                //    .WithOne(p => p.InverseDepartmentNavigation)
+                //    .HasForeignKey<Department>(d => d.DepartmentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Department_Department");
             });
 
             modelBuilder.Entity<Employee>(entity =>
