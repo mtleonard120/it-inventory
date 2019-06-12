@@ -75,6 +75,7 @@ export class AxiosService {
    * }, [setVal]);
    * console.log(val);
    */
+  
   //wrapper for get requests return the promise
   public get: any = (url: string, saveData: Function) => {
     return this.instance

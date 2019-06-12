@@ -15,8 +15,21 @@ export const Login: React.FunctionComponent = props => {
       username: username,
       password: password
     })
-    .then(function (response:any) {
+    .then(function (response:any) {//successful login
       console.log(response.data)
+    })
+    .catch((error) => { //catching errors
+      if (error.response) {
+        //The request was made and the server responded with a status code
+        setFailMssg('Incorrect username or password')
+    } else if (error.request) {
+        //The request was made but no response was received
+        console.log(error.request);
+    } else {
+        //Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+    }
+    console.log(error.config);
     })
   };
 
