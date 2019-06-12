@@ -1,7 +1,7 @@
 .table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 700px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 700px;
 }
 
 /* .nameHeading{
@@ -19,18 +19,18 @@
   font-style:bold;
 } */
 
-.name{
-  text-align: left;
-  padding: 16px;
-  color: #009EFF;
+.name {
+    text-align: left;
+    padding: 16px;
+    color: #009eff;
 }
-.numberOf{
-  text-align:center;
-  padding: 16px;
+.numberOf {
+    text-align: right;
+    padding: 16px;
 }
-.cost{
-  text-align: right;
-  padding: 16px;
+.cost {
+    text-align: right;
+    padding: 16px;
 }
 /* .yearOrMonth{
   text-align: left;
@@ -38,12 +38,12 @@
   color: rgb(48, 48, 48)
 } */
 
-.tr{
-  cursor:pointer;
+.tr {
+    cursor: pointer;
 }
 .tr:nth-child(odd) {
-  background-color: rgba(99,99,99,0.08);
+    background-color: rgba(99, 99, 99, 0.08);
 }
-.tr:hover{
-    background-color: grey
+.tr:hover {
+    background-color: grey;
 }

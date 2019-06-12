@@ -17,24 +17,13 @@ export interface IDashboardTableDatum {
 }
 
 interface IDashboardTableProps {
-  //data: IDashboardTableDatum[];
+  data: IDashboardTableDatum[];
   onRowClick?: (datum: IDashboardTableDatum) => void;
-  endpoint: string;
 }
 
 export const DashboardTable = (props: IDashboardTableProps) => {
-  const { /*data,*/ onRowClick, endpoint } = props;
+  const { data, onRowClick } = props;
   const isClickable = Boolean(onRowClick);
-
-  let initData: IDashboardTableDatum[] = [];
-  const [tableData, setTableData] = useState(initData);
-
-  //TODO: get actual tokens from context
-  const axios = new AxiosService("accessToken", "refreshToken");
-  useEffect(() => {
-    //TODO: find out endpoint name
-    axios.get(endpoint, setTableData);
-  }, [setTableData]);
 
   return (
     <table className={s(styles.table, { [styles.clickable]: isClickable })}>
@@ -44,7 +33,7 @@ export const DashboardTable = (props: IDashboardTableProps) => {
                 <th className={styles.numberOfHeading}># in use</th>
                 <th className={styles.costHeading}>Cost</th>
             </tr> */}
-      {tableData.map(datum => (
+      {data.map(datum => (
         <tr
           className={s(styles.tr, { [styles.row]: isClickable })}
           onClick={
