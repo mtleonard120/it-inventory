@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {AxiosService} from '../../../services/AxiosService/AxiosService'
 
-import {CostCard} from '../Dashboard/CostCard'
 import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io'
 
 // Styles
@@ -13,6 +12,8 @@ import {Card} from '../../reusables/Card/Card'
 import {Group} from '../../reusables/Group/Group'
 import {HorizontalBarChart} from '../../reusables/HorizontalBarChart/HorizontalBarChart'
 import {DashboardTable, IDashboardTableDatum} from '../../reusables/DashboardTable/DashboardTable'
+import {RechartPieChart, IPieDataProps} from '../../reusables/PieChart/PieChart'
+import {CostCard} from '../Dashboard/CostCard'
 
 // Types
 interface IDashboardPageProps {}
@@ -34,17 +35,46 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     const [softwareTableData, setSoftwareTableData] = useState(initSoftwareTableData)
 
     //Cost Card State
-    const initCosts: {costOfProgramsPerYear: number; costOfPluginsPerYear: number} = {
+    const initCosts: {
+        costOfProgramsPerYear: number
+        costOfPluginsPerYear: number
+    } = {
         costOfProgramsPerYear: 12,
         costOfPluginsPerYear: 12,
     }
     const [costs, setCosts] = useState(initCosts)
+
+    //Pie State
+    const initPieData: IPieDataProps[] = [
+        {
+            headingName: 'Software',
+            data: [
+                {name: 'one', value: 20, id: ''},
+                {name: 'two', value: 50, id: ''},
+                {name: 'three', value: 35, id: ''},
+                {name: 'four', value: 4, id: ''},
+            ],
+        },
+        {
+            headingName: 'Hardware',
+            data: [
+                {name: 'one', value: 20, id: ''},
+                {name: 'two', value: 50, id: ''},
+                {name: 'three', value: 35, id: ''},
+                {name: 'four', value: 4, id: ''},
+            ],
+        },
+    ]
+    const [pieData, setPieData] = useState(initPieData)
+
+    //Department Tables State
 
     useEffect(() => {
         // Data Fetching
         axios.get('/Programs/Licenses', setLicenses)
         axios.get('/', setSoftwareTableData) //TODO: find out endpoint name
         axios.get('/cost/dashboard', setCosts)
+        axios.get('/cost/CostPieChart', setPieData)
     }, [setLicenses])
 
     //Click Handling
@@ -71,7 +101,10 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                 <div className={styles.dashRow}>
                     <CostCard
                         cardTitle='Yearly Cost'
-                        data={{programsCost: costs.costOfProgramsPerYear, pluginsCost: costs.costOfPluginsPerYear}}
+                        data={{
+                            programsCost: costs.costOfProgramsPerYear,
+                            pluginsCost: costs.costOfPluginsPerYear,
+                        }}
                         icon={<IoIosStats className={styles.statsIcon} />}
                     />
                     <CostCard
@@ -92,8 +125,12 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             </div>
 
             <div className={styles.dashColumn}>
-                <div>Replace with Dashboard Pies</div>
-
+                <Card title={'Departments'}>
+                    <RechartPieChart
+                        pieChartData={initPieData}
+                        initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']}
+                    />
+                </Card>
                 <Card title={'software'}>
                     <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
                 </Card>
