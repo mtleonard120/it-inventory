@@ -64,6 +64,10 @@ pipelines:
                   args:
                       credentialsId: itinventory.cqlcorp.net-itinventorydb-connstring-appuser
                       variable: ITINVENTORYDB_APPUSER_CONNSTRING
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-jwt-secret
+                      variable: JWT_SECRET
             script:
                 - export API_SFTPROOT=/www/itinventory.cqlcorp.net
 
