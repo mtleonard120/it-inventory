@@ -18,6 +18,8 @@ using System.Text;
 using backend_api.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace backend_api
 {
@@ -100,6 +102,14 @@ namespace backend_api
             {
                 routeBuilder.EnableDependencyInjection();
                 routeBuilder.Expand().Select().Count().OrderBy();
+            });
+
+            app.Run(context =>
+            {
+                // This is the fallback route allowing all unrouted urls to return index.html (for SPA functionality)
+                context.Response.ContentType = "text/html";
+
+                return context.Response.SendFileAsync(Path.Combine(env.WebRootPath, "index.html"));
             });
         }
     }
