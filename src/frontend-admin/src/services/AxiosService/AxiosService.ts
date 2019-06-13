@@ -9,8 +9,7 @@ export interface IUserInfo {
 }
 
 //TODO: get url from environment variable
-const URL = 'http://localhost:44358/'
-//process.env.REACT_APP_API_URL;
+const URL = 'https://localhost:44358/api/' //process.env.REACT_APP_API_URL
 
 export class AxiosService {
     private user: IUserInfo = {
@@ -79,14 +78,17 @@ export class AxiosService {
     //wrapper for get requests return the promise
     public get: any = (url: string, saveData: Function) => {
         return this.instance
-            .get(url, {
-                /*headers: {
+            .get(
+                url /*, {
+                headers: {
           Authorization: `Bearer ${this.user.accessToken}`
-        }*/
-            })
+        }
+            }*/
+            )
             .then(response => {
                 this.checkTokenExpired(response, url)
-                saveData(response.data)
+                //saveData(response.data)
+                return response.data
             })
             .catch(err => console.log(err))
     }

@@ -68,15 +68,21 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     const [pieData, setPieData] = useState(initPieData)
 
     //Department Tables State
-
-    let initDeptList: {departmentName: string; departmentID: number}[] = [{departmentName: 'example', departmentID: -1}]
-    let initDeptTable: IDashboardTableDatum[] = [{name: 'Init', numberOf: 5, costPerMonth: 5, projected: '*'}]
+    let initDeptList: {DepartmentName: string; DepartmentId: number}[] = []
+    let initDeptTable: IDashboardTableDatum[] = [{name: 'Item 1', numberOf: 6, costPerMonth: 4, projected: '*'}]
+    let initDeptTable2: IDashboardTableDatum[] = [
+        ...initDeptTable,
+        {name: 'Item 5', numberOf: 5, costPerMonth: 5, projected: ''},
+    ]
     let initDropdownContent: IDropdownItem[] = [
-        {name: 'init', component: <DashboardTable data={softwareTableData} onRowClick={() => {}} />},
+        {id: 1, name: 'init', onClick: () => <DashboardTable data={initDeptTable} onRowClick={() => {}} />},
+        {id: 2, name: 'init 2', onClick: () => <DashboardTable data={initDeptTable2} onRowClick={() => {}} />},
     ]
     const [deptList, setDeptList] = useState(initDeptList)
     const [deptTableData, setDeptTableData] = useState(initDeptTable)
     const [dropdownContent, setDropdownContent] = useState(initDropdownContent)
+
+    //TODO: get dropdown working once enpoint works
 
     //Click Handling
     const softwareOnRowClick = (datum: IDashboardPageProps) => {
@@ -87,28 +93,65 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         //TODO: route to `/programs/${datum.name}`
     }
 
+    //TODO: This is in an infinite loop - fix it
     const pickDepartment = (id: number) => {
-        axios.get(`/departmentTable/${id}`, setDeptTableData)
+        axios
+            .get(`/departmentTable/${id}`)
+            .then((data: any) => {
+                let x: IDashboardTableDatum[] = []
+                data.map((i: any) =>
+                    x.push({
+                        name: i.programName,
+                        numberOf: i.programCount,
+                        costPerMonth: i.programCostPerYear / 12,
+                        projected: i.programIsCostPerYear ? '' : '*',
+                    })
+                )
+                console.log(x)
+                //setDeptTableData(x)
+                console.log(data)
+                console.log(deptTableData)
+            })
+            .catch((err: any) => console.log(err))
+
         return <DashboardTable data={deptTableData} onRowClick={deptOnRowClick} />
     }
 
     const updateDropdownContent = () => {
         let array: IDropdownItem[] = []
-        deptList.map(i => {
-            array.push({name: i.departmentName, onClick: () => pickDepartment(i.departmentID)})
-        })
+        deptList.map(i =>
+            array.push({
+                id: i.DepartmentId,
+                name: i.DepartmentName,
+                onClick: pickDepartment,
+            })
+        )
+
+        console.log(array)
         setDropdownContent(array)
     }
 
     useEffect(() => {
         // Data Fetching
-        axios.get('/Programs/Licenses', setLicenses)
-        axios.get('/programs/softwareTable', setSoftwareTableData) //TODO: find out endpoint name
-        axios.get('/cost/dashboard', setCosts)
-        axios.get('/cost/CostPieChart', setPieData)
-        axios.get('/departmentTable?$select=departmentName,departmentID', setDeptList)
-        // updateDropdownContent()
-    }, [axios, setLicenses, setSoftwareTableData, setCosts, setPieData, setDeptList])
+        //axios.get('/Programs/Licenses', setLicenses)
+        //axios.get('/programs/softwareTable', setSoftwareTableData) //TODO: find out endpoint name
+        //axios.get('/cost/dashboard', setCosts)
+        //axios.get('/cost/CostPieChart', setPieData)
+
+        // axios
+        //     .get('/departmentTable?$select=departmentName,departmentID', setDeptList)
+        //     .then((data: any) => setDeptList(data))
+        //     .catch((err: any) => console.log(err))
+
+        axios
+            .get('/departmentTable?$select=departmentName,departmentID')
+            .then((data: any) => {
+                setDeptList(data)
+            })
+            .catch((err: any) => console.log(err))
+    }, [])
+
+    useEffect(updateDropdownContent, [deptList])
 
     return (
         <div className={styles.dashMain}>

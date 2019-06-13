@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 import styles from './Dropdown.module.css'
 import {DropdownList} from './DropdownList'
 import {Title} from '../../reusables/Title/Title'
+import {Card} from '../Card/Card'
 
 export interface IDropdownItem {
+    id: number
     name: string
     component?: any
     onClick?: Function
@@ -55,7 +57,9 @@ export const Dropdown: React.FC<IDropdownProps> = props => {
                     </div>
                 }
             />
-            <div className={styles.selected}>{selected.component}</div>
+            <Card className={styles.selected}>
+                {selected.component ? selected.component : selected.onClick && selected.onClick(selected.id)}
+            </Card>
         </div>
     )
 }
