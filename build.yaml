@@ -1,0 +1,80 @@
+tag: false
+maintainers: michael.leonard@cqlcorp.com
+pipelines:
+    default:
+        - step:
+            name: Clean
+            checkout: true
+            image: containers.cqlcorp.net/build/git
+            script:
+                - rm -rf artifacts artifacts.*
+                - git reset --hard
+                - git clean -fdx -e node_modules/ -e packages/ -e vendor/
+                - mkdir -p artifacts
+
+        - parallel:
+            - step:
+                name: Back-end API
+                checkout: false
+                image: microsoft/dotnet:2.2.104-sdk-stretch
+                script:
+                    - dotnet publish --self-contained false --configuration Release --runtime win-x64 --output $(pwd)/artifacts/backend-api src/backend-api/backend-api.csproj
+
+                    - rm $(pwd)/artifacts/backend-api/*.pdb $(pwd)/artifacts/backend-api/*.config
+                    - find $(pwd)/artifacts/backend-api/ ! -name '*.deps.json' ! -name '*.runtimeconfig.json' -name '*.json' -type f -exec rm {} +
+
+            - step:
+                name: Front-end Admin
+                checkout: false
+                image: node:10.13.0-jessie
+                script:
+                    - cd src/frontend-admin
+                    - npm install
+                    - npm run build
+                    - mv build ../../artifacts/frontend-admin
+                    - cd ../..
+
+        - step:
+            name: Archive Artifacts
+            checkout: false
+            image: containers.cqlcorp.net/build/git
+            artifacts: artifacts/**
+
+        - step:
+            name: Deploy to DEV (on develop branch)
+            condition:
+                branch: develop
+            checkout: false
+            image: containers.cqlcorp.net/build/git
+            credentials:
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-sftp-host
+                      variable: SFTPHOST
+                - type: usernamePassword
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-sftp-username-password
+                      usernameVariable: SFTPUSER
+                      passwordVariable: SFTPPASSWORD
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-itinventorydb-connstring-dbo
+                      variable: ITINVENTORYDB_DBO_CONNSTRING
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-itinventorydb-connstring-appuser
+                      variable: ITINVENTORYDB_APPUSER_CONNSTRING
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-jwt-secret
+                      variable: JWT_SECRET
+            script:
+                - export API_SFTPROOT=/www/itinventory.cqlcorp.net
+
+                - export API_WEBCONFIGTEMPLATE=env/DEV/itinventory.cqlcorp.net/web.config.template
+
+                - export SFTPURI="sftp://$SFTPUSER:$SFTPPASSWORD@$SFTPHOST"
+                - cp env/DEV/app_offline.htm /tmp/app_offline.htm
+
+                - ./deploy-iis.sh
+
