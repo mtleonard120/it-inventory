@@ -230,7 +230,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     return (
         <div className={styles.dashMain}>
             <div className={styles.dashColumn}>
-                <Card title={'licenses'} titleClassName={styles.linkedTitle}>
+                <Card title={'licenses'} titleClassName={styles.linkedTitle} className={styles.licensesCard}>
                     <Group>
                         {licenses &&
                             licenses.map(i => (
@@ -281,10 +281,12 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     />
                 </Card>
                 <Card title={'software'} titleClassName={styles.linkedTitle}>
-                    <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
-                    <div className={styles.softwareKey}>
-                        <div>Name* = Pinned</div>
-                        <div>Cost Per Year* = Projected</div>
+                    <div className={styles.software}>
+                        <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
+                        <div className={styles.softwareKey}>
+                            <div>Name* = Pinned</div>
+                            <div>Cost Per Year* = Projected</div>
+                        </div>
                     </div>
                 </Card>
             </div>

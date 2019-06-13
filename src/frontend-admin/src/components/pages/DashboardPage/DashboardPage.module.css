@@ -61,3 +61,11 @@
     margin-top: 0px;
     padding-top: 0px;
 }
+
+.software {
+    width: 90%;
+}
+
+.licensesCard {
+    justify-content: center;
+}
