@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import { CustomLabel } from "./CustomLabel/CustomLabel";
-import styles from "./PieChart.module.css";
+import styles from './PieChart.module.css';
 
 // Types
 export interface IRechartPieDatum {

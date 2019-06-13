@@ -79,6 +79,10 @@ export const App: React.FC = () => {
           <Route path="/dashboard" component={DashboardPage} />
         </Switch>
       </Router>
+      
+
+
+
       <footer className={styles.appFooter} />
     </div>
   );
