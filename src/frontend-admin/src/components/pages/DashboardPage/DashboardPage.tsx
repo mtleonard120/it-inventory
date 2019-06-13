@@ -25,9 +25,9 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     //Liscence Bar Chart State
     let initLicenses: {
         programName: string
-        CountProgInUse: number
-        CountProgOverall: number
-    }[] = [{programName: 'init', CountProgInUse: 5, CountProgOverall: 6}]
+        countProgInUse: number
+        countProgOverall: number
+    }[] = [{programName: 'init', countProgInUse: 5, countProgOverall: 6}]
     const [licenses, setLicenses] = useState(initLicenses)
 
     //Software Table State
@@ -93,24 +93,22 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         //TODO: route to `/programs/${datum.name}`
     }
 
-    //TODO: This is in an infinite loop - fix it
     const pickDepartment = (id: number) => {
         axios
             .get(`/departmentTable/${id}`)
             .then((data: any) => {
                 let x: IDashboardTableDatum[] = []
-                data.map((i: any) =>
-                    x.push({
-                        name: i.programName,
-                        numberOf: i.programCount,
-                        costPerMonth: i.programCostPerYear / 12,
-                        projected: i.programIsCostPerYear ? '' : '*',
-                    })
-                )
+                data &&
+                    data.map((i: any) =>
+                        x.push({
+                            name: i.programName,
+                            numberOf: i.programCount,
+                            costPerMonth: i.programCostPerYear / 12,
+                            projected: i.programIsCostPerYear ? '' : '*',
+                        })
+                    )
                 console.log(x)
-                //setDeptTableData(x)
-                console.log(data)
-                console.log(deptTableData)
+                //setDeptTableData(x) //This causes infinite loop
             })
             .catch((err: any) => console.log(err))
 
@@ -119,13 +117,14 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
 
     const updateDropdownContent = () => {
         let array: IDropdownItem[] = []
-        deptList.map(i =>
-            array.push({
-                id: i.DepartmentId,
-                name: i.DepartmentName,
-                onClick: pickDepartment,
-            })
-        )
+        deptList &&
+            deptList.map(i =>
+                array.push({
+                    id: i.DepartmentId,
+                    name: i.DepartmentName,
+                    onClick: pickDepartment,
+                })
+            )
 
         console.log(array)
         setDropdownContent(array)
@@ -133,10 +132,65 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
 
     useEffect(() => {
         // Data Fetching
-        //axios.get('/Programs/Licenses', setLicenses)
-        //axios.get('/programs/softwareTable', setSoftwareTableData) //TODO: find out endpoint name
-        //axios.get('/cost/dashboard', setCosts)
-        //axios.get('/cost/CostPieChart', setPieData)
+
+        axios
+            .get('/Programs/Licenses')
+            .then((data: any) => {
+                console.log(data)
+                setLicenses(data)
+            })
+            .catch((err: any) => console.log(err))
+
+        // axios
+        //     .get('/Programs/softwareTable')//TODO: get real endpoint
+        //     .then((data: any) => {
+        //         console.log(data)
+        //     })
+        //     .catch((err: any) => console.log(err))
+
+        // axios
+        //     .get('/Cost/CostBreakdown')
+        //     .then((data: any) => {
+        //         console.log(data)
+        //         data && setCosts(data)
+        //         console.log(costs)
+        //     })
+        //     .catch((err: any) => console.log(err))
+
+        axios
+            .get('/Cost/CostPieCharts')
+            .then((data: any) => {
+                let x: IPieDataProps[] = [
+                    {
+                        headingName: data[0].headingName,
+                        data: [],
+                    },
+                    {
+                        headingName: data[1].headingName,
+                        data: [],
+                    },
+                ]
+                data[0].data &&
+                    data[0].data.map((i: any) => {
+                        x[0].data.push({
+                            name: i.departmentName,
+                            value: i.costOfPrograms ? i.costOfPrograms : 0,
+                            id: i.departmentId,
+                        })
+                    })
+
+                data[1].data2 &&
+                    data[1].data2.map((i: any) => {
+                        x[1].data.push({
+                            name: i.departmentName,
+                            value: i.costOfPrograms ? i.costOfPrograms : 0,
+                            id: i.departmentId,
+                        })
+                    })
+                //console.log(x)
+                setPieData(x)
+            })
+            .catch((err: any) => console.log(err))
 
         // axios
         //     .get('/departmentTable?$select=departmentName,departmentID', setDeptList)
@@ -158,15 +212,16 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             <div className={styles.dashColumn}>
                 <Card title={'licenses'} titleClassName={styles.linkedTitle}>
                     <Group>
-                        {licenses.map(i => (
-                            <HorizontalBarChart
-                                key={i.programName}
-                                title={i.programName}
-                                amount={i.CountProgInUse}
-                                outOf={i.CountProgOverall}
-                                onClick={() => {}}
-                            />
-                        ))}
+                        {licenses &&
+                            licenses.map(i => (
+                                <HorizontalBarChart
+                                    key={i.programName}
+                                    title={i.programName}
+                                    amount={i.countProgInUse}
+                                    outOf={i.countProgOverall}
+                                    onClick={() => {}}
+                                />
+                            ))}
                     </Group>
                 </Card>
 
