@@ -26,9 +26,11 @@ export const CostCard = (props: ICostCardProps) => {
     return (
         <Card title={cardTitle}>
             <div>{icon}</div>
-            <h1 className={styles.title}>Total: ${programsCost + pluginsCost}</h1>
-            <h1 className={styles.title}>Programs: ${programsCost}</h1>
-            <h1 className={styles.title}>Plugins: ${pluginsCost}</h1>
+            <div className={styles.titleContainer}>
+                <div className={styles.title}>Total: ${programsCost + pluginsCost}</div>
+                <div className={styles.title}>Programs: ${programsCost}</div>
+                <div className={styles.title}>Plugins: ${pluginsCost}</div>
+            </div>
         </Card>
     )
 }

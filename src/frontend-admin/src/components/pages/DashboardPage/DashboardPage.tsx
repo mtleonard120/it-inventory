@@ -174,7 +174,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             .get('/Cost/CostBreakdown')
             .then((data: any) => {
                 console.log(data)
-                data && setCosts(data)
+                data && setCosts(data[0])
             })
             .catch((err: any) => console.log(err))
 
@@ -252,7 +252,12 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                             programsCost: costs.costOfProgramsPerYear,
                             pluginsCost: costs.costOfPluginsPerYear,
                         }}
-                        icon={<IoIosStats className={styles.statsIcon} />}
+                        icon={
+                            <span>
+                                <IoIosArrowRoundUp className={styles.upArrowIcon} />
+                                <IoIosArrowRoundDown className={styles.downArrowIcon} />
+                            </span>
+                        }
                     />
                     <CostCard
                         cardTitle='Monthly Cost'
@@ -260,12 +265,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                             programsCost: Number((costs.costOfProgramsPerYear / 12).toFixed(4)), //TODO: round the numbers 4 decimal places
                             pluginsCost: Number((costs.costOfPluginsPerYear / 12).toFixed(4)),
                         }}
-                        icon={
-                            <span>
-                                <IoIosArrowRoundUp className={styles.upArrowIcon} />
-                                <IoIosArrowRoundDown className={styles.downArrowIcon} />
-                            </span>
-                        }
+                        icon={<IoIosStats className={styles.statsIcon} />}
                     />
                 </div>
                 <Card>
@@ -274,7 +274,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             </div>
 
             <div className={styles.dashColumn}>
-                <Card title={'Departments'} titleClassName={styles.linkedTitle}>
+                <Card title={'Departments'} titleClassName={styles.linkedTitle} className={styles.pieCard}>
                     <RechartPieChart
                         pieChartData={pieData}
                         initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']}

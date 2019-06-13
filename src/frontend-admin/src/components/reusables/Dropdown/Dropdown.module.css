@@ -78,3 +78,9 @@
 .dropdownItemLabel {
     padding-left: 20px;
 }
+
+.selected {
+    margin: -20px;
+    width: 100%;
+    align-self: center;
+}

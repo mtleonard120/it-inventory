@@ -55,7 +55,7 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
     // console.log(val);
 
     return (
-        <div>
+        <div className={styles.pieContainer}>
             {/* Headers */}
             <div className={styles.inline} style={{}}>
                 {pieChartData.map(datum => (

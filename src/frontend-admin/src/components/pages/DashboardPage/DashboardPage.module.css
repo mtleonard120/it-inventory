@@ -19,7 +19,9 @@
     color: #009eff;
     cursor: pointer;
 }
-
+.linkedTitle:hover {
+    text-decoration: underline;
+}
 /* icon styling */
 .statsIcon {
     color: #ff9340;
@@ -53,4 +55,9 @@
 }
 .softwareKey div:last-child {
     margin-left: auto;
+}
+
+.pieCard {
+    margin-top: 0px;
+    padding-top: 0px;
 }
