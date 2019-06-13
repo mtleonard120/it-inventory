@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <location path="." inheritInChildApplications="false">
+        <system.webServer>
+            <handlers>
+                <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModule" resourceType="Unspecified" />
+            </handlers>
+            <aspNetCore processPath=".\_APPDIR_\backend-api.exe" stdoutLogEnabled="true" stdoutLogFile=".\logs\stdout\">
+                <environmentVariables>
+                    <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Development" />
+                    <environmentVariable name="WWWROOT" value=".\_APPDIR_\wwwroot" />
+                    <environmentVariable name="CONNSTRING_ITINVENTORY_MIGRATIONS_DBO" value="_ITINVENTORYDB_DBO_CONNSTRING_" />
+                    <environmentVariable name="SQLCONNSTR_ITInventoryDb" value="_ITINVENTORYDB_APPUSER_CONNSTRING_" />
+                </environmentVariables>
+            </aspNetCore>
+            <rewrite>
+                <rules>
+                    <rule name="Redirect to https" stopProcessing="true">
+                        <match url="(.*)" />
+                        <conditions>
+                            <add input="{HTTPS}" pattern="off" ignoreCase="true" />
+                        </conditions>
+                        <action type="Redirect" url="https://{HTTP_HOST}{REQUEST_URI}" redirectType="Permanent" appendQueryString="false" />
+                    </rule>
+                </rules>
+            </rewrite>
+        </system.webServer>
+    </location>
+</configuration>
+

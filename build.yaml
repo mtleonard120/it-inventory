@@ -39,3 +39,38 @@ pipelines:
             image: containers.cqlcorp.net/build/git
             artifacts: artifacts/**
 
+        - step:
+            name: Deploy to DEV (on develop branch)
+            condition:
+                # TODO: Change this to the develop branch when ready for prime time
+                branch: feature/build-server-init
+            checkout: false
+            image: containers.cqlcorp.net/build/git
+            credentials:
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-sftp-host
+                      variable: SFTPHOST
+                - type: usernamePassword
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-sftp-username-password
+                      usernameVariable: SFTPUSER
+                      passwordVariable: SFTPPASSWORD
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-itinventorydb-connstring-dbo
+                      variable: ITINVENTORYDB_DBO_CONNSTRING
+                - type: string
+                  args:
+                      credentialsId: itinventory.cqlcorp.net-itinventorydb-connstring-appuser
+                      variable: ITINVENTORYDB_APPUSER_CONNSTRING
+            script:
+                - export API_SFTPROOT=/www/itinventory.cqlcorp.net
+
+                - export API_WEBCONFIGTEMPLATE=env/DEV/itinventory.cqlcorp.net/web.config.template
+
+                - export SFTPURI="sftp://$SFTPUSER:$SFTPPASSWORD@$SFTPHOST"
+                - cp env/DEV/app_offline.htm /tmp/app_offline.htm
+
+                - ./deploy-iis.sh
+
