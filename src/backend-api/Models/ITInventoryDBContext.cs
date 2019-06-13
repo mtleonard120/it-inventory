@@ -31,25 +31,25 @@ namespace backend_api.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=CQL-INTERN03\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;");
+                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=CQL-INTERN04\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuthIdserver>(entity =>
-            {
-                entity.HasKey(e => e.AuthorizationSimpleId);
+            //modelBuilder.Entity<AuthIdserver>(entity =>
+            //{
+            //      entity.HasKey(e => e.AuthorizationSimpleId);
 
-                entity.ToTable("AuthIDServer");
+            //    entity.ToTable("AuthIDServer");
 
-                entity.Property(e => e.AuthorizationSimpleId).HasColumnName("AuthorizationSimpleID");
+            //    entity.Property(e => e.AuthorizationSimpleId).HasColumnName("AuthorizationSimpleID");
 
-                entity.Property(e => e.ActiveDirectoryId)
-                    .IsRequired()
-                    .HasColumnName("ActiveDirectoryID");
-            });
+            //    entity.Property(e => e.ActiveDirectoryId)
+            //        .IsRequired()
+            //        .HasColumnName("ActiveDirectoryID");
+            //});
 
             modelBuilder.Entity<Computer>(entity =>
             {
@@ -233,7 +233,7 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-               // entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+                // entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
                 //entity.HasOne(d => d.Program)
                 //    .WithMany(p => p.Plugins)
@@ -275,15 +275,15 @@ namespace backend_api.Models
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.HasOne(d => d.CurrentOwner)
-                    .WithMany(p => p.ProgramHistoryCurrentOwner)
-                    .HasForeignKey(d => d.CurrentOwnerId)
-                    .HasConstraintName("FK_ProgramHistory_Employee");
+                //entity.HasOne(d => d.CurrentOwner)
+                //    .WithMany(p => p.ProgramHistoryCurrentOwner)
+                //    .HasForeignKey(d => d.CurrentOwnerId)
+                //    .HasConstraintName("FK_ProgramHistory_Employee");
 
-                entity.HasOne(d => d.PreviousOwner)
-                    .WithMany(p => p.ProgramHistoryPreviousOwner)
-                    .HasForeignKey(d => d.PreviousOwnerId)
-                    .HasConstraintName("FK_ProgramHistory_Employee1");
+                //entity.HasOne(d => d.PreviousOwner)
+                //    .WithMany(p => p.ProgramHistoryPreviousOwner)
+                //    .HasForeignKey(d => d.PreviousOwnerId)
+                //    .HasConstraintName("FK_ProgramHistory_Employee1");
 
                 //entity.HasOne(d => d.Program)
                 //    .WithMany(p => p.ProgramHistory)
