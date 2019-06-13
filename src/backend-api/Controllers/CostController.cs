@@ -24,10 +24,10 @@ namespace backend_api.Controllers
         }
 
         /* GET: api/Cost/CostBreakDown
-         * Returns {
+         * Returns [ {
          *          Program Cost Per Year,
          *          Plugin Cost Per Year
-         *         } which is comprised of all the programs and their plugins in our database
+         *         } ] which is comprised of all the programs and their plugins in our database
          */
 
         [Route("CostBreakdown")]
