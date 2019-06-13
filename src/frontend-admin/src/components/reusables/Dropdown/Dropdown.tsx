@@ -58,7 +58,11 @@ export const Dropdown: React.FC<IDropdownProps> = props => {
                 }
             />
             <Card className={styles.selected}>
-                {selected.component ? selected.component : selected.onClick && selected.onClick(selected.id)}
+                {selected
+                    ? selected.component
+                        ? selected.component
+                        : selected.onClick && selected.onClick(selected.id)
+                    : null}
             </Card>
         </div>
     )

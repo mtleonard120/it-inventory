@@ -70,6 +70,7 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
                 <PieChart width={380 * pieChartData.length} height={300}>
                     {pieChartData.map((datum, i) => (
                         <Pie
+                            key={datum.headingName}
                             data={datum.data}
                             cx={190 + 380 * i}
                             cy={150}
