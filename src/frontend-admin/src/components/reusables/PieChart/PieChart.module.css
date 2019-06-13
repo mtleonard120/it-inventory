@@ -1,0 +1,22 @@
+.legendList{
+    padding-left: 2em;
+}
+.inline{
+    display:flex;
+    justify-content: center;
+}
+
+.circle{
+    margin-right:5px;
+    display: inline-block;
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+}
+
+.header{
+    position: relative;
+    left:160px;
+    top: 40px;
+    padding-right:320px;
+}  

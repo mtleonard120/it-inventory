@@ -1,0 +1,41 @@
+tag: false
+pipelines:
+    default:
+        - step:
+            name: Clean
+            checkout: true
+            image: containers.cqlcorp.net/build/git
+            script:
+                - rm -rf artifacts artifacts.*
+                - git reset --hard
+                - git clean -fdx -e node_modules/ -e packages/ -e vendor/
+                - mkdir -p artifacts
+
+        - parallel:
+            - step:
+                name: Back-end API
+                checkout: false
+                image: microsoft/dotnet:2.2.104-sdk-stretch
+                script:
+                    - dotnet publish --self-contained false --configuration Release --runtime win-x64 --output $(pwd)/artifacts/backend-api src/backend-api/backend-api.csproj
+
+                    - rm $(pwd)/artifacts/backend-api/*.pdb $(pwd)/artifacts/backend-api/*.config
+                    - find $(pwd)/artifacts/backend-api/ ! -name '*.deps.json' ! -name '*.runtimeconfig.json' -name '*.json' -type f -exec rm {} +
+
+            - step:
+                name: Front-end Admin
+                checkout: false
+                image: node:10.13.0-jessie
+                script:
+                    - cd src/frontend-admin
+                    - npm install
+                    - npm run build
+                    - mv build ../../artifacts/frontend-admin
+                    - cd ../..
+
+        - step:
+            name: Archive Artifacts
+            checkout: false
+            image: containers.cqlcorp.net/build/git
+            artifacts: artifacts/**
+
