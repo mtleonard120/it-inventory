@@ -42,8 +42,7 @@ pipelines:
         - step:
             name: Deploy to DEV (on develop branch)
             condition:
-                # TODO: Change this to the develop branch when ready for prime time
-                branch: feature/build-server-init
+                branch: develop
             checkout: false
             image: containers.cqlcorp.net/build/git
             credentials:
