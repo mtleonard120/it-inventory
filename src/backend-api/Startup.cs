@@ -18,6 +18,8 @@ using System.Text;
 using backend_api.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace backend_api
 {
@@ -73,10 +75,8 @@ namespace backend_api
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // TODO: Currently the server is hardcoded in. This will have to be changed to an environment var.
             // Creates a connection to the db in order to make ITInventoryDBContext available to MVC Controllers.
-            var connection = @"Server=CQL-INTERN04\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<ITInventoryDBContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ITInventoryDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ITInventoryDb")));
 
             // Allows OData for powerful querying.
             services.AddOData();
@@ -97,11 +97,22 @@ namespace backend_api
             app.UseAuthentication();
             app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             // Allows for the URL to be appending with query keywords in the API calls.
             app.UseMvc(routeBuilder =>
             {
                 routeBuilder.EnableDependencyInjection();
                 routeBuilder.Expand().Select().Count().OrderBy();
+            });
+
+            app.Run(context =>
+            {
+                // This is the fallback route allowing all unrouted urls to return index.html (for SPA functionality)
+                context.Response.ContentType = "text/html";
+
+                return context.Response.SendFileAsync(Path.Combine(env.WebRootPath, "index.html"));
             });
         }
     }
