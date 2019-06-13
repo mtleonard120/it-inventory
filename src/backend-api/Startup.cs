@@ -97,6 +97,9 @@ namespace backend_api
             app.UseAuthentication();
             app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             // Allows for the URL to be appending with query keywords in the API calls.
             app.UseMvc(routeBuilder =>
             {
