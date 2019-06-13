@@ -14,7 +14,7 @@ import {Group} from '../../reusables/Group/Group'
 import {HorizontalBarChart} from '../../reusables/HorizontalBarChart/HorizontalBarChart'
 import {DashboardTable, IDashboardTableDatum} from '../../reusables/DashboardTable/DashboardTable'
 import {RechartPieChart, IPieDataProps} from '../../reusables/PieChart/PieChart'
-import {CostCard} from '../Dashboard/CostCard'
+import {CostCard} from '../Dashboard/CostCard/CostCard'
 
 // Types
 interface IDashboardPageProps {}
