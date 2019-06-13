@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from 'axios';
+
+//useContext
+import {LoginContext} from '../../App/App';
+
+
+//styling
 import styles from "./Login.module.css";
 import logo from "../../../Content/Images/CQL-Logo-Reversed.png"
-import axios from 'axios';
 
 export const Login: React.FunctionComponent = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [failMssg, setFailMssg] = useState("");
+
+  const currentLoginContext = useContext(LoginContext)
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -17,6 +25,7 @@ export const Login: React.FunctionComponent = props => {
     })
     .then(function (response:any) {//successful login
       console.log(response.data)
+      currentLoginContext.setLoginContextVariables(response.data)
     })
     .catch((error) => { //catching errors
       if (error.response) {
