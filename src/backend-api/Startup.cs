@@ -76,7 +76,7 @@ namespace backend_api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Creates a connection to the db in order to make ITInventoryDBContext available to MVC Controllers.
-            var connection = @"Server=CQL-INTERN02\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=CQL-INTERN04\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ITInventoryDBContext>(options => options.UseSqlServer(connection));
 
             // Allows OData for powerful querying.

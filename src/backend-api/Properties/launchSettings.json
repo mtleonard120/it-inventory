@@ -15,8 +15,8 @@
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNSTRING_ITINVENTORY_MIGRATIONS_DBO": "Server=CQL-INTERN02\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0",
-        "SQLCONNSTR_ITInventoryDb": "Server=CQL-INTERN02\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0"
+        "CONNSTRING_ITINVENTORY_MIGRATIONS_DBO": "Server=CQL-INTERN04\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0",
+        "SQLCONNSTR_ITInventoryDb": "Server=CQL-INTERN04\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0"
       }
     },
     "backend_api": {
@@ -26,8 +26,8 @@
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNSTRING_ITINVENTORY_MIGRATIONS_DBO": "Server=CQL-INTERN02\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0",
-        "SQLCONNSTR_ITInventoryDb": "Server=CQL-INTERN02\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0"
+        "CONNSTRING_ITINVENTORY_MIGRATIONS_DBO": "Server=CQL-INTERN04\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0",
+        "SQLCONNSTR_ITInventoryDb": "Server=CQL-INTERN04\\SQL16;Database=ITInventoryDB;Trusted_Connection=True;ConnectRetryCount=0"
       }
     }
   }
