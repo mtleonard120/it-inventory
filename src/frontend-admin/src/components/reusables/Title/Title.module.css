@@ -1,0 +1,38 @@
+.titleContainer {
+    display: flex;
+    position: relative;
+    margin: 10px;
+    height: 27px;	
+    text-align: left;
+}
+
+.title {
+    text-transform: capitalize;
+    display: inline-block;
+    margin-left: 10px;
+    color: #000;
+    font-size: 22px;
+    line-height: 27px;	
+    text-align: left;
+}
+
+.topCorner {
+    position: relative;
+    box-sizing: border-box;	
+    height: 16px;	
+    width: 16px;	
+    border-top: 3px solid #009EFF;	
+    border-right: 3px solid #009EFF;
+    top: -2px;
+}
+
+.bottomCorner {
+    position: absolute;
+    box-sizing: border-box;	
+    height: 16px;	
+    width: 16px;	
+    border-bottom: 3px solid #009EFF;	
+    border-left: 3px solid #009EFF;	
+    bottom: -2px;	
+    left: 0px;
+}
