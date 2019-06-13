@@ -19,13 +19,14 @@ export const Login: React.FunctionComponent = props => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    axios.post('idk where yet', {
+    axios.post('https://localhost:44358/api/Login', {
       username: username,
       password: password
     })
     .then(function (response:any) {//successful login
-      console.log(response.data)
+      console.log(response.status)
       currentLoginContext.setLoginContextVariables(response.data)
+      //route to dash
     })
     .catch((error) => { //catching errors
       if (error.response) {
@@ -33,12 +34,12 @@ export const Login: React.FunctionComponent = props => {
         setFailMssg('Incorrect username or password')
     } else if (error.request) {
         //The request was made but no response was received
-        console.log(error.request);
+        // console.log(error.request);
     } else {
         //Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+        // console.log('Error', error.message);
     }
-    console.log(error.config);
+    // console.log(error.config);
     })
   };
 
