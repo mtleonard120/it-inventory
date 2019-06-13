@@ -67,12 +67,11 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
 
             {/* Pie Charts */}
             <div className={styles.inline}>
-                <PieChart width={400 * pieChartData.length} height={300}>
+                <PieChart width={380 * pieChartData.length} height={300}>
                     {pieChartData.map((datum, i) => (
                         <Pie
-                            key={i}
-                            data={pieChartData[0].data}
-                            cx={200 + 400 * i}
+                            data={datum.data}
+                            cx={190 + 380 * i}
                             cy={150}
                             dataKey='value'
                             fill='#8884d8'

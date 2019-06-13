@@ -12,9 +12,9 @@ namespace backend_api.Models
             HardwareHistoryPreviousOwner = new HashSet<HardwareHistory>();
             Monitor = new HashSet<Monitor>();
             Peripheral = new HashSet<Peripheral>();
-            Program = new HashSet<Program>();
-            ProgramHistoryCurrentOwner = new HashSet<ProgramHistory>();
-            ProgramHistoryPreviousOwner = new HashSet<ProgramHistory>();
+            //Program = new HashSet<Program>();
+            //ProgramHistoryCurrentOwner = new HashSet<ProgramHistory>();
+            //ProgramHistoryPreviousOwner = new HashSet<ProgramHistory>();
             Server = new HashSet<Server>();
         }
 
@@ -35,9 +35,12 @@ namespace backend_api.Models
         public ICollection<HardwareHistory> HardwareHistoryPreviousOwner { get; set; }
         public ICollection<Monitor> Monitor { get; set; }
         public ICollection<Peripheral> Peripheral { get; set; }
-        public ICollection<Program> Program { get; set; }
-        public ICollection<ProgramHistory> ProgramHistoryCurrentOwner { get; set; }
-        public ICollection<ProgramHistory> ProgramHistoryPreviousOwner { get; set; }
+
+        // TODO: This might need to be commented out becaues the context won't load.
+        // An error could occur if the foreign key (EmployeeID) is null in the program history.
+        //public ICollection<Program> Program { get; set; }
+        //public ICollection<ProgramHistory> ProgramHistoryCurrentOwner { get; set; }
+        //public ICollection<ProgramHistory> ProgramHistoryPreviousOwner { get; set; }
         public ICollection<Server> Server { get; set; }
     }
 }
