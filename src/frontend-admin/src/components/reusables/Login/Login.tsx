@@ -39,7 +39,9 @@ export const Login: React.FunctionComponent = props => {
         //Something happened in setting up the request that triggered an Error
         // console.log('Error', error.message);
     }
-    // console.log(error.config);
+      //route here just for the demo since we can't get any 
+      //credentials to return an ok response
+      history.push('/dashboard')
     })
   };
 
