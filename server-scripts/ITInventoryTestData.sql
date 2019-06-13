@@ -22,8 +22,8 @@ SET IDENTITY_INSERT [dbo].[AuthIDServer] OFF
 SET IDENTITY_INSERT [dbo].[Department] ON 
 INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (8, N'Mouse, Keyboard, Monitor', N'Office, Jira, Admintools', N'IT', 0)
 INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (13, N'Mouse, Keyboard, Monitor', N'Office, Jira, Confluence, Visual Studio', N'Developer', 0)
-INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (14, N'Mouse, Keyboard , Monitor', N'Office, Jira, Confluence, Sketch', N'Design', 0)
-INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (15, N'Mouse, Keyboard, ', N'Office, Jira, Confluence, Calendar', N'Project Manager', 0)
+INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (14, N'Mouse, Keyboard, Monitor', N'Office, Jira, Confluence, Sketch', N'Design', 0)
+INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (15, N'Mouse, Keyboard', N'Office, Jira, Confluence, Calendar', N'Project Manager', 0)
 INSERT INTO [dbo].[Department] ([DepartmentID], [DefaultHardware], [DefaultPrograms], [DepartmentName], [IsDeleted]) VALUES (16, N'CQL', N'CQL', N'Utilities', 0)
 SET IDENTITY_INSERT [dbo].[Department] OFF
 
@@ -37,7 +37,8 @@ INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDelet
 INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDeleted], [UserSettings], [FirstName], [LastName], [Email], [Role], [ADGUID]) VALUES (6, CAST(N'2012-12-14' AS Date), 14, 0, NULL, N'Jill', N'Doe', N'email.com', N'Designer', N'6')
 INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDeleted], [UserSettings], [FirstName], [LastName], [Email], [Role], [ADGUID]) VALUES (8, CAST(N'2014-12-12' AS Date), 15, 0, NULL, N'Wayne', N'Rooney', N'email.com', N'Project Manager', N'7')
 INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDeleted], [UserSettings], [FirstName], [LastName], [Email], [Role], [ADGUID]) VALUES (9, CAST(N'2006-12-13' AS Date), 15, 0, NULL, N'Jemima', N'Puddleduck', N'email.com', N'Project Manager', N'8')
-INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDeleted], [UserSettings], [FirstName], [LastName], [Email], [Role], [ADGUID]) VALUES (10, CAST(N'2019-05-05' AS Date), 8, 0, NULL, N'CQL', N'CQL', N'CQL', N'CQL', N'CQL')
+INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDeleted], [UserSettings], [FirstName], [LastName], [Email], [Role], [ADGUID]) VALUES (10, CAST(N'2019-05-05' AS Date), 16, 0, NULL, N'CQL', N'CQL', N'CQL', N'CQL', N'CQL')
+INSERT INTO [dbo].[Employee] ([EmployeeID], [HireDate], [DepartmentID], [IsDeleted], [UserSettings], [FirstName], [LastName], [Email], [Role], [ADGUID]) VALUES (11, CAST(N'2019-06-07' AS Date), 14, 0, NULL, N'Charlie', N'Kornhole', N'charlie.kornhole@cqlcorp.com', N'Designer', N'10')
 SET IDENTITY_INSERT [dbo].[Employee] OFF
 
 -- Insert Computer values.
