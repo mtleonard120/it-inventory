@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 // Styles
-import styles from './ExamplePage.module.css';
+import styles from './ExamplePage.module.css'
 
 // Types
 interface IExamplePageProps {
@@ -10,12 +10,7 @@ interface IExamplePageProps {
 
 // Primary Component
 export const ExamplePage: React.FC<IExamplePageProps> = props => {
-
     const {exampleProp} = props
 
-    return (
-        <div className={styles.example}>I'm an example: {exampleProp}</div>
-    );
-};
-
-
+    return <div className={styles.example}>I'm an example: {exampleProp}</div>
+}

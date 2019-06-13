@@ -1,1 +1,2 @@
-export * from "./ExamplePage";
+export * from './Dashboard'
+export * from './ExamplePage'
