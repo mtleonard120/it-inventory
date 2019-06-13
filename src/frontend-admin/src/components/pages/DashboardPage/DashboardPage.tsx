@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {AxiosService} from '../../../services/AxiosService/AxiosService'
 
 import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io'
+//import {TiPin} from 'react-icons/ti'
 
 // Styles
 import styles from './DashboardPage.module.css'
@@ -39,8 +40,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         costOfProgramsPerYear: number
         costOfPluginsPerYear: number
     } = {
-        costOfProgramsPerYear: 12,
-        costOfPluginsPerYear: 12,
+        costOfProgramsPerYear: 0,
+        costOfPluginsPerYear: 0,
     }
     const [costs, setCosts] = useState(initCosts)
 
@@ -69,15 +70,22 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
 
     //Department Tables State
     let initDeptList: {DepartmentName: string; DepartmentId: number}[] = []
-    let initDeptTable: IDashboardTableDatum[] = [{name: 'Item 1', numberOf: 6, costPerMonth: 4, projected: '*'}]
-    let initDeptTable2: IDashboardTableDatum[] = [
-        ...initDeptTable,
-        {name: 'Item 5', numberOf: 5, costPerMonth: 5, projected: ''},
+    let initDeptTable: {id: number; name: string; tableData: IDashboardTableDatum[]}[] = [
+        {
+            id: -1,
+            name: 'Select a Department',
+            tableData: [],
+        },
     ]
+
     let initDropdownContent: IDropdownItem[] = [
-        {id: 1, name: 'init', onClick: () => <DashboardTable data={initDeptTable} onRowClick={() => {}} />},
-        {id: 2, name: 'init 2', onClick: () => <DashboardTable data={initDeptTable2} onRowClick={() => {}} />},
+        {
+            id: initDeptTable[0].id,
+            name: initDeptTable[0].name,
+            component: <DashboardTable data={initDeptTable[0].tableData} onRowClick={() => {}} />,
+        },
     ]
+
     const [deptList, setDeptList] = useState(initDeptList)
     const [deptTableData, setDeptTableData] = useState(initDeptTable)
     const [dropdownContent, setDropdownContent] = useState(initDropdownContent)
@@ -93,69 +101,82 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         //TODO: route to `/programs/${datum.name}`
     }
 
-    const pickDepartment = (id: number) => {
-        axios
-            .get(`/departmentTable/${id}`)
-            .then((data: any) => {
-                let x: IDashboardTableDatum[] = []
-                data &&
-                    data.map((i: any) =>
-                        x.push({
-                            name: i.programName,
-                            numberOf: i.programCount,
-                            costPerMonth: i.programCostPerYear / 12,
-                            projected: i.programIsCostPerYear ? '' : '*',
-                        })
-                    )
-                console.log(x)
-                //setDeptTableData(x) //This causes infinite loop
-            })
-            .catch((err: any) => console.log(err))
-
-        return <DashboardTable data={deptTableData} onRowClick={deptOnRowClick} />
+    const getDeptTables = () => {
+        let deptTables: {id: number; name: string; tableData: IDashboardTableDatum[]}[] = []
+        deptList &&
+            deptList.map(i =>
+                axios
+                    .get(`/departmentTable/${i.DepartmentId}`)
+                    .then((data: any) => {
+                        let y: IDashboardTableDatum[] = []
+                        //console.log(data)
+                        data &&
+                            data.map((cur: any) =>
+                                y.push({
+                                    name: cur.programName,
+                                    numberOf: cur.programCount,
+                                    costPerMonth: Number((cur.programCostPerYear / 12).toFixed(4)),
+                                    projected: cur.programIsCostPerYear ? '' : '*',
+                                })
+                            )
+                        deptTables.push({id: i.DepartmentId, name: i.DepartmentName, tableData: y})
+                    })
+                    .catch((err: any) => console.log(err))
+            )
+        //console.log(deptTables)
+        setDeptTableData(deptTables)
     }
 
     const updateDropdownContent = () => {
-        let array: IDropdownItem[] = []
-        deptList &&
-            deptList.map(i =>
-                array.push({
-                    id: i.DepartmentId,
-                    name: i.DepartmentName,
-                    onClick: pickDepartment,
-                })
-            )
+        let x: IDropdownItem[] = []
 
-        console.log(array)
-        setDropdownContent(array)
+        deptTableData.map((i: any) =>
+            x.push({
+                id: i.id,
+                name: i.name,
+                component: <DashboardTable data={i.tableData} onRowClick={deptOnRowClick} />,
+            })
+        )
+
+        //console.log(x)
+        setDropdownContent(x)
     }
 
     useEffect(() => {
         // Data Fetching
-
         axios
             .get('/Programs/Licenses')
             .then((data: any) => {
-                console.log(data)
                 setLicenses(data)
             })
             .catch((err: any) => console.log(err))
 
-        // axios
-        //     .get('/Programs/softwareTable')//TODO: get real endpoint
-        //     .then((data: any) => {
-        //         console.log(data)
-        //     })
-        //     .catch((err: any) => console.log(err))
+        axios
+            .get('/Programs/softwareTable')
+            .then((data: any) => {
+                //console.log(data)
 
-        // axios
-        //     .get('/Cost/CostBreakdown')
-        //     .then((data: any) => {
-        //         console.log(data)
-        //         data && setCosts(data)
-        //         console.log(costs)
-        //     })
-        //     .catch((err: any) => console.log(err))
+                let x: IDashboardTableDatum[] = []
+                data &&
+                    data.map((i: any) =>
+                        x.push({
+                            name: i.isPinned ? i.softwareName + '*' : i.softwareName + '',
+                            numberOf: i.numberOfUsers,
+                            costPerMonth: i.costPerMonth,
+                            projected: i.isProjected ? '*' : '',
+                        })
+                    )
+                setSoftwareTableData(x)
+            })
+            .catch((err: any) => console.log(err))
+
+        axios
+            .get('/Cost/CostBreakdown')
+            .then((data: any) => {
+                console.log(data)
+                data && setCosts(data)
+            })
+            .catch((err: any) => console.log(err))
 
         axios
             .get('/Cost/CostPieCharts')
@@ -171,41 +192,40 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     },
                 ]
                 data[0].data &&
-                    data[0].data.map((i: any) => {
+                    data[0].data.map((i: any) =>
                         x[0].data.push({
                             name: i.departmentName,
-                            value: i.costOfPrograms ? i.costOfPrograms : 0,
+                            value: i.costOfPrograms !== null ? i.costOfPrograms : 0,
                             id: i.departmentId,
                         })
-                    })
+                    )
 
                 data[1].data2 &&
-                    data[1].data2.map((i: any) => {
+                    data[1].data2.map((i: any) =>
                         x[1].data.push({
                             name: i.departmentName,
-                            value: i.costOfPrograms ? i.costOfPrograms : 0,
+                            value: i.costOfHardware !== null ? i.costOfHardware : 0,
                             id: i.departmentId,
                         })
-                    })
-                //console.log(x)
+                    )
+                //console.log(data)
                 setPieData(x)
             })
             .catch((err: any) => console.log(err))
 
-        // axios
-        //     .get('/departmentTable?$select=departmentName,departmentID', setDeptList)
-        //     .then((data: any) => setDeptList(data))
-        //     .catch((err: any) => console.log(err))
-
         axios
             .get('/departmentTable?$select=departmentName,departmentID')
-            .then((data: any) => {
-                setDeptList(data)
-            })
+            .then((data: any) => setDeptList(data))
             .catch((err: any) => console.log(err))
     }, [])
 
-    useEffect(updateDropdownContent, [deptList])
+    useEffect(getDeptTables, [deptList])
+    //console.log(deptTableData)
+    // let initDropdownContent: IDropdownItem[] = deptTableData[0] && [
+    //     {name: deptTableData[0].name, id: deptTableData[0].id},
+    // ]
+    // const [dropdownContent, setDropdownContent] = useState(initDropdownContent)
+    useEffect(updateDropdownContent, [deptTableData, dropdownContent])
 
     return (
         <div className={styles.dashMain}>
@@ -237,8 +257,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     <CostCard
                         cardTitle='Monthly Cost'
                         data={{
-                            programsCost: costs.costOfProgramsPerYear / 12,
-                            pluginsCost: costs.costOfPluginsPerYear / 12,
+                            programsCost: Number((costs.costOfProgramsPerYear / 12).toFixed(4)), //TODO: round the numbers 4 decimal places
+                            pluginsCost: Number((costs.costOfPluginsPerYear / 12).toFixed(4)),
                         }}
                         icon={
                             <span>
@@ -262,6 +282,10 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                 </Card>
                 <Card title={'software'} titleClassName={styles.linkedTitle}>
                     <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
+                    <div className={styles.softwareKey}>
+                        <div>Name* = Pinned</div>
+                        <div>Cost Per Year* = Projected</div>
+                    </div>
                 </Card>
             </div>
         </div>

@@ -44,3 +44,13 @@
     margin-top: 40px;
     margin-left: 20px;
 }
+
+.softwareKey {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    color: #999;
+}
+.softwareKey div:last-child {
+    margin-left: auto;
+}
