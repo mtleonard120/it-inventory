@@ -46,12 +46,13 @@ namespace backend_api
                 options.AutomaticAuthentication = true;
             });
 
-
+            //adding jwt authentication to the project
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+            //adding the necessary setup for the jwt bearer 
            .AddJwtBearer(x =>
            {
                x.RequireHttpsMetadata = false;
@@ -61,6 +62,7 @@ namespace backend_api
                    ValidateIssuerSigningKey = true,
                    IssuerSigningKey = new SymmetricSecurityKey(key),
                    ValidateIssuer = false,
+                   //This makes sure that you can't use access tokens as refresh tokens and vice versa
                    ValidateAudience = true,
                    ValidAudiences = new List<string>
                     {

@@ -39,11 +39,11 @@ namespace EFGetStarted.AspNetCore.ExistingDb.Controllers
 
         /* Post: api/Login
         * Returns {
-        *          Refresh Token,
-        *          Access Token,
-        *          ValidTo(expire date)
-        *          FirstName,
-        *          IsAdmin
+        *          String: Refresh Token,
+        *          String: Access Token,
+        *          DateTime: ValidTo(expire date)
+        *          String: FirstName,
+        *          Boolean: IsAdmin
         *         }
         */
 
@@ -52,7 +52,7 @@ namespace EFGetStarted.AspNetCore.ExistingDb.Controllers
 
         public IActionResult Login([FromBody] AuthRequest request)
         {
-            // Creating a context that allows us to connect to out Domain Controller
+            // Creating a context that allows us to connect to our Domain Controller
             using (var adContext = new PrincipalContext(ContextType.Domain, "CQLCORP"))
             {
                 // Validating the credentials given with our Active Directory
@@ -82,7 +82,7 @@ namespace EFGetStarted.AspNetCore.ExistingDb.Controllers
 
                     // create a JWT. Here we chose our Audience which determines the uses of our token.
                     // This token has refresh as its only Audience so that it can't be used as an access token
-                    // Seeing as this token is our refresh token then it is valid for 1000 minutes0(subject to change)
+                    // Seeing as this token is our refresh token then it is valid for 1000 minutes(subject to change)
                     var refreshToken = new JwtSecurityToken(
                         issuer: "CQLCORP",
                         audience: "Refresh",
@@ -146,8 +146,8 @@ namespace EFGetStarted.AspNetCore.ExistingDb.Controllers
 
         /* Get: api/Login/AccessToken
         * Returns {
-        *          Access Token,
-        *          ValidTo(expire date)
+        *          String: Access Token,
+        *          DateTime: ValidTo(expire date)
         *         }
         */
 
