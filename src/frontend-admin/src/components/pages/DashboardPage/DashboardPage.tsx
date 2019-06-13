@@ -134,7 +134,14 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             x.push({
                 id: i.id,
                 name: i.name,
-                component: <DashboardTable data={i.tableData} onRowClick={deptOnRowClick} />,
+                component: (
+                    <div className={styles.software}>
+                        <DashboardTable data={i.tableData} onRowClick={deptOnRowClick} />
+                        <div className={styles.softwareKey}>
+                            <div>Cost Per Year* = Projected</div>
+                        </div>
+                    </div>
+                ),
             })
         )
 
@@ -230,7 +237,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     return (
         <div className={styles.dashMain}>
             <div className={styles.dashColumn}>
-                <Card title={'licenses'} titleClassName={styles.linkedTitle} className={styles.licensesCard}>
+                <Card title={'licenses'} titleClassName={styles.linkedTitle}>
                     <Group>
                         {licenses &&
                             licenses.map(i => (
@@ -277,7 +284,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                 <Card title={'Departments'} titleClassName={styles.linkedTitle} className={styles.pieCard}>
                     <RechartPieChart
                         pieChartData={pieData}
-                        initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']}
+                        initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14', '#255200', '#888']}
                     />
                 </Card>
                 <Card title={'software'} titleClassName={styles.linkedTitle}>

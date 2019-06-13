@@ -47,7 +47,7 @@ export const DashboardTable = (props: IDashboardTableProps) => {
                         <td className={styles.name}>{datum.name}</td>
                         <td className={styles.numberOf}>{datum.numberOf} users</td>
                         <td className={styles.cost}>
-                            ${datum.costPerMonth}/month | ${datum.costPerMonth * 12}/year
+                            ${datum.costPerMonth}/month | ${Number((datum.costPerMonth * 12).toFixed(4))}/year
                             {datum.projected}
                         </td>
                     </tr>
