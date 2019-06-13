@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Group.module.css'
-import cx from 'classnames' //allows use of more than 1 classname
+import {concatStyles} from '../../../utilities/mikesConcat' //allows use of more than 1 classname
 
 //Types
 type JustifyType = 'start' | 'end' | 'between' | 'around' | 'even'
@@ -17,5 +17,5 @@ interface IGroupProps {
 // have to pass at least 2 children to use
 export const Group: React.FC<IGroupProps> = props => {
     const {children, direction = 'row', justify = 'start', className} = props
-    return <div className={cx(styles[justify], styles[direction], styles.group, className)}>{children}</div>
+    return <div className={concatStyles(styles[justify], styles[direction], styles.group, className)}>{children}</div>
 }
