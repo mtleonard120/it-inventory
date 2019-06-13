@@ -1,7 +1,6 @@
 import React from 'react';
 
 // Styles
-import styles from './App.module.css';
 import { RechartPieChart } from '../reusables/PieChart/PieChart';
 
 // Primary Component
@@ -9,23 +8,23 @@ export const App: React.FC = () => {
   return (
     <div>
         <RechartPieChart 
-          pieChartsData={[
+          pieChartData={[
             {
               headingName:"Software",
               data:[
-                {name:'one', value:20, id:''},
-                {name:'two', value:50, id:''},
-                {name:'three', value:35, id:''},
-                {name:'four', value:4, id:''}
+                {name:'Developers', value:100, id:''},
+                {name:'Designers', value:250, id:''},
+                {name:'PMs', value:300, id:''},
+                {name:'Sales Reps', value:160, id:''}
               ]
             },
             {
               headingName:"Hardware",
               data:[
-                {name:'one', value:20, id:''},
-                {name:'two', value:50, id:''},
-                {name:'three', value:35, id:''},
-                {name:'four', value:4, id:''}
+                {name:'Developers', value:1500, id:''},
+                {name:'Designers', value:2600, id:''},
+                {name:'PMs', value:1800, id:''},
+                {name:'Sales Reps', value:5000, id:''}
               ]
             }
           ]}

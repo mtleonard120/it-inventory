@@ -38,7 +38,7 @@ interface ICustomLabelProps {
 
         return (
         <text x={x} y={y} fontSize='18' fill={textColor} fontWeight='bold' textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
-            $5000
+            ${data[index].value}
         </text>
         );
     };
