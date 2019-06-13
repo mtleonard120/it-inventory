@@ -8,6 +8,10 @@ import {
 
 // Components
 import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
+import { DepartmentsListPage } from "../pages/DepartmentsListPage/DepartmentsListPage";
+import { EmployeesListPage } from "../pages/EmployeesListPage/EmployeesListPage";
+import { HardwareListPage } from "../pages/HardwareListPage/HardwareListPage";
+import { ProgramsListPage } from "../pages/ProgramsListPage/ProgramsListPage";
 
 // Styles
 import styles from "./App.module.css";
@@ -77,6 +81,10 @@ export const App: React.FC = () => {
         <Switch>
           {/* <Route />'s go here */}
           <Route path="/dashboard" component={DashboardPage} />
+          <Route path="/employees" component={EmployeesListPage} />
+          <Route path="/programs" component={ProgramsListPage} />
+          <Route path="/hardware" component={HardwareListPage} />
+          <Route path="/departments" component={DepartmentsListPage} />
         </Switch>
       </Router>
       <footer className={styles.appFooter} />
