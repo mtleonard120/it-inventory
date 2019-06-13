@@ -24,10 +24,10 @@ namespace backend_api.Controllers
         }
 
         /* GET: api/Cost/CostBreakDown
-         * Returns {
+         * Returns [ {
          *          Program Cost Per Year,
          *          Plugin Cost Per Year
-         *         } which is comprised of all the programs and their plugins in our database
+         *         } ] which is comprised of all the programs and their plugins in our database
          */
 
         [Route("CostBreakdown")]
@@ -77,7 +77,11 @@ namespace backend_api.Controllers
                 }
             }
             var CostBreakDownObject = new { CostOfProgramsPerYear, CostOfPluginsPerYear };
-            return Ok(CostBreakDownObject);
+            // Return the object as an array so the axios service class will be happy.
+            List<object> returnList = new List<object>();
+            returnList.Add(CostBreakDownObject);
+
+            return Ok(returnList);
         }
 
         /* GET: api/Cost/CostPieCharts
