@@ -2,24 +2,24 @@
     display: flex;
     flex-direction: column;
     /* background-color: rgb(40, 43, 43); */
-    background-image: url("../../../Content/Images/Login-pic.jpg");
+    background-image: url('../../../content/Images/Login-pic.jpg');
     background-size: 100% 100%;
     width: 100vw;
     height: 100vh;
-  }
-  
-  .logo {
+}
+
+.logo {
     transform: scale(0.25, 0.25);
     position: relative;
     top: 100px;
-  }
-  
-  .center {
+}
+
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .inputboxUsername {
+}
+.inputboxUsername {
     width: 250px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -29,9 +29,9 @@
     font-size: 20px;
     position: relative;
     bottom: 12px;
-  }
-  
-  .inputboxPassword {
+}
+
+.inputboxPassword {
     width: 250px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -41,9 +41,9 @@
     font-size: 20px;
     position: relative;
     bottom: 6px;
-  }
-  
-  .submit {
+}
+
+.submit {
     width: 250px;
     background-color: #009eff;
     color: white;
@@ -53,9 +53,9 @@
     border-radius: 6px;
     cursor: pointer;
     font-size: 20px;
-  }
-  
-  .failMssg {
+}
+
+.failMssg {
     color: red;
     font-size: 14px;
-  }
+}
