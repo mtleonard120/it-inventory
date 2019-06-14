@@ -1,0 +1,61 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgb(40, 43, 43); */
+    background-image: url("../../../Content/Images/Login-pic.jpg");
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .logo {
+    transform: scale(0.25, 0.25);
+    position: relative;
+    top: 100px;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .inputboxUsername {
+    width: 250px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 20px;
+    position: relative;
+    bottom: 12px;
+  }
+  
+  .inputboxPassword {
+    width: 250px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 20px;
+    position: relative;
+    bottom: 6px;
+  }
+  
+  .submit {
+    width: 250px;
+    background-color: #009eff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .failMssg {
+    color: red;
+    font-size: 14px;
+  }
