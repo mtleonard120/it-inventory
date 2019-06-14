@@ -1,22 +1,26 @@
-.legendList{
+.legendList {
     padding-left: 2em;
 }
-.inline{
-    display:flex;
+.inline {
+    display: flex;
     justify-content: center;
 }
 
-.circle{
-    margin-right:5px;
+.circle {
+    margin-right: 5px;
     display: inline-block;
-    width:20px;
-    height:20px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
 }
 
-.header{
+.header {
     position: relative;
-    left:160px;
+    left: 160px;
     top: 40px;
-    padding-right:320px;
-}  
+    padding-right: 320px;
+}
+
+.pieContainer {
+    margin-top: -60px;
+}

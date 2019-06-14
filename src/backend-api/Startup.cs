@@ -77,7 +77,6 @@ namespace backend_api
 
             // Creates a connection to the db in order to make ITInventoryDBContext available to MVC Controllers.
             services.AddDbContext<ITInventoryDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ITInventoryDb")));
-
             // Allows OData for powerful querying.
             services.AddOData();
         }
