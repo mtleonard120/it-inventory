@@ -126,14 +126,25 @@ namespace EFGetStarted.AspNetCore.ExistingDb.Controllers
                     }
 
                     // returning the need information about the employee logged in with their tokens
-                    return Ok(new
+                    List<object> returnList = new List<object>();
+                    var returnInformation = new
                     {
                         Refreshtoken,
                         Accesstoken,
                         accessToken.ValidTo,
                         user.GivenName,
                         isAdmin
-                    });
+                    };
+                    returnList.Add(returnInformation);
+                    // return Ok(new
+                    // {
+                    //     Refreshtoken,
+                    //     Accesstoken,
+                    //     accessToken.ValidTo,
+                    //     user.GivenName,
+                    //     isAdmin
+                    // });
+                    return Ok(returnList);
                 }
 
             }

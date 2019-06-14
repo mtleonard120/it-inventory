@@ -3,11 +3,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-left: 10px;
 }
 
 .barMain {
     height: 25px;
-    width: 85%;
+    width: 90%;
     border-radius: 50px;
     margin: 5px;
     margin-right: 0px;
@@ -18,7 +19,7 @@
 }
 
 .barFiller {
-    background: #CC4A14;
+    background: #cc4a14;
     height: 100%;
     border-radius: inherit;
     text-align: right;
@@ -38,10 +39,10 @@
 
 .fraction {
     line-height: 20px;
-    width: 59px;	
-    color: #333;	
+    width: 59px;
+    color: #333;
     /*TODO: remove comment when we have font*/
-    /*font-family: "SF Pro Text";*/	
-    font-size: 16px;	
+    /*font-family: "SF Pro Text";*/
+    font-size: 16px;
     font-weight: bold;
 }
