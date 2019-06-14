@@ -1,9 +1,9 @@
-body{
+body {
+    margin: 0;
     font-family: cqlRegularFont;
-    margin:0;
 }
 
 @font-face {
-  font-family: cqlRegularFont;
-  src: url("./Content/Fonts/CQL-Regular.otf");
+    font-family: cqlRegularFont;
+    src: url('./content/Fonts/CQL-Regular.otf');
 }
