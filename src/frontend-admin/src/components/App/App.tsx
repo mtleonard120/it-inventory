@@ -8,6 +8,7 @@ import {EmployeesListPage} from '../pages/EmployeesListPage/EmployeesListPage'
 import {HardwareListPage} from '../pages/HardwareListPage/HardwareListPage'
 import {ProgramsListPage} from '../pages/ProgramsListPage/ProgramsListPage'
 import {Login} from '../reusables/Login/Login'
+import {HelloUser} from '../HelloUser/HelloUser'
 
 // Styles
 import styles from './App.module.css'
@@ -61,6 +62,7 @@ export const App: React.FC = () => {
                     {loginContextVariables.givenName !== '' && (
                         <div className={styles.navContainer}>
                             <Redirect to='/dashboard' />
+                            <HelloUser name={loginContextVariables.givenName} className={styles.helloMesssage} />
                             <nav className={styles.navBar}>
                                 <h1>CQL</h1>
                                 <div className={styles.navEllipse} />
