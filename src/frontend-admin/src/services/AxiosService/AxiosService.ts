@@ -8,8 +8,7 @@ export interface IUserInfo {
     isAdmin: boolean
 }
 
-//TODO: get url from environment variable
-const URL = 'https://localhost:44358/api/' //process.env.REACT_APP_API_URL
+const URL = process.env.REACT_APP_API_URL
 
 export class AxiosService {
     private user: IUserInfo = {
