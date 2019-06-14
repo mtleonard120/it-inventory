@@ -25,6 +25,7 @@ export const Login: React.FunctionComponent = props => {
     })
     .then(function (response:any) {//successful login
       console.log(response.status)
+      console.log('woohoo')
       currentLoginContext.setLoginContextVariables(response.data)
       //route to dash
     })
@@ -34,14 +35,16 @@ export const Login: React.FunctionComponent = props => {
         setFailMssg('Incorrect username or password')
     } else if (error.request) {
         //The request was made but no response was received
-        // console.log(error.request);
+        console.log('Request was made but no response was received');
+        console.log(error.resposnse)
     } else {
         //Something happened in setting up the request that triggered an Error
-        // console.log('Error', error.message);
+        console.log('Something happened in setting up the request that triggered an Error')
+        console.log('Error', error.message);
     }
       //route here just for the demo since we can't get any 
       //credentials to return an ok response
-      history.push('/dashboard')
+      // history.push('/dashboard')
     })
   };
 
