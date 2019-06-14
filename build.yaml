@@ -29,6 +29,7 @@ pipelines:
                 image: node:10.13.0-jessie
                 script:
                     - cd src/frontend-admin
+                    - cp -f deploy/build-agent-template.env .env
                     - npm install
                     - npm run build
                     - mv build ../../artifacts/frontend-admin
