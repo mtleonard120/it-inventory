@@ -20,7 +20,8 @@ export const Login: React.FunctionComponent = props => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    axios.post('https://localhost:44358/api/Login', {
+    //process.env.REACT_APP_API_URL + '/login'
+    axios.post('https://itinventory.cqlcorp.net/api/Login', {
       username: username,
       password: password
     })
