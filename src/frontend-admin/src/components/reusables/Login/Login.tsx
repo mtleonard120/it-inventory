@@ -3,6 +3,7 @@ import axios from 'axios';
 
 //useContext
 import {LoginContext} from '../../App/App';
+import {Redirect} from 'react-router-dom'
 
 
 //styling
@@ -25,9 +26,9 @@ export const Login: React.FunctionComponent = props => {
     })
     .then(function (response:any) {//successful login
       console.log(response.status)
-      console.log('woohoo')
       currentLoginContext.setLoginContextVariables(response.data)
       //route to dash
+      return (<Redirect to='/dashboard'/>)
     })
     .catch((error) => { //catching errors
       if (error.response) {
