@@ -13,7 +13,7 @@ export interface IDropdownItem {
 
 interface IDropdownProps {
     content: IDropdownItem[]
-    titleClassName: string
+    titleClassName?: string
 }
 
 export const Dropdown: React.FC<IDropdownProps> = props => {
