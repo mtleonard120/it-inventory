@@ -21,7 +21,7 @@ export const Login: React.FunctionComponent = props => {
 
         //process.env.REACT_APP_API_URL + '/login'
         axios
-            .post('https://localhost:44358/api/Login', {
+            .post(process.env.REACT_APP_API_URL + '/login', {
                 username: username,
                 password: password,
             })
