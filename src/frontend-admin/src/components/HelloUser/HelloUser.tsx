@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useContext, ReactPropTypes} from 'react'
 import styles from './HelloUser.module.css'
 import dropdownStyles from '../reusables/Dropdown/Dropdown.module.css'
-
 import {DropdownList} from '../reusables/Dropdown/DropdownList'
-import {Dropdown, IDropdownItem} from '../reusables/Dropdown/Dropdown'
 import {concatStyles as s} from '../../utilities/mikesConcat'
+import {LoginContext, initialValues} from '../App/App'
+
+import {Redirect} from 'react-router-dom'
+import {History} from 'history'
 
 interface IHelloUserProps {
     name: string
@@ -14,6 +16,7 @@ interface IHelloUserProps {
 export const HelloUser: React.FC<IHelloUserProps> = props => {
     const {name, className = ''} = props
 
+    const userContext = useContext(LoginContext)
     return (
         <div className={s(styles.helloMain, className)}>
             <div className={(dropdownStyles.dropdownContainer, styles.helloContainer)}>
@@ -32,7 +35,9 @@ export const HelloUser: React.FC<IHelloUserProps> = props => {
                                 className={dropdownStyles.dropdownListItem}
                                 key={'logout'}
                                 onClick={() => {
-                                    //redirect to login page
+                                    userContext.setLoginContextVariables(initialValues)
+                                    window.location.reload()
+                                    //return <Redirect to='/login' />
                                 }}
                             >
                                 <button className={dropdownStyles.dropdownListItemButton}>
