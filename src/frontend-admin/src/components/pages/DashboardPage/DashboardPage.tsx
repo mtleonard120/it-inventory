@@ -115,7 +115,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                                 y.push({
                                     name: cur.programName,
                                     numberOf: cur.programCount,
-                                    costPerMonth: Number((cur.programCostPerYear / 12).toFixed(4)),
+                                    costPerMonth: Number((cur.programCostPerYear / 12).toFixed(2)),
                                     projected: cur.programIsCostPerYear ? '' : '*',
                                 })
                             )
@@ -269,8 +269,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     <CostCard
                         cardTitle='Monthly Cost'
                         data={{
-                            programsCost: Number((costs.costOfProgramsPerYear / 12).toFixed(4)), //TODO: round the numbers 4 decimal places
-                            pluginsCost: Number((costs.costOfPluginsPerYear / 12).toFixed(4)),
+                            programsCost: Number((costs.costOfProgramsPerYear / 12).toFixed(2)), //TODO: round the numbers 4 decimal places
+                            pluginsCost: Number((costs.costOfPluginsPerYear / 12).toFixed(2)),
                         }}
                         icon={<IoIosStats className={styles.statsIcon} />}
                     />

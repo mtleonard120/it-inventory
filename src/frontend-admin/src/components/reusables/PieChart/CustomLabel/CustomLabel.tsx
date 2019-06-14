@@ -48,7 +48,7 @@ export const CustomLabel: React.FunctionComponent<ICustomLabelProps> = props => 
             textAnchor={x > cx ? 'start' : 'end'}
             dominantBaseline='central'
         >
-            ${data[index].value}
+            ${Number(data[index].value.toFixed(2))}
         </text>
     )
 }
