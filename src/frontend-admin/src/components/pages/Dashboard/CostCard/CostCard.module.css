@@ -4,12 +4,13 @@
 }
 
 .title {
-    color: orange;
+    color: #ff9340;
     font-size: 24px;
     font-weight: bold;
+    margin: 10px;
 }
 
 .subtitle {
-    color: orange;
+    color: #a5a5a5;
     font-size: 18px;
 }
