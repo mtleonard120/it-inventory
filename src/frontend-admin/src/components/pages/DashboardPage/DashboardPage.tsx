@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {AxiosService} from '../../../services/AxiosService/AxiosService'
-
 import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io'
 //import {TiPin} from 'react-icons/ti'
 
@@ -115,7 +114,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                                 y.push({
                                     name: cur.programName,
                                     numberOf: cur.programCount,
-                                    costPerMonth: Number((cur.programCostPerYear / 12).toFixed(2)),
+                                    costPerMonth: cur.programCostPerYear / 12,
                                     projected: cur.programIsCostPerYear ? '' : '*',
                                 })
                             )
@@ -180,7 +179,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         axios
             .get('/Cost/CostBreakdown')
             .then((data: any) => {
-                console.log(data)
+                //console.log(data)
                 data && setCosts(data[0])
             })
             .catch((err: any) => console.log(err))
@@ -269,8 +268,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     <CostCard
                         cardTitle='Monthly Cost'
                         data={{
-                            programsCost: Number((costs.costOfProgramsPerYear / 12).toFixed(2)), //TODO: round the numbers 4 decimal places
-                            pluginsCost: Number((costs.costOfPluginsPerYear / 12).toFixed(2)),
+                            programsCost: costs.costOfProgramsPerYear / 12,
+                            pluginsCost: costs.costOfPluginsPerYear / 12,
                         }}
                         icon={<IoIosStats className={styles.statsIcon} />}
                     />

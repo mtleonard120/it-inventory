@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'
 
 // Components
@@ -14,6 +14,9 @@ import styles from './App.module.css'
 
 // Primary Component
 export const App: React.FC = () => {
+    useEffect(() => {
+        document.title = 'CQL'
+    })
     return (
         <div className={styles.app}>
             {/*header*/}
