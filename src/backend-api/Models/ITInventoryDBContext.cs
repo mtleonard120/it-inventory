@@ -38,18 +38,18 @@ namespace backend_api.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuthIdserver>(entity =>
-            {
-                entity.HasKey(e => e.AuthorizationSimpleId);
+            //modelBuilder.Entity<AuthIdserver>(entity =>
+            //{
+            //      entity.HasKey(e => e.AuthorizationSimpleId);
 
-                entity.ToTable("AuthIDServer");
+            //    entity.ToTable("AuthIDServer");
 
-                entity.Property(e => e.AuthorizationSimpleId).HasColumnName("AuthorizationSimpleID");
+            //    entity.Property(e => e.AuthorizationSimpleId).HasColumnName("AuthorizationSimpleID");
 
-                entity.Property(e => e.ActiveDirectoryId)
-                    .IsRequired()
-                    .HasColumnName("ActiveDirectoryID");
-            });
+            //    entity.Property(e => e.ActiveDirectoryId)
+            //        .IsRequired()
+            //        .HasColumnName("ActiveDirectoryID");
+            //});
 
             modelBuilder.Entity<Computer>(entity =>
             {
@@ -233,7 +233,7 @@ namespace backend_api.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-               // entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+                // entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
                 //entity.HasOne(d => d.Program)
                 //    .WithMany(p => p.Plugins)

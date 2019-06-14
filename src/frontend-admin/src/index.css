@@ -1,7 +1,9 @@
-@font-face {
-  font-family: cqlBlackFont;
-  src: url("./content/Fonts/CQL-Black.otf");
+body {
+    margin: 0;
+    font-family: cqlRegularFont;
 }
-.body {
-  font-family: cqlBlackFont;
+
+@font-face {
+    font-family: cqlRegularFont;
+    src: url('./Content/Fonts/CQL-Regular.otf');
 }
