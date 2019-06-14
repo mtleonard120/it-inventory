@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {AxiosService} from '../../../services/AxiosService/AxiosService'
 import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io'
 //import {TiPin} from 'react-icons/ti'
@@ -15,12 +15,16 @@ import {DashboardTable, IDashboardTableDatum} from '../../reusables/DashboardTab
 import {RechartPieChart, IPieDataProps} from '../../reusables/PieChart/PieChart'
 import {CostCard} from '../Dashboard/CostCard/CostCard'
 
+// Context
+import {LoginContext} from '../../App/App'
+
 // Types
 interface IDashboardPageProps {}
 
 // Primary Component
 export const DashboardPage: React.FC<IDashboardPageProps> = props => {
-    const axios = new AxiosService('accessToken', 'refreshToken')
+    const login = useContext(LoginContext)
+    const axios = new AxiosService(login.loginContextVariables.accessToken, login.loginContextVariables.refreshToken)
 
     //Liscence Bar Chart State
     let initLicenses: {
