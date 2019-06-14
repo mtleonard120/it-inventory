@@ -122,10 +122,7 @@ namespace backend_api.Controllers
             //Getting their licenses from their user settings because that contains both their licenses and software preferences
             var SoftwareChoices = json["software"];
 
-
-            // Separate the list nicely.
-
-           // List<string> list = new List<string>();
+            // making list of string of the software that is to be pinned
             var list = SoftwareChoices.Select(x => x.ToString());
 
             // Only software, not licenses. Nothing deleted. Only ones in use.
