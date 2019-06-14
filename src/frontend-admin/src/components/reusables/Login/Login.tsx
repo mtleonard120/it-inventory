@@ -7,7 +7,7 @@ import {Redirect} from 'react-router-dom'
 
 //styling
 import styles from './Login.module.css'
-import logo from '../../../Content/Images/CQL-Logo-Reversed.png'
+import logo from '../../../content/Images/CQL-Logo-Reversed.png'
 
 export const Login: React.FunctionComponent = props => {
     const [username, setUsername] = useState('')
