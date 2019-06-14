@@ -30,6 +30,7 @@ export const Login: React.FunctionComponent = props => {
                 //response.data looks like [{...data...}]
                 //succesful login, so set context to response data and route to dash
                 currentLoginContext.setLoginContextVariables(response.data[0])
+                console.log(response.data)
                 return <Redirect to='/dashboard' />
             })
             .catch(error => {
@@ -51,7 +52,7 @@ export const Login: React.FunctionComponent = props => {
     }
 
     return (
-        <div className={styles.body}>
+        <form className={styles.body}>
             <div className={styles.center}>
                 <img className={styles.logo} src={logo} />
             </div>
@@ -75,6 +76,6 @@ export const Login: React.FunctionComponent = props => {
                 <input className={styles.submit} type='submit' value='Login' onClick={handleSubmit} />
             </div>
             <text className={styles.failMssg}>{failMssg}</text>
-        </div>
+        </form>
     )
 }
