@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Route, NavLink, BrowserRouter as Router, Switch, Redirect, RouteComponentProps} from 'react-router-dom'
+import {Route, NavLink, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom'
 
 // Components
 import {DashboardPage} from '../pages/DashboardPage/DashboardPage'
@@ -9,7 +9,6 @@ import {HardwareListPage} from '../pages/HardwareListPage/HardwareListPage'
 import {ProgramsListPage} from '../pages/ProgramsListPage/ProgramsListPage'
 import {Login} from '../reusables/Login/Login'
 import {HelloUser} from '../HelloUser/HelloUser'
-import {History} from 'history'
 
 // Styles
 import styles from './App.module.css'
