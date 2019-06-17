@@ -1,12 +1,9 @@
-import React, {useContext, ReactPropTypes} from 'react'
+import React, {useContext} from 'react'
 import styles from './HelloUser.module.css'
 import dropdownStyles from '../reusables/Dropdown/Dropdown.module.css'
 import {DropdownList} from '../reusables/Dropdown/DropdownList'
 import {concatStyles as s} from '../../utilities/mikesConcat'
 import {LoginContext, initialValues} from '../App/App'
-
-import {Redirect} from 'react-router-dom'
-import {History} from 'history'
 
 interface IHelloUserProps {
     name: string

@@ -1,5 +1,6 @@
 .legendList {
     padding-left: 2em;
+    cursor: pointer;
 }
 .inline {
     display: flex;
