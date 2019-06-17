@@ -22,6 +22,12 @@ namespace backend_api.Models
         public decimal? CostPerYear { get; set; }
         public bool IsDeleted { get; set; }
         public string MFG { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string IPAddress { get; set; }
+        public string SAN { get; set; }
+        public string LocalHDD { get; set; }
+        public string Location { get; set; }
 
         public Employee Employee { get; set; }
     }

@@ -187,7 +187,7 @@ namespace backend_api.Models
 
                 entity.Property(e => e.Model).HasMaxLength(100);
 
-                entity.Property(e => e.Outputs).HasMaxLength(200);
+                entity.Property(e => e.Inputs).HasMaxLength(200);
 
                 entity.Property(e => e.PurchaseDate).HasColumnType("date");
 
