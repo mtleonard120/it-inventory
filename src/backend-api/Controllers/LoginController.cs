@@ -59,7 +59,7 @@ namespace EFGetStarted.AspNetCore.ExistingDb.Controllers
                 // If given credentials are not valid then Unauthorized is returned
                 var result = adContext.ValidateCredentials(request.username, request.password);
 
-                //Taking the the username and finding the user who might be trying to log in
+                //Taking the username and finding the user who might be trying to log in
                 var user = UserPrincipal.FindByIdentity(adContext, request.username);
                 if (result)
                 {
