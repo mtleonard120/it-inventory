@@ -10,7 +10,7 @@ import styles from './DashboardPage.module.css'
 import {Dropdown, IDropdownItem} from '../../reusables/Dropdown/Dropdown'
 import {Card} from '../../reusables/Card/Card'
 import {Group} from '../../reusables/Group/Group'
-import {HorizontalBarChart} from '../../reusables/HorizontalBarChart/HorizontalBarChart'
+import {HorizontalBarChart, IHorizontalBarChartProps} from '../../reusables/HorizontalBarChart/HorizontalBarChart'
 import {DashboardTable, IDashboardTableDatum} from '../../reusables/DashboardTable/DashboardTable'
 import {RechartPieChart, IPieDataProps} from '../../reusables/PieChart/PieChart'
 import {CostCard} from '../Dashboard/CostCard/CostCard'
@@ -19,19 +19,24 @@ import {CostCard} from '../Dashboard/CostCard/CostCard'
 import {LoginContext} from '../../App/App'
 
 // Types
-interface IDashboardPageProps {}
+interface IDashboardPageProps {
+    history: any
+}
 
 // Primary Component
 export const DashboardPage: React.FC<IDashboardPageProps> = props => {
-    const login = useContext(LoginContext)
-    const axios = new AxiosService(login.loginContextVariables.accessToken, login.loginContextVariables.refreshToken)
+    const {history} = props
+    const {
+        loginContextVariables: {accessToken, refreshToken},
+    } = useContext(LoginContext)
+    const axios = new AxiosService(accessToken, refreshToken)
 
     //Liscence Bar Chart State
     let initLicenses: {
         programName: string
         countProgInUse: number
         countProgOverall: number
-    }[] = [{programName: 'init', countProgInUse: 5, countProgOverall: 6}]
+    }[] = []
     const [licenses, setLicenses] = useState(initLicenses)
 
     //Software Table State
@@ -53,19 +58,19 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         {
             headingName: 'Software',
             data: [
-                {name: 'one', value: 20, id: ''},
-                {name: 'two', value: 50, id: ''},
-                {name: 'three', value: 35, id: ''},
-                {name: 'four', value: 4, id: ''},
+                {name: 'one', value: 0, id: ''},
+                {name: 'two', value: 0, id: ''},
+                {name: 'three', value: 0, id: ''},
+                {name: 'four', value: 0, id: ''},
             ],
         },
         {
             headingName: 'Hardware',
             data: [
-                {name: 'one', value: 20, id: ''},
-                {name: 'two', value: 50, id: ''},
-                {name: 'three', value: 35, id: ''},
-                {name: 'four', value: 4, id: ''},
+                {name: 'one', value: 0, id: ''},
+                {name: 'two', value: 0, id: ''},
+                {name: 'three', value: 0, id: ''},
+                {name: 'four', value: 0, id: ''},
             ],
         },
     ]
@@ -96,12 +101,16 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     //TODO: get dropdown working once enpoint works
 
     //Click Handling
-    const softwareOnRowClick = (datum: IDashboardPageProps) => {
-        //TODO: route to `/programs/${datum.name}`
+    const onRowClick = (datum: IDashboardTableDatum) => {
+        history.push(`/programs/${datum.name}`)
     }
 
-    const deptOnRowClick = (datum: IDashboardPageProps) => {
-        //TODO: route to `/programs/${datum.name}`
+    const onBarClick = (id: string) => {
+        history.push(`/programs/${id}`)
+    }
+
+    const onSliceClick = (id: string) => {
+        history.push(`/programs/${id}`)
     }
 
     const getDeptTables = () => {
@@ -139,7 +148,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                 name: i.name,
                 component: (
                     <div className={styles.software}>
-                        <DashboardTable data={i.tableData} onRowClick={deptOnRowClick} />
+                        <DashboardTable data={i.tableData} onRowClick={onRowClick} />
                         <div className={styles.softwareKey}>
                             <div>Cost Per Year* = Projected</div>
                         </div>
@@ -240,7 +249,13 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     return (
         <div className={styles.dashMain}>
             <div className={styles.dashColumn}>
-                <Card title={'licenses'} titleClassName={styles.linkedTitle}>
+                <Card
+                    title={'licenses'}
+                    titleClassName={styles.linkedTitle}
+                    titleOnClick={() => {
+                        history.push('/programs')
+                    }}
+                >
                     <Group>
                         {licenses &&
                             licenses.map(i => (
@@ -249,7 +264,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                                     title={i.programName}
                                     amount={i.countProgInUse}
                                     outOf={i.countProgOverall}
-                                    onClick={() => {}}
+                                    onClick={onBarClick}
                                 />
                             ))}
                     </Group>
@@ -284,15 +299,29 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             </div>
 
             <div className={styles.dashColumn}>
-                <Card title={'Departments'} titleClassName={styles.linkedTitle} className={styles.pieCard}>
+                <Card
+                    title={'Departments'}
+                    titleClassName={styles.linkedTitle}
+                    className={styles.pieCard}
+                    titleOnClick={() => {
+                        history.push('/departments')
+                    }}
+                >
                     <RechartPieChart
                         pieChartData={pieData}
                         initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14', '#255200', '#888']}
+                        onSliceClick={onSliceClick}
                     />
                 </Card>
-                <Card title={'software'} titleClassName={styles.linkedTitle}>
+                <Card
+                    title={'software'}
+                    titleClassName={styles.linkedTitle}
+                    titleOnClick={() => {
+                        history.push('/programs')
+                    }}
+                >
                     <div className={styles.software}>
-                        <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
+                        <DashboardTable data={softwareTableData} onRowClick={onRowClick} />
                         <div className={styles.softwareKey}>
                             <div>Name* = Pinned</div>
                             <div>Cost Per Year* = Projected</div>
