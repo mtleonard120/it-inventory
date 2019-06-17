@@ -14,7 +14,16 @@ export const HorizontalBarChart: React.FC<IHorizontalBarChartProps> = props => {
     const {title, amount, outOf, onClick} = props
     return amount > outOf ? null : (
         <div className={styles.barContainer}>
-            <div className={styles.barMain} onClick={onClick}>
+            <div
+                className={styles.barMain}
+                onClick={
+                    onClick
+                        ? () => {
+                              onClick(title)
+                          }
+                        : undefined
+                }
+            >
                 {amount <= 0 ? (
                     <div className={styles.barTitle}>{title}</div>
                 ) : (

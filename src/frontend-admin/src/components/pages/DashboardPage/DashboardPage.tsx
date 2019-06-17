@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {AxiosService} from '../../../services/AxiosService/AxiosService'
-
 import {IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosStats} from 'react-icons/io'
 //import {TiPin} from 'react-icons/ti'
 
@@ -16,19 +15,28 @@ import {DashboardTable, IDashboardTableDatum} from '../../reusables/DashboardTab
 import {RechartPieChart, IPieDataProps} from '../../reusables/PieChart/PieChart'
 import {CostCard} from '../Dashboard/CostCard/CostCard'
 
+// Context
+import {LoginContext} from '../../App/App'
+
 // Types
-interface IDashboardPageProps {}
+interface IDashboardPageProps {
+    history: any
+}
 
 // Primary Component
 export const DashboardPage: React.FC<IDashboardPageProps> = props => {
-    const axios = new AxiosService('accessToken', 'refreshToken')
+    const {history} = props
+    const {
+        loginContextVariables: {accessToken, refreshToken},
+    } = useContext(LoginContext)
+    const axios = new AxiosService(accessToken, refreshToken)
 
     //Liscence Bar Chart State
     let initLicenses: {
         programName: string
         countProgInUse: number
         countProgOverall: number
-    }[] = [{programName: 'init', countProgInUse: 5, countProgOverall: 6}]
+    }[] = []
     const [licenses, setLicenses] = useState(initLicenses)
 
     //Software Table State
@@ -50,19 +58,19 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         {
             headingName: 'Software',
             data: [
-                {name: 'one', value: 20, id: ''},
-                {name: 'two', value: 50, id: ''},
-                {name: 'three', value: 35, id: ''},
-                {name: 'four', value: 4, id: ''},
+                {name: 'one', value: 0, id: ''},
+                {name: 'two', value: 0, id: ''},
+                {name: 'three', value: 0, id: ''},
+                {name: 'four', value: 0, id: ''},
             ],
         },
         {
             headingName: 'Hardware',
             data: [
-                {name: 'one', value: 20, id: ''},
-                {name: 'two', value: 50, id: ''},
-                {name: 'three', value: 35, id: ''},
-                {name: 'four', value: 4, id: ''},
+                {name: 'one', value: 0, id: ''},
+                {name: 'two', value: 0, id: ''},
+                {name: 'three', value: 0, id: ''},
+                {name: 'four', value: 0, id: ''},
             ],
         },
     ]
@@ -93,12 +101,16 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     //TODO: get dropdown working once enpoint works
 
     //Click Handling
-    const softwareOnRowClick = (datum: IDashboardPageProps) => {
-        //TODO: route to `/programs/${datum.name}`
+    const onRowClick = (datum: IDashboardTableDatum) => {
+        history.push(`/programs/${datum.name}`)
     }
 
-    const deptOnRowClick = (datum: IDashboardPageProps) => {
-        //TODO: route to `/programs/${datum.name}`
+    const onBarClick = (id: string) => {
+        history.push(`/programs/${id}`)
+    }
+
+    const onSliceClick = (id: string) => {
+        history.push(`/departments/${id}`)
     }
 
     const getDeptTables = () => {
@@ -115,7 +127,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                                 y.push({
                                     name: cur.programName,
                                     numberOf: cur.programCount,
-                                    costPerMonth: Number((cur.programCostPerYear / 12).toFixed(4)),
+                                    costPerMonth: cur.programCostPerYear / 12,
                                     projected: cur.programIsCostPerYear ? '' : '*',
                                 })
                             )
@@ -136,7 +148,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                 name: i.name,
                 component: (
                     <div className={styles.software}>
-                        <DashboardTable data={i.tableData} onRowClick={deptOnRowClick} />
+                        <DashboardTable data={i.tableData} onRowClick={onRowClick} />
                         <div className={styles.softwareKey}>
                             <div>Cost Per Year* = Projected</div>
                         </div>
@@ -180,7 +192,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
         axios
             .get('/Cost/CostBreakdown')
             .then((data: any) => {
-                console.log(data)
+                //console.log(data)
                 data && setCosts(data[0])
             })
             .catch((err: any) => console.log(err))
@@ -237,7 +249,13 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     return (
         <div className={styles.dashMain}>
             <div className={styles.dashColumn}>
-                <Card title={'licenses'} titleClassName={styles.linkedTitle}>
+                <Card
+                    title={'licenses'}
+                    titleClassName={styles.linkedTitle}
+                    titleOnClick={() => {
+                        history.push('/programs')
+                    }}
+                >
                     <Group>
                         {licenses &&
                             licenses.map(i => (
@@ -246,7 +264,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                                     title={i.programName}
                                     amount={i.countProgInUse}
                                     outOf={i.countProgOverall}
-                                    onClick={() => {}}
+                                    onClick={onBarClick}
                                 />
                             ))}
                     </Group>
@@ -269,8 +287,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     <CostCard
                         cardTitle='Monthly Cost'
                         data={{
-                            programsCost: Number((costs.costOfProgramsPerYear / 12).toFixed(4)), //TODO: round the numbers 4 decimal places
-                            pluginsCost: Number((costs.costOfPluginsPerYear / 12).toFixed(4)),
+                            programsCost: costs.costOfProgramsPerYear / 12,
+                            pluginsCost: costs.costOfPluginsPerYear / 12,
                         }}
                         icon={<IoIosStats className={styles.statsIcon} />}
                     />
@@ -281,15 +299,29 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
             </div>
 
             <div className={styles.dashColumn}>
-                <Card title={'Departments'} titleClassName={styles.linkedTitle} className={styles.pieCard}>
+                <Card
+                    title={'Departments'}
+                    titleClassName={styles.linkedTitle}
+                    className={styles.pieCard}
+                    titleOnClick={() => {
+                        history.push('/departments')
+                    }}
+                >
                     <RechartPieChart
                         pieChartData={pieData}
                         initialColors={['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14', '#255200', '#888']}
+                        onSliceClick={onSliceClick}
                     />
                 </Card>
-                <Card title={'software'} titleClassName={styles.linkedTitle}>
+                <Card
+                    title={'software'}
+                    titleClassName={styles.linkedTitle}
+                    titleOnClick={() => {
+                        history.push('/programs')
+                    }}
+                >
                     <div className={styles.software}>
-                        <DashboardTable data={softwareTableData} onRowClick={softwareOnRowClick} />
+                        <DashboardTable data={softwareTableData} onRowClick={onRowClick} />
                         <div className={styles.softwareKey}>
                             <div>Name* = Pinned</div>
                             <div>Cost Per Year* = Projected</div>

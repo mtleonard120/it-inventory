@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Route, NavLink, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom'
 
 // Components
@@ -23,7 +23,7 @@ export interface ILoginContext {
 }
 
 //Login Context
-var initialValues: {
+export const initialValues: {
     loginContextVariables: ILoginContext
     setLoginContextVariables: any
 } = {
@@ -40,6 +40,9 @@ export const LoginContext = React.createContext(initialValues)
 
 // Primary Component
 export const App: React.FC = () => {
+    useEffect(() => {
+        document.title = 'CQL'
+    })
     const [loginContextVariables, setLoginContextVariables] = useState({
         refreshToken: '',
         accessToken: '',

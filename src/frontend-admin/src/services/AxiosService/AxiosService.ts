@@ -1,4 +1,5 @@
 import axios, {AxiosInstance} from 'axios'
+import {ILoginContext} from '../../components/App/App'
 //import buildQuery from 'odata-query' ??
 
 export interface IUserInfo {
@@ -11,10 +12,11 @@ export interface IUserInfo {
 const URL = process.env.REACT_APP_API_URL
 
 export class AxiosService {
-    private user: IUserInfo = {
-        name: '',
-        accessToken: '',
+    private user: ILoginContext = {
         refreshToken: '',
+        accessToken: '',
+        validTo: '',
+        givenName: '',
         isAdmin: false,
     }
     private instance: AxiosInstance
@@ -36,29 +38,18 @@ export class AxiosService {
         })
     }
 
-    //function for <login /> to call to store token when they get response.status === successStatus
-    public login = (response: any) => {
-        //TODO: These variable names are probably incorrect
-        this.user = {
-            accessToken: response.data.token,
-            refreshToken: response.data.refreshToken,
-            name: response.data.name,
-            isAdmin: response.data.isAdmin,
-        }
-
-        //caller should save the user obj in context
-        return this.user
-    }
-
     //get rid of token?
-    public logout = () => {
+    public logout = (userContext: {loginContextVariables: ILoginContext; setLoginContextVariables: any}) => {
         this.user = {
-            name: '',
+            givenName: '',
             accessToken: '',
             refreshToken: '',
             isAdmin: false,
+            validTo: '',
         }
         //redirect to login page
+        // userContext.setLoginContextVariables(this.user)
+        // return <Redirect to="/" />
     }
 
     /*

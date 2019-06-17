@@ -18,10 +18,11 @@ export interface IPieDataProps {
 interface IRechartPieProps {
     pieChartData: IPieDataProps[]
     initialColors: string[]
+    onSliceClick?: any
 }
 
 export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props => {
-    const {pieChartData, initialColors} = props
+    const {pieChartData, initialColors, onSliceClick} = props
 
     const [colors, setColors] = useState(initialColors)
     //colors off of invision: ['#009EFF', '#FF9340', '#3D4599', '#1425CC', '#CC4A14']
@@ -34,11 +35,6 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
 
     const onMouseOut = (data: IRechartPieDatum[], index: number) => {
         setColors(initialColors)
-    }
-
-    //map the links in the data that is passed through as a prop in the component
-    const onClick = (data: IRechartPieDatum[], index: number) => {
-        //will go to the links to other pages
     }
 
     //axios stuff for dashboard
@@ -81,10 +77,19 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
                             isAnimationActive={false}
                             onMouseOver={onMouseOver}
                             onMouseOut={onMouseOut}
-                            onClick={onClick}
                         >
                             {datum.data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={colors[index]} />
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={colors[index]}
+                                    onClick={
+                                        onSliceClick
+                                            ? () => {
+                                                  onSliceClick(entry.name)
+                                              }
+                                            : undefined
+                                    }
+                                />
                             ))}
                         </Pie>
                     ))}
@@ -94,7 +99,17 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
             {/* Legend */}
             <div className={styles.inline}>
                 {pieChartData[0].data.map((datum, index) => (
-                    <div key={index} className={styles.legendList}>
+                    <div
+                        key={index}
+                        className={styles.legendList}
+                        onClick={
+                            onSliceClick
+                                ? () => {
+                                      onSliceClick(datum.name)
+                                  }
+                                : undefined
+                        }
+                    >
                         <div className={styles.circle} style={{backgroundColor: colors[index]}} />
                         {datum.name}
                     </div>
