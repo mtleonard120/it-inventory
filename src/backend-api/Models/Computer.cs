@@ -21,9 +21,9 @@ namespace backend_api.Models
         public decimal? CostPerYear { get; set; }
         public bool IsDeleted { get; set; }
         public int? Resolution { get; set; }
-        public string MFG { get; set; }
+        public string Mfg { get; set; }
         public string Make { get; set; }
-        public string FQDN { get; set; }
+        public string Fqdn { get; set; }
         public string Location { get; set; }
 
 

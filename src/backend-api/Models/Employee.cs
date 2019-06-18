@@ -36,7 +36,7 @@ namespace backend_api.Models
         public ICollection<Monitor> Monitor { get; set; }
         public ICollection<Peripheral> Peripheral { get; set; }
 
-        // TODO: This might need to be commented out becaues the context won't load.
+        // TODO: This might need to be commented out because the context won't load.
         // An error could occur if the foreign key (EmployeeID) is null in the program history.
         //public ICollection<Program> Program { get; set; }
         //public ICollection<ProgramHistory> ProgramHistoryCurrentOwner { get; set; }

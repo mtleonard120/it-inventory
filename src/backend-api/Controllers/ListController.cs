@@ -91,7 +91,7 @@ namespace backend_api.Controllers
         *          Department Name,
         *          Number of employees in that department,
         *          Total cost of the software owned by the employees in that department
-        *         } ] for every department in  CQL
+        *         } ] for every department in CQL
         */
 
         [Route("Departments")]
@@ -159,6 +159,25 @@ namespace backend_api.Controllers
             }
             return Ok(ListOfDepartments);
 
+        }
+
+        /* GET: api/list/Servers?$select=serverId,fqdn,numberOfCores,ram,renewalDate,mfg 
+         * Use OData to query.
+         * Returns: [ {
+         *            serverId
+         *            fdqn: string,
+         *            numberOfCores: int,
+         *            ram: int,
+         *            renewaldate: date
+         *            mfg: string
+         *          } ... ] for every server in CQL.
+         */
+        [Route("Servers")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfServers()
+        {
+            return Ok(_context.Server.ToList());
         }
     }
 }
