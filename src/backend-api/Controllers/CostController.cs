@@ -179,7 +179,7 @@ namespace backend_api.Controllers
                         DateTime? relevantDate = startDate.Value.AddDays(30);
                         if (!(DateTime.Now > relevantDate))
                         {
-                            CostOfPrograms += prog.ProgramCostPerEmployee;
+                            CostOfPrograms += prog.ProgramFlatCost;
                         }
                     }
 

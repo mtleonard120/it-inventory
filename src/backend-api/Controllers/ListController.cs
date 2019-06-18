@@ -62,7 +62,7 @@ namespace backend_api.Controllers
                 var ProgCostForEmpPerYear = _context.Program.Where(x => x.EmployeeId == emp.EmployeeId && x.ProgramCostPerYear != null && x.IsDeleted != true).Sum(x => x.ProgramCostPerYear);
 
                 // Sum the costs of all the programs that are charged as cost per use owned by the current employee where the program is not deleted and the cost is not null
-                var ProgCostPerUse = _context.Program.Where(x => x.EmployeeId == emp.EmployeeId && x.ProgramCostPerEmployee != null && x.IsDeleted != true).Sum(x => x.ProgramCostPerEmployee);
+                var ProgCostPerUse = _context.Program.Where(x => x.EmployeeId == emp.EmployeeId && x.ProgramFlatCost != null && x.IsDeleted != true).Sum(x => x.ProgramFlatCost);
 
                 // Dividing the yearly cost into months Adding the programs costs into one variable if the values are not null
                 decimal? ProgramCostForEmp = 0;
@@ -147,7 +147,7 @@ namespace backend_api.Controllers
                         DateTime? relevantDate = startDate.Value.AddDays(30);
                         if (!(DateTime.Now > relevantDate))
                         {
-                            CostOfPrograms += prog.ProgramCostPerEmployee;
+                            CostOfPrograms += prog.ProgramFlatCost;
                         }
                     }
 

@@ -6,7 +6,6 @@ namespace backend_api.Models
     public partial class Computer
     {
         public int ComputerId { get; set; }
-        public string ComputerName { get; set; }
         public string Cpu { get; set; }
         public int? Ramgb { get; set; }
         public int? Ssdgb { get; set; }
@@ -23,6 +22,10 @@ namespace backend_api.Models
         public bool IsDeleted { get; set; }
         public int? Resolution { get; set; }
         public string MFG { get; set; }
+        public string Make { get; set; }
+        public string FQDN { get; set; }
+        public string Location { get; set; }
+
 
         public Employee Employee { get; set; }
     }
