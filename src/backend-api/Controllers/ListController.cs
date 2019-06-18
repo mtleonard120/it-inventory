@@ -164,7 +164,7 @@ namespace backend_api.Controllers
         /* GET: api/list/Servers?$select=serverId,fqdn,numberOfCores,ram,renewalDate,mfg 
          * Use OData to query.
          * Returns: [ {
-         *            serverId
+         *            serverId: int,
          *            fdqn: string,
          *            numberOfCores: int,
          *            ram: int,
@@ -178,6 +178,25 @@ namespace backend_api.Controllers
         public IActionResult GetListOfServers()
         {
             return Ok(_context.Server.ToList());
+        }
+
+        /* Get: api/list/Laptops?$select=computerId,cpu,ramgb,ssdgb,isAssigned,mfg
+         * Use OData to query.
+         * Returns: [ {
+         *            ComputerId: int,
+         *            Cpu: string,
+         *            Ramgb: int,
+         *            Ssdgb: int,
+         *            IsAssigned: bool,
+         *            Mfg: string
+         *          ] ... } for every laptop at CQL.
+         */
+        [Route("Laptops")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfLaptops()
+        {
+            return Ok(_context.Computer.ToList());
         }
     }
 }
