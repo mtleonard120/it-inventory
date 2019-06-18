@@ -198,5 +198,23 @@ namespace backend_api.Controllers
         {
             return Ok(_context.Computer.ToList());
         }
+
+        /* GET: api/list/monitors?$select=monitorId,make,screenSize,resolution,inputs
+         * Use OData to query.
+         * Returns: [ {
+         *             MonitorId: int,
+         *             Make: string,
+         *             ScreenSize: float,
+         *             Resolution: int,
+         *             Inputs: string
+         *           ] ... } for every monitor at CQL.
+         */
+        [Route("Monitors")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfMonitors()
+        {
+            return Ok(_context.Monitor.ToList());
+        }
     }
 }
