@@ -139,9 +139,9 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
     }
 
     const updateDropdownContent = () => {
-        initDropdownContent.pop()
+        initDropdownContent.length = 0
 
-        deptTableData.map((i: any) =>
+        deptTableData.map((i: any) => {
             initDropdownContent.push({
                 id: i.id,
                 name: i.name,
@@ -154,7 +154,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     </div>
                 ),
             })
-        )
+        })
         //console.log(initDropdownContent)
         setDropdownContent(initDropdownContent)
     }
@@ -233,7 +233,6 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
 
     useEffect(getDeptTables, [deptList])
     useEffect(updateDropdownContent, [deptTableData, getDeptTables, dropdownContent])
-
     return (
         <div className={styles.dashMain}>
             <div className={styles.dashColumn}>
@@ -282,7 +281,7 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     />
                 </div>
                 <Card>
-                    <Dropdown content={dropdownContent} titleClassName={styles.linkedTitle} />
+                    {dropdownContent && <Dropdown content={dropdownContent} titleClassName={styles.linkedTitle} />}
                 </Card>
             </div>
 
