@@ -67,7 +67,7 @@ namespace backend_api.Controllers
                 // Dividing the yearly cost into months Adding the programs costs into one variable if the values are not null
                 decimal? ProgramCostForEmp = 0;
 
-                if (ProgCostPerUse == null)
+                if (ProgCostPerUse != null)
                 {
                     ProgramCostForEmp = ProgCostPerUse;
                 }
