@@ -91,7 +91,7 @@ namespace backend_api.Controllers
         *          Department Name,
         *          Number of employees in that department,
         *          Total cost of the software owned by the employees in that department
-        *         } ] for every department in  CQL
+        *         } ] for every department in CQL
         */
 
         [Route("Departments")]
@@ -159,6 +159,82 @@ namespace backend_api.Controllers
             }
             return Ok(ListOfDepartments);
 
+        }
+
+        /* GET: api/list/Servers?$select=serverId,fqdn,numberOfCores,ram,renewalDate,mfg 
+         * Use OData to query.
+         * Returns: [ {
+         *            ServerId: int,
+         *            Fdqn: string,
+         *            NumberOfCores: int,
+         *            Ram: int,
+         *            Renewaldate: date
+         *            Mfg: string
+         *          } ... ] for every server in CQL.
+         */
+        [Route("Servers")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfServers()
+        {
+            return Ok(_context.Server.ToList());
+        }
+
+        /* Get: api/list/Laptops?$select=computerId,cpu,ramgb,ssdgb,isAssigned,mfg
+         * Use OData to query.
+         * Returns: [ {
+         *            ComputerId: int,
+         *            Cpu: string,
+         *            Ramgb: int,
+         *            Ssdgb: int,
+         *            IsAssigned: bool,
+         *            Mfg: string
+         *          ] ... } for every laptop at CQL.
+         */
+        [Route("Laptops")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfLaptops()
+        {
+            return Ok(_context.Computer.ToList());
+        }
+
+        /* GET: api/list/monitors?$select=monitorId,make,screenSize,resolution,inputs
+         * Use OData to query.
+         * Returns: [ {
+         *             MonitorId: int,
+         *             Make: string,
+         *             ScreenSize: float,
+         *             Resolution: int,
+         *             Inputs: string
+         *           ] ... } for every monitor at CQL.
+         */
+        [Route("Monitors")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfMonitors()
+        {
+            return Ok(_context.Monitor.ToList());
+        }
+
+        /* GET: api/list/peripherals?$select=peripheralId,peripheralName,peripheralType,purchaseDate,isAssigned
+         * Use OData to query.
+         * Returns: [ { 
+         *             PeripheralId: int,
+         *             PeripheralName: string,
+         *             PeripheralType: string,
+         *             PurchaseDate: date,
+         *             IsAssigned: bool
+         *          ] ... } for every peripheral at CQL.
+         * 
+         * 
+         */
+        [Route("Peripherals")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfPeripherals()
+        {
+            return Ok(_context.Peripheral.ToList());
         }
     }
 }

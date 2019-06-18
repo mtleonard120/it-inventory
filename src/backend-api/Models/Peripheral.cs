@@ -15,10 +15,10 @@ namespace backend_api.Models
         public DateTime? PurchaseDate { get; set; }
         public decimal? CostPerYear { get; set; }
         public bool IsDeleted { get; set; }
-        public string MFG { get; set; }
+        public string Mfg { get; set; }
         public string Location { get; set; }
         public DateTime? RenewalDate { get; set; }
 
-        public Employee Employee { get; set; }
+        //public Employee Employee { get; set; }
     }
 }

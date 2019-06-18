@@ -18,7 +18,7 @@ namespace backend_api.Models
         public decimal? CostPerYear { get; set; }
         public bool IsDeleted { get; set; }
         public double? ScreenSize { get; set; }
-        public string MFG { get; set; }
+        public string Mfg { get; set; }
         public DateTime? RenewalDate { get; set; }
         public string Location { get; set; }
 
