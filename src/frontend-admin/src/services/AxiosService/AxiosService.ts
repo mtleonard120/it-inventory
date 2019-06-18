@@ -1,6 +1,5 @@
 import axios, {AxiosInstance} from 'axios'
 import {ILoginContext} from '../../components/App/App'
-//import buildQuery from 'odata-query' ??
 
 export interface IUserInfo {
     name: string
@@ -31,53 +30,24 @@ export class AxiosService {
         this.instance = axios.create({
             baseURL: URL,
             headers: {
-                //TODO: verify that these are the correct headers
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
         })
     }
 
-    //get rid of token?
-    public logout = (userContext: {loginContextVariables: ILoginContext; setLoginContextVariables: any}) => {
-        this.user = {
-            givenName: '',
-            accessToken: '',
-            refreshToken: '',
-            isAdmin: false,
-            validTo: '',
-        }
-        //redirect to login page
-        // userContext.setLoginContextVariables(this.user)
-        // return <Redirect to="/" />
-    }
-
-    /*
-     * USE GET EXAMPLE:
-     * const axios = new AxiosService("", "");
-     * let x: {
-     *    employeeId: number;
-     *    hireDate: any;
-     * }[] = [];
-     * const [val, setVal] = useState(x);
-     * useEffect(() => {
-     *    axios.get("/Employees", setVal);
-     * }, [setVal]);
-     * console.log(val);
-     */
     //wrapper for get requests return the promise
-    public get: any = (url: string, saveData: Function) => {
+    public get: any = (url: string) => {
         return this.instance
             .get(
                 url /*, {
-                headers: {
-          Authorization: `Bearer ${this.user.accessToken}`
-        }
-            }*/
+                    headers: {
+                    Authorization: `Bearer ${this.user.accessToken}`
+                    }
+                }*/
             )
             .then(response => {
-                this.checkTokenExpired(response, url)
-                //saveData(response.data)
+                this.checkTokenExpired(url)
                 return response.data
             })
             .catch(err => console.log(err))
@@ -88,40 +58,36 @@ export class AxiosService {
         return this.instance
             .post(url, data, {
                 /*headers: {
-          Authorization: `Bearer ${this.user.accessToken}`
-        }*/
+                    Authorization: `Bearer ${this.user.accessToken}`
+                }*/
             })
-            .then(response => this.checkTokenExpired(response, url, data))
+            .then(response => this.checkTokenExpired(url, data))
             .catch(err => console.log(err))
     }
 
     //check if token needs refreshing
-    public checkTokenExpired = (response: any, url: string, data?: any) => {
-        if (response.data.expired) {
-            //TODO: find out real name
+    public checkTokenExpired = (url: string, data?: any) => {
+        const now = Date.parse(new Date().toISOString())
+        const expires = Date.parse(this.user.validTo)
+        if (expires - now <= 0) {
             this.refreshToken(url, data)
         }
     }
 
-    //refresh access token w/ refresh token
+    //get new access token w/ refresh token
     public refreshToken = (url: string, data?: any) => {
         this.instance
-            .post('/', {
-                //TODO: get correct url
-                //TODO: find out where to post tokens to
-                refresh: this.user.refreshToken,
+            .post('/login/accessToken', {
+                refreshToken: this.user.refreshToken,
             })
             .then(response => {
-                if (response.status === 200 /*TODO: find out what success status is*/) {
-                    //TODO: These variable names are probably incorrect
+                if (response.status === 200) {
                     this.user = {
                         ...this.user,
-                        accessToken: response.data.token,
-                        refreshToken: response.data.refreshToken,
+                        accessToken: response.data.accessToken,
+                        validTo: response.data.validTo,
                     }
-
-                    //re-try get/post request
-                    data ? this.post(url, data) : this.get(url)
+                    data ? this.post(url, data) : this.get(url) //re-try get/post request
                 } else if (response.status === 401) {
                     //Unauthorized
                     //redirect back to login page
