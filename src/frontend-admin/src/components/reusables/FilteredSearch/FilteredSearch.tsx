@@ -1,6 +1,6 @@
 import React from 'react'
 import Select, {components} from 'react-select'
-import {MdSearch as SearchIcon} from 'react-icons/all'
+import {MdSearch} from 'react-icons/md'
 
 // Styles
 import styles from './FilteredSearch.module.css'
@@ -12,19 +12,16 @@ export interface IFilteredSearchProps {
     options: {label: string; value: string}[]
     selected: any
     setSelected: any
-    className?: string
 }
-
-// Helpers
 
 // Primary Component
 export const FilteredSearch: React.SFC<IFilteredSearchProps> = props => {
-    const {search, setSearch, options, selected, setSelected, className = ''} = props
+    const {search, setSearch, options, selected, setSelected} = props
 
     const customStyles = {
         container: (provided: any, state: any) => ({
             ...provided,
-            minWidth: '150px',
+            width: `${10 * (selected.label.length + 10)}px`,
             border: '0px',
             height: '45px',
             color: '#9b9b9b',
@@ -68,13 +65,8 @@ export const FilteredSearch: React.SFC<IFilteredSearchProps> = props => {
     }
 
     return (
-        <div className={className}>
-            <form
-                className={styles.searchContainer}
-                onSubmit={e => {
-                    e.preventDefault()
-                }}
-            >
+        <div className={styles.searchPosition}>
+            <form className={styles.searchContainer} onSubmit={e => e.preventDefault()}>
                 <input
                     className={styles.searchBar}
                     value={search}
@@ -84,9 +76,9 @@ export const FilteredSearch: React.SFC<IFilteredSearchProps> = props => {
                     }}
                 />
                 <div className={styles.searchIconContainer}>
-                    <button type='submit' className={styles.searchIconButton}>
-                        <SearchIcon className={styles.searchIcon} size={30} />
-                    </button>
+                    {/* <button type='submit' className={styles.searchIconButton}> */}
+                    <MdSearch className={styles.searchIcon} size={30} />
+                    {/* </button> */}
                 </div>
                 <div className={styles.filterBy}>By</div>
                 <Select
@@ -105,6 +97,7 @@ export const FilteredSearch: React.SFC<IFilteredSearchProps> = props => {
                             primary: '#009EFF;',
                         },
                     })}
+                    isSearchable={false}
                 />
             </form>
         </div>

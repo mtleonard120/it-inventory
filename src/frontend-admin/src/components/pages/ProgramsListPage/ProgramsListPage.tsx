@@ -1,22 +1,60 @@
-import React from "react";
-
-// Packages
+import React, {useState, useEffect} from 'react'
 
 // Components
-
-// Utils
+import {FilteredSearch} from '../../reusables/FilteredSearch/FilteredSearch'
 
 // Styles
-import styles from "./ProgramsListPage.module.css";
+import styles from './ProgramsListPage.module.css'
 
 // Types
 interface IProgramsListPageProps {}
 
-// Helpers
+//TODO: replace any w/ real type
+const initListData: any[] = []
 
 // Primary Component
 export const ProgramsListPage: React.SFC<IProgramsListPageProps> = props => {
-  const {} = props;
+    const [listData, setListData] = useState(initListData)
+    const [filtered, setFiltered] = useState(listData) //this is what is used in the list
+    const [search, setSearch] = useState('')
+    const [selected, setSelected] = useState({label: 'name', value: 'name'})
 
-  return <div>This is the programs list page.</div>;
-};
+    useEffect(() => {
+        //TODO: fetch data
+    }, [])
+
+    useEffect(() => {
+        // Search through listData based on current value
+        // of search bar and save results in filtered
+        let filteredTableInput = listData
+        filteredTableInput = listData.filter((row: any) => {
+            return (
+                row[selected.value]
+                    .toString()
+                    .toLowerCase()
+                    .search(search.toLowerCase()) !== -1
+            )
+        })
+        setFiltered(filteredTableInput)
+    }, [search, selected])
+
+    return (
+        <div>
+            {/*<Button />*/}
+
+            <FilteredSearch
+                search={search}
+                setSearch={setSearch}
+                options={[
+                    //TODO: replace w/ real options
+                    {label: 'name', value: 'name'},
+                    {label: 'cost', value: 'cost'},
+                ]}
+                selected={selected}
+                setSelected={setSelected}
+            />
+
+            {/*<List />*/}
+        </div>
+    )
+}

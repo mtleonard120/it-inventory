@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
-// Packages
-
 // Components
-import {FilteredSearch, IFilteredSearchProps} from '../../reusables/FilteredSearch/FilteredSearch'
-
-// Utils
+import {FilteredSearch} from '../../reusables/FilteredSearch/FilteredSearch'
 
 // Styles
 import styles from './EmployeesListPage.module.css'
@@ -13,18 +9,23 @@ import styles from './EmployeesListPage.module.css'
 // Types
 interface IEmployeesListPageProps {}
 
+//TODO: replace any w/ real type
 const initListData: any[] = []
 
 // Primary Component
 export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
-    const {} = props
-
     const [listData, setListData] = useState(initListData)
-    const [filtered, setFiltered] = useState(listData)
+    const [filtered, setFiltered] = useState(listData) //this is what is used in the list
     const [search, setSearch] = useState('')
     const [selected, setSelected] = useState({label: 'name', value: 'name'})
 
     useEffect(() => {
+        //TODO: fetch data
+    }, [])
+
+    useEffect(() => {
+        // Search through listData based on current value
+        // of search bar and save results in filtered
         let filteredTableInput = listData
         filteredTableInput = listData.filter((row: any) => {
             return (
@@ -39,20 +40,18 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
 
     return (
         <div className={styles.employeesListMain}>
-            {/*<AddButton />*/}
+            {/*<Button />*/}
 
             <FilteredSearch
                 search={search}
                 setSearch={setSearch}
                 options={[
+                    //TODO: replace w/ real options
                     {label: 'name', value: 'name'},
-                    {label: 'date Hired', value: 'dateHired'},
-                    {label: 'days Employed', value: 'daysEmployed'},
                     {label: 'cost', value: 'cost'},
-                ]} //TODO: get real column names
+                ]}
                 selected={selected}
                 setSelected={setSelected}
-                className={styles.search}
             />
 
             {/*<List />*/}
