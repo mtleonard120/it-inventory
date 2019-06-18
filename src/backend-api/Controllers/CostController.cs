@@ -93,7 +93,7 @@ namespace backend_api.Controllers
         *            Name of Department,
         *            Cost of Software in use of department
         *            ID of department
-        *           ] of all the programs for all the departemnts in our database except the Utilities department
+        *           ] of all the programs for all the departments in our database except the Utilities department
         *          }
         *          {
         *           [
@@ -125,7 +125,7 @@ namespace backend_api.Controllers
             //looping through each department and finding program and hardware cost per department 
             foreach (var Department in Departments)
             {
-                //Cost of Prgrams per department value
+                //Cost of Programs per department value
                 decimal? CostOfPrograms = 0;
                 decimal? CostOfHardware = 0;
 
@@ -173,13 +173,13 @@ namespace backend_api.Controllers
                     // using to make sure no null pointer on date bought 
                     if (prog.DateBought != null)
                     {
-                        //adding 30 days to the the date bought and then checking if we are now past those 30 days
+                        //adding 30 days to the date bought and then checking if we are now past those 30 days
                         //if we are not then add the cost of the recent software purchase
                         DateTime? startDate = prog.DateBought;
                         DateTime? relevantDate = startDate.Value.AddDays(30);
                         if (!(DateTime.Now > relevantDate))
                         {
-                            CostOfPrograms += prog.ProgramCostPerEmployee;
+                            CostOfPrograms += prog.ProgramFlatCost;
                         }
                     }
 
@@ -193,7 +193,7 @@ namespace backend_api.Controllers
                 {
                     if (employeeIDsInDepartment.Contains(mon.EmployeeId))
                     {
-                        //adding 30 days to the the date bought and then checking if we are now past those 30 days
+                        //adding 30 days to the date bought and then checking if we are now past those 30 days
                         //if we are not, add cost of monitor to Cost total
                         DateTime? startDate = mon.PurchaseDate;
                         DateTime? relevantDate = startDate.Value.AddDays(30);
@@ -208,7 +208,7 @@ namespace backend_api.Controllers
                 {
                     if (employeeIDsInDepartment.Contains(Comp.EmployeeId))
                     {
-                        //adding 30 days to the the date bought and then checking if we are now past those 30 days
+                        //adding 30 days to the date bought and then checking if we are now past those 30 days
                         //if we are not, add cost of Computer to Cost total
                         DateTime? startDate = Comp.PurchaseDate;
                         DateTime? relevantDate = startDate.Value.AddDays(30);
@@ -223,7 +223,7 @@ namespace backend_api.Controllers
                 {
                     if (employeeIDsInDepartment.Contains(peripheral.EmployeeId))
                     {
-                        //adding 30 days to the the date bought and then checking if we are now past those 30 days
+                        //adding 30 days to the date bought and then checking if we are now past those 30 days
                         //if we are not, add cost of peripheral to Cost total
                         DateTime? startDate = peripheral.PurchaseDate;
                         DateTime? relevantDate = startDate.Value.AddDays(30);
@@ -237,7 +237,7 @@ namespace backend_api.Controllers
                 // Adding to the data2 list with the appropriate data to be returned in this list
                 data2.Add(new { Department.DepartmentName, CostOfHardware, Department.DepartmentId });
             }
-            //formatting data for frontend
+            //formatting data for front end
             string headingName = "Software";
             PieChartsList.Add(new { headingName, data });
             headingName = "Hardware";
