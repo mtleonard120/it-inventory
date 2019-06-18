@@ -211,10 +211,10 @@ namespace backend_api.Models
 
                 entity.Property(e => e.PurchaseDate).HasColumnType("date");
 
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Peripheral)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK_Peripheral_Employee");
+                //entity.HasOne(d => d.Employee)
+                //    .WithMany(p => p.Peripheral)
+                //    .HasForeignKey(d => d.EmployeeId)
+                //    .HasConstraintName("FK_Peripheral_Employee");
             });
 
             modelBuilder.Entity<Plugins>(entity =>
