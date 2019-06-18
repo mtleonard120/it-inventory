@@ -90,6 +90,9 @@ namespace backend_api.Controllers
                 RemovedDifferenceList.Add(new { prog.ProgramName, prog.CountProgInUse, prog.CountProgOverall });
             }
             return Ok(RemovedDifferenceList);
+
+            // TODO: Should this function only display what the user settings want,
+            // or should it also auto fill with the licenses closest to running out?
         }
 
         /* GET: api/programs/softwareTable
@@ -129,7 +132,7 @@ namespace backend_api.Controllers
             var software = _context.Program.Where(program => program.IsLicense == false && program.IsDeleted == false && program.EmployeeId != null);
 
             /* TODO: Update the programHistory model to have an event Date. Same with the start hardwareHistory.
-            *  TODO: Add the program name field to the programHistory. Would make this a lot eaiser.
+            *  TODO: Add the program name field to the programHistory. Would make this a lot easier.
             *  TODO: This is a stupidly complicated way to get the
             *  desired data.
             */
@@ -185,7 +188,7 @@ namespace backend_api.Controllers
             // NOTE: If the user settings specify more than 10, it will display all of them.
             foreach (Models.Program sw in distinctSortedSoftware)
             {
-                if (!(distinctPinnedSoftwareNames.Contains(sw.ProgramName)) && listOfTableSoftware.Count <= 10)
+                if (!(distinctPinnedSoftwareNames.Contains(sw.ProgramName)) && listOfTableSoftware.Count < 10)
                 {
                     listOfTableSoftware.Add(new SoftwareTableItem(sw.ProgramName, 0, 0, 0, sw.IsCostPerYear ? false : true, false));
                 }
@@ -212,6 +215,9 @@ namespace backend_api.Controllers
             }
 
             return Ok(listOfTableSoftware);
+
+            // TODO: This includes software from the Utilities department.
+            // Do we take it out like the pie charts above?
         }
 
         private bool ProgramExists(int id)
