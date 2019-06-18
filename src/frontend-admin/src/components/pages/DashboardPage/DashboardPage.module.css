@@ -1,6 +1,8 @@
 .dashMain {
-    margin: 30px;
     display: flex;
+    position: absolute;
+    padding: 20px;
+    width: 96vw;
 }
 
 .dashColumn {
@@ -8,6 +10,7 @@
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 50%;
+    min-width: 720px;
 }
 
 .dashRow {
@@ -58,7 +61,7 @@
 }
 
 .pieCard {
-    margin-top: 0px;
+    margin: 0 100px 0 50px;
     padding-top: 0px;
 }
 

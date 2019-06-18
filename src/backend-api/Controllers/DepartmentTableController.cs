@@ -68,7 +68,7 @@ namespace backend_api.Controllers
             // so it does not conflict with Program.cs that runs the program.
             List<Models.Program> programsOfEmpsInDepartment = new List<Models.Program>();
 
-            // For each program, add to the list of deparment programs if an employee in the 
+            // For each program, add to the list of department programs if an employee in the 
             // department owns that program.
             foreach (Models.Program prog in allPrograms)
             {

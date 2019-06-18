@@ -132,7 +132,7 @@ namespace backend_api.Controllers
             var software = _context.Program.Where(program => program.IsLicense == false && program.IsDeleted == false && program.EmployeeId != null);
 
             /* TODO: Update the programHistory model to have an event Date. Same with the start hardwareHistory.
-            *  TODO: Add the program name field to the programHistory. Would make this a lot eaiser.
+            *  TODO: Add the program name field to the programHistory. Would make this a lot easier.
             *  TODO: This is a stupidly complicated way to get the
             *  desired data.
             */
