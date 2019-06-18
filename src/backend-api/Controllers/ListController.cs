@@ -164,12 +164,12 @@ namespace backend_api.Controllers
         /* GET: api/list/Servers?$select=serverId,fqdn,numberOfCores,ram,renewalDate,mfg 
          * Use OData to query.
          * Returns: [ {
-         *            serverId: int,
-         *            fdqn: string,
-         *            numberOfCores: int,
-         *            ram: int,
-         *            renewaldate: date
-         *            mfg: string
+         *            ServerId: int,
+         *            Fdqn: string,
+         *            NumberOfCores: int,
+         *            Ram: int,
+         *            Renewaldate: date
+         *            Mfg: string
          *          } ... ] for every server in CQL.
          */
         [Route("Servers")]
@@ -215,6 +215,26 @@ namespace backend_api.Controllers
         public IActionResult GetListOfMonitors()
         {
             return Ok(_context.Monitor.ToList());
+        }
+
+        /* GET: api/list/peripherals?$select=peripheralId,peripheralName,peripheralType,purchaseDate,isAssigned
+         * Use OData to query.
+         * Returns: [ { 
+         *             PeripheralId: int,
+         *             PeripheralName: string,
+         *             PeripheralType: string,
+         *             PurchaseDate: date,
+         *             IsAssigned: bool
+         *          ] ... } for every peripheral at CQL.
+         * 
+         * 
+         */
+        [Route("Peripherals")]
+        [HttpGet]
+        [EnableQuery()]
+        public IActionResult GetListOfPeripherals()
+        {
+            return Ok(_context.Peripheral.ToList());
         }
     }
 }
