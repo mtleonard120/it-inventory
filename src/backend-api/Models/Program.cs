@@ -14,7 +14,7 @@ namespace backend_api.Models
         public int ProgramId { get; set; }
         public string ProgramName { get; set; }
         public decimal? ProgramCostPerYear { get; set; }
-        public decimal? ProgramCostPerEmployee { get; set; }
+        public decimal? ProgramFlatCost { get; set; }
         public string ProgramLicenseKey { get; set; }
         public bool IsLicense { get; set; }
         public int? EmployeeId { get; set; }

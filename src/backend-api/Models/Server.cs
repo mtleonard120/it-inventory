@@ -6,7 +6,6 @@ namespace backend_api.Models
     public partial class Server
     {
         public int ServerId { get; set; }
-        public string ServerName { get; set; }
         public string Fqdn { get; set; }
         public int? NumberOfCores { get; set; }
         public string OperatingSystem { get; set; }

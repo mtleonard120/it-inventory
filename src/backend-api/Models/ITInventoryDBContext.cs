@@ -55,8 +55,6 @@ namespace backend_api.Models
             {
                 entity.Property(e => e.ComputerId).HasColumnName("ComputerID");
 
-                entity.Property(e => e.ComputerName).HasMaxLength(100);
-
                 entity.Property(e => e.CostPerYear).HasColumnType("money");
 
                 entity.Property(e => e.Cpu)
@@ -247,7 +245,7 @@ namespace backend_api.Models
 
                 //entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
-                entity.Property(e => e.ProgramCostPerEmployee).HasColumnType("money");
+                entity.Property(e => e.ProgramFlatCost).HasColumnType("money");
 
                 entity.Property(e => e.ProgramCostPerYear).HasColumnType("money");
 
@@ -313,8 +311,6 @@ namespace backend_api.Models
                 entity.Property(e => e.Ram).HasColumnName("RAM");
 
                 entity.Property(e => e.RenewalDate).HasColumnType("date");
-
-                entity.Property(e => e.ServerName).HasMaxLength(100);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Server)

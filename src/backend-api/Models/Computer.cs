@@ -6,7 +6,6 @@ namespace backend_api.Models
     public partial class Computer
     {
         public int ComputerId { get; set; }
-        public string ComputerName { get; set; }
         public string Cpu { get; set; }
         public int? Ramgb { get; set; }
         public int? Ssdgb { get; set; }
