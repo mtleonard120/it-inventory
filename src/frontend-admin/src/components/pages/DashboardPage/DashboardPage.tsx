@@ -297,14 +297,14 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                     <RechartPieChart
                         pieChartData={pieData}
                         initialColors={[
+                            '#B72160',
                             '#009EFF',
-                            '#FF9340',
-                            '#3D4599',
-                            '#910707',
-                            '#75277c',
-                            '#917e06',
-                            '#CC4A14',
-                            '#59ffcf',
+                            '#FF8A5B',
+                            '#EA526F',
+                            '#2EC4B6',
+                            '#0B4F6C',
+                            '#8A3A91',
+                            '#2266B0',
                             '#fcfa74',
                         ]}
                         onSliceClick={onSliceClick}
