@@ -207,15 +207,16 @@ namespace backend_api.Controllers
             return Ok(listOfservers);
         }
 
-        /* Get: api/list/Laptops?$select=computerId,cpu,ramgb,ssdgb,isAssigned,mfg
-         * Use OData to query.
+        /* GET: api/list/Laptops
          * Returns: [ {
-         *            ComputerId: int,
-         *            Cpu: string,
-         *            Ramgb: int,
-         *            Ssdgb: int,
-         *            IsAssigned: bool,
-         *            Mfg: string
+         *            computerId: int,
+         *            cpu: string,
+         *            ramgb: int,
+         *            ssdgb: int,
+         *            isAssigned: bool,
+         *            mfg: string,
+         *            employeeFirstName: string,
+         *            employeeLastName: string,
          *          ] ... } for every laptop at CQL.
          */
         [Route("Laptops")]
@@ -223,7 +224,33 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfLaptops()
         {
-            return Ok(_context.Computer.ToList());
+            // List that will be returned containing the list of computers
+            var listOfComputers = new List<object>();
+
+            // Employee list to be used later.
+            var Employees = _context.Employee;
+
+            // Computers that are not deleted
+            var Computers = _context.Computer.Where(cp => cp.IsDeleted == false);
+
+            // Loop through the computers to see if it is assigned
+            foreach (Computer cp in Computers)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (cp.EmployeeId != null)
+                {
+                    // Get the name of the employee the computers is assigned to.
+                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == cp.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+
+                // Create a Computer object to be returned.
+                var Computer = new { cp.ComputerId, cp.Cpu, cp.Ramgb, cp.Ssdgb, cp.IsAssigned, cp.Mfg, employeeFirstName, employeeLastName };
+                listOfComputers.Add(Computer);
+            }
+            return Ok(listOfComputers);
         }
 
         /* GET: api/list/monitors?$select=monitorId,make,screenSize,resolution,inputs
