@@ -104,7 +104,6 @@ export const App: React.FC = () => {
                             </nav>
                         </div>
                     )}
-
                     <Switch>
                         {/* <Route />'s go here */}
                         <Route path='/dashboard' component={DashboardPage} />
