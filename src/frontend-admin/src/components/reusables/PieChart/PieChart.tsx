@@ -62,39 +62,39 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
             </div>
 
             {/* Pie Charts */}
-            {/* <div className={styles.inline}> */}
-            <PieChart width={380 * pieChartData.length} height={300}>
-                {pieChartData.map((datum, i) => (
-                    <Pie
-                        key={datum.headingName}
-                        data={datum.data}
-                        cx={190 + 380 * i}
-                        cy={150}
-                        dataKey='value'
-                        fill='#8884d8'
-                        labelLine={false}
-                        label={<CustomLabel data={datum.data} />}
-                        isAnimationActive={false}
-                        onMouseOver={onMouseOver}
-                        onMouseOut={onMouseOut}
-                    >
-                        {datum.data.map((entry, index) => (
-                            <Cell
-                                key={`cell-${index}`}
-                                fill={colors[index]}
-                                onClick={
-                                    onSliceClick
-                                        ? () => {
-                                              onSliceClick(entry.name)
-                                          }
-                                        : undefined
-                                }
-                            />
-                        ))}
-                    </Pie>
-                ))}
-            </PieChart>
-            {/* </div> */}
+            <div className={styles.inline}>
+                <PieChart width={380 * pieChartData.length} height={300}>
+                    {pieChartData.map((datum, i) => (
+                        <Pie
+                            key={datum.headingName}
+                            data={datum.data}
+                            cx={190 + 380 * i}
+                            cy={150}
+                            dataKey='value'
+                            fill='#8884d8'
+                            labelLine={false}
+                            label={<CustomLabel data={datum.data} />}
+                            isAnimationActive={false}
+                            onMouseOver={onMouseOver}
+                            onMouseOut={onMouseOut}
+                        >
+                            {datum.data.map((entry, index) => (
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={colors[index]}
+                                    onClick={
+                                        onSliceClick
+                                            ? () => {
+                                                  onSliceClick(entry.name)
+                                              }
+                                            : undefined
+                                    }
+                                />
+                            ))}
+                        </Pie>
+                    ))}
+                </PieChart>
+            </div>
 
             {/* Legend */}
             <div className={styles.inlineLegend}>
