@@ -108,10 +108,10 @@ export const App: React.FC = () => {
                     <Switch>
                         {/* <Route />'s go here */}
                         <Route path='/dashboard' component={DashboardPage} />
-                        <Route path='/employees' component={EmployeesListPage} />
-                        <Route path='/programs' component={ProgramsListPage} />
-                        <Route path='/hardware' component={HardwareListPage} />
-                        <Route path='/departments' component={DepartmentsListPage} />
+                        <Route exact path='/employees' component={EmployeesListPage} />
+                        <Route exact path='/programs' component={ProgramsListPage} />
+                        <Route exact path='/hardware' component={HardwareListPage} />
+                        <Route exact path='/departments' component={DepartmentsListPage} />
                         <Route path='/login' component={Login} />
                     </Switch>
                 </Router>

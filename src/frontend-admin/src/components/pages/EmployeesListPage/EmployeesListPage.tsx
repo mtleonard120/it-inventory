@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Route, Link, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 
 // Components
 import {FilteredSearch} from '../../reusables/FilteredSearch/FilteredSearch'
@@ -26,8 +26,11 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const [selected, setSelected] = useState({label: 'name', value: 'name'})
 
     useEffect(() => {
+        //TODO: replace w/ real type
+        let data: any[] = []
         //TODO: fetch data
-    }, [])
+        setListData(data)
+    }, [setListData])
 
     useEffect(() => {
         // Search through listData based on current value
@@ -42,7 +45,7 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
             )
         })
         setFiltered(filteredTableInput)
-    }, [search, selected])
+    }, [search, selected, listData])
 
     const handleClick = () => {
         history.push('/employees/new')
@@ -55,8 +58,9 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     return (
         <div className={styles.employeesListMain}>
             <Switch>
-                <Route path='/employees/new' render={() => <div>New Employee Detail Page</div>} />
-                <Route path='/employees/:name' render={() => <div>Employee Detail Page</div>} />
+                {/*TODO: replace divs w/ detail page */}
+                <Route path='/employees/new' render={props => <div>New Employee Detail Page</div>} />
+                <Route path='/employees/:name' render={props => <div>{props.match.params.name} Detail Page</div>} />
             </Switch>
             <Group direction='row' justify='between'>
                 <Button text='Add' icon='add' onClick={handleClick} />
