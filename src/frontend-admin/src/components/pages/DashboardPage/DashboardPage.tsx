@@ -306,6 +306,8 @@ export const DashboardPage: React.FC<IDashboardPageProps> = props => {
                             '#8A3A91',
                             '#2266B0',
                             '#fcfa74',
+                            '#1b5159',
+                            '#1d6332',
                         ]}
                         onSliceClick={onSliceClick}
                     />
