@@ -92,6 +92,7 @@ namespace backend_api.Controllers
         *          departmentName: string,
         *          numOfEmp: int,
         *          costOfPrograms: decimal,
+        *          icon: string,
         *         } ,.. ] for every department in CQL
         */
         [Route("Departments")]
@@ -150,9 +151,10 @@ namespace backend_api.Controllers
                         }
                     }
                 }
-
+                // TODO: Add the icon string once we figure out how to store it on the db.
+                string icon = "";
                 //creating list of returnables
-                var Department = new { dep.DepartmentId, dep.DepartmentName, numOfEmp, CostOfPrograms };
+                var Department = new { dep.DepartmentId, dep.DepartmentName, numOfEmp, CostOfPrograms, icon };
                 ListOfDepartments.Add(Department);
             }
             return Ok(ListOfDepartments);
