@@ -253,14 +253,15 @@ namespace backend_api.Controllers
             return Ok(listOfComputers);
         }
 
-        /* GET: api/list/monitors?$select=monitorId,make,screenSize,resolution,inputs
-         * Use OData to query.
+        /* GET: api/list/monitors
          * Returns: [ {
-         *             MonitorId: int,
-         *             Make: string,
-         *             ScreenSize: float,
-         *             Resolution: int,
-         *             Inputs: string
+         *             monitorId: int,
+         *             make: string,
+         *             screenSize: float,
+         *             resolution: int,
+         *             inputs: string,
+         *             employeeFirstName: string,
+         *             employeeLastName: string,
          *           ] ... } for every monitor at CQL.
          */
         [Route("Monitors")]
@@ -298,14 +299,15 @@ namespace backend_api.Controllers
             return Ok(listOfMonitors);
         }
 
-        /* GET: api/list/peripherals?$select=peripheralId,peripheralName,peripheralType,purchaseDate,isAssigned
-         * Use OData to query.
+        /* GET: api/list/peripherals
          * Returns: [ { 
          *             PeripheralId: int,
          *             PeripheralName: string,
          *             PeripheralType: string,
          *             PurchaseDate: date,
-         *             IsAssigned: bool
+         *             IsAssigned: bool,
+         *             employeeFirstName: string,
+         *             employeeLastName: string,
          *          ] ... } for every peripheral at CQL.
          * 
          * 
@@ -315,7 +317,34 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfPeripherals()
         {
-            return Ok(_context.Peripheral.ToList());
+            // TODO: This is a lot of repeated code from the last two endpoints. Maybe make the endpoints more generic??
+            // List that will be returned containing the list of peripherals
+            var listOfPeripherals = new List<object>();
+
+            // Employee list to be used later.
+            var Employees = _context.Employee;
+
+            // Peripherals that are not deleted
+            var Peripherals = _context.Peripheral.Where(pr => pr.IsDeleted == false);
+
+            // Loop through the Peripherals to see if it is assigned
+            foreach (Peripheral pr in Peripherals)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (pr.EmployeeId != null)
+                {
+                    // Get the name of the employee the peripherals is assigned to.
+                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == pr.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+
+                // Create a Peripheral object to be returned.
+                var Peripheral = new { pr.PeripheralId, pr.PeripheralName, pr.PeripheralType, pr.PurchaseDate, pr.IsAssigned, employeeFirstName, employeeLastName };
+                listOfPeripherals.Add(Peripheral);
+            }
+            return Ok(listOfPeripherals);
         }
     }
 }
