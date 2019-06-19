@@ -88,12 +88,12 @@ namespace backend_api.Controllers
 
         /* GET: api/List/Departments
         * Returns [ {
-        *          Department Name,
-        *          Number of employees in that department,
-        *          Total cost of the software owned by the employees in that department
-        *         } ] for every department in CQL
+        *          departmentId: string,
+        *          departmentName: string,
+        *          numOfEmp: int,
+        *          costOfPrograms: decimal,
+        *         } ,.. ] for every department in CQL
         */
-
         [Route("Departments")]
         [HttpGet]
         [EnableQuery()]
@@ -102,7 +102,6 @@ namespace backend_api.Controllers
         {
             // List that will be returned containing the list of employees
             var ListOfDepartments = new List<object>();
-
 
             foreach (var dep in _context.Department)
             { 
@@ -150,11 +149,10 @@ namespace backend_api.Controllers
                             CostOfPrograms += prog.ProgramFlatCost;
                         }
                     }
-
-
                 }
+
                 //creating list of returnables
-                var Department = new { dep.DepartmentName, numOfEmp, CostOfPrograms };
+                var Department = new { dep.DepartmentId, dep.DepartmentName, numOfEmp, CostOfPrograms };
                 ListOfDepartments.Add(Department);
             }
             return Ok(ListOfDepartments);
