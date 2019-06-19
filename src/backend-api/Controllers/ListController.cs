@@ -268,7 +268,34 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfMonitors()
         {
-            return Ok(_context.Monitor.ToList());
+            // TODO: This is a lot of repeated code from the last two endpoints. Maybe make the endpoints more generic??
+            // List that will be returned containing the list of monitors
+            var listOfMonitors = new List<object>();
+
+            // Employee list to be used later.
+            var Employees = _context.Employee;
+
+            // Monitors that are not deleted
+            var Monitors = _context.Monitor.Where(mn => mn.IsDeleted == false);
+
+            // Loop through the monitors to see if it is assigned
+            foreach (Monitor mn in Monitors)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (mn.EmployeeId != null)
+                {
+                    // Get the name of the employee the monitors is assigned to.
+                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == mn.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+
+                // Create a Monitor object to be returned.
+                var Monitor = new { mn.MonitorId, mn.Make, mn.ScreenSize, mn.Resolution, mn.Inputs, employeeFirstName, employeeLastName };
+                listOfMonitors.Add(Monitor);
+            }
+            return Ok(listOfMonitors);
         }
 
         /* GET: api/list/peripherals?$select=peripheralId,peripheralName,peripheralType,purchaseDate,isAssigned
