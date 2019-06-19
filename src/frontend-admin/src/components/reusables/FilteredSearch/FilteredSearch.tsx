@@ -12,11 +12,12 @@ export interface IFilteredSearchProps {
     options: {label: string; value: string}[]
     selected: any
     setSelected: any
+    className?: any
 }
 
 // Primary Component
 export const FilteredSearch: React.SFC<IFilteredSearchProps> = props => {
-    const {search, setSearch, options, selected, setSelected} = props
+    const {search, setSearch, options, selected, setSelected, className} = props
 
     const customStyles = {
         container: (provided: any, state: any) => ({
@@ -65,7 +66,7 @@ export const FilteredSearch: React.SFC<IFilteredSearchProps> = props => {
     }
 
     return (
-        <div className={styles.searchPosition}>
+        <div className={className}>
             <form className={styles.searchContainer} onSubmit={e => e.preventDefault()}>
                 <input
                     className={styles.searchBar}

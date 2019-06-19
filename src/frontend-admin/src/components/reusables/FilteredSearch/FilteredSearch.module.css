@@ -3,12 +3,6 @@
     src: url('../../../content/Fonts/CQL-Light.otf');
 }
 
-.searchPosition {
-    position: fixed;
-    margin-top: 50px;
-    right: 85px;
-}
-
 .searchContainer {
     width: 500px;
     height: 45px;
