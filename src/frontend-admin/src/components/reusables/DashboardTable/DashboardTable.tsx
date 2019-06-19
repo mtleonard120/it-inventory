@@ -25,12 +25,6 @@ export const DashboardTable = (props: IDashboardTableProps) => {
 
     return (
         <table className={s(styles.table, {[styles.clickable]: isClickable})}>
-            {/* leaving this commented out in case we actually do want headings
-            <tr> 
-                <th className={styles.nameHeading}>License</th>
-                <th className={styles.numberOfHeading}># in use</th>
-                <th className={styles.costHeading}>Cost</th>
-            </tr> */}
             <tbody>
                 {data.map(datum => (
                     <tr

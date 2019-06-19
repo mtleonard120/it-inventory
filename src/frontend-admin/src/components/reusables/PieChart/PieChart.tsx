@@ -29,7 +29,7 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
 
     const onMouseOver = (data: IRechartPieDatum[], index: number) => {
         const updatedColors = [...initialColors] // Create clone of initial colors array
-        updatedColors[index] = '#555555' // Change particular index in our cloned array
+        updatedColors[index] = initialColors[index] + 95 // Change particular index in our cloned array
         setColors(updatedColors) // Set new color array
     }
 
