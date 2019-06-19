@@ -161,15 +161,16 @@ namespace backend_api.Controllers
 
         }
 
-        /* GET: api/list/Servers?$select=serverId,fqdn,numberOfCores,ram,renewalDate,mfg 
-         * Use OData to query.
+        /* GET: api/list/Servers 
          * Returns: [ {
-         *            ServerId: int,
-         *            Fdqn: string,
-         *            NumberOfCores: int,
-         *            Ram: int,
-         *            Renewaldate: date
-         *            Mfg: string
+         *            serverId: int,
+         *            fdqn: string,
+         *            numberOfCores: int,
+         *            ram: int,
+         *            renewaldate: date
+         *            mfg: string,
+         *            employeeFirstName: string,
+         *            employeeLastName: string,
          *          } ... ] for every server in CQL.
          */
         [Route("Servers")]
@@ -177,7 +178,33 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfServers()
         {
-            return Ok(_context.Server.ToList());
+            // List that will be returned containing the list of servers
+            var listOfservers = new List<object>();
+
+            // Employee list to be used later.
+            var Employees = _context.Employee;
+
+            // Servers that are not deleted
+            var Servers = _context.Server.Where(sv => sv.IsDeleted == false);
+
+            // Loop through the servers to see if it is assigned
+            foreach (Server sv in Servers)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (sv.EmployeeId != null)
+                {
+                    // Get the name of the employee the server is assigned to.
+                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == sv.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+
+                // Create a server object to be returned.
+                var Server = new { sv.ServerId, sv.Fqdn, sv.NumberOfCores, sv.Ram, sv.Mfg, employeeFirstName, employeeLastName };
+                listOfservers.Add(Server);
+            }
+            return Ok(listOfservers);
         }
 
         /* Get: api/list/Laptops?$select=computerId,cpu,ramgb,ssdgb,isAssigned,mfg
