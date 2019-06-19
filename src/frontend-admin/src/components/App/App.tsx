@@ -10,6 +10,8 @@ import {ProgramsListPage} from '../pages/ProgramsListPage/ProgramsListPage'
 import {Login} from '../reusables/Login/Login'
 import {HelloUser} from '../HelloUser/HelloUser'
 
+import {EmployeeDetailPage} from '../pages/EmployeeDetailPage/EmployeeDetailPage'
+
 // Styles
 import styles from './App.module.css'
 
@@ -112,7 +114,13 @@ export const App: React.FC = () => {
                         <Route exact path='/programs' component={ProgramsListPage} />
                         <Route exact path='/hardware' component={HardwareListPage} />
                         <Route exact path='/departments' component={DepartmentsListPage} />
-                        <Route path='/login' component={Login} />
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/' component={Login} />
+
+                        <Route path={'/employees/:id'} render={props => <EmployeeDetailPage {...props} />} />
+                        {/* <Route path={'/programs/:id'} render={props => <ProgramDetailPage {...props} />} />
+                        <Route path={'/hardware/:id'} render={props => <HardwareDetailPage {...props} />} />
+                        <Route path={'/departments/:id'} render={props => <DepartmentDetailPage {...props} />} /> */}
                     </Switch>
                 </Router>
 
