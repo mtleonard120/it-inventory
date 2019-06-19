@@ -1,9 +1,15 @@
 .legendList {
-    padding-left: 2em;
+    padding: 10px;
+    display: flex;
     cursor: pointer;
 }
 .inline {
     display: flex;
+    justify-content: center;
+}
+.inlineLegend {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 

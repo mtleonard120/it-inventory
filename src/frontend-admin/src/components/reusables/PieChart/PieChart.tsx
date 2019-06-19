@@ -97,7 +97,7 @@ export const RechartPieChart: React.FunctionComponent<IRechartPieProps> = props 
             {/* </div> */}
 
             {/* Legend */}
-            <div className={styles.inline}>
+            <div className={styles.inlineLegend}>
                 {pieChartData[0].data.map((datum, index) => (
                     <div
                         key={index}
