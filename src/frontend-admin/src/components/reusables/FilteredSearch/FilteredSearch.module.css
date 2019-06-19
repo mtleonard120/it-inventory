@@ -1,0 +1,100 @@
+@font-face {
+    font-family: cqlLight;
+    src: url('../../../content/Fonts/CQL-Light.otf');
+}
+
+.searchPosition {
+    position: fixed;
+    margin-top: 50px;
+    right: 85px;
+}
+
+.searchContainer {
+    width: 500px;
+    height: 45px;
+    padding: 0;
+    border: 0;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    display: flex;
+    font-family: cqlLight;
+}
+
+.searchBar {
+    font-family: inherit;
+    color: #9b9b9b;
+    border-radius: 4px 0 0 4px;
+    margin: 0;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    padding-left: 15px;
+    font-size: 22px;
+    line-height: 40px;
+    flex-grow: 2;
+}
+
+.searchBar:focus {
+    outline: none;
+}
+
+.searchBar::placeholder {
+    color: #9b9b9b;
+}
+
+.searchIconContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 45px;
+    height: 100%;
+    border-right: 1px solid #979797;
+}
+
+.searchIconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.searchIconButton:focus {
+    outline: none;
+}
+
+.searchIcon {
+    color: #9b9b9b;
+    margin: auto;
+}
+
+.filterBy {
+    font-family: inherit;
+    border-radius: 4px;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    height: 100%;
+    padding-top: 3px;
+    padding-left: 10px;
+    color: #9b9b9b;
+    font-size: 22px;
+    line-height: 40px;
+    cursor: default;
+}
+
+.searchFilter {
+    text-transform: capitalize;
+    border-radius: 4px;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    height: 90%;
+    text-align: left;
+    font-size: 22px;
+    line-height: 20px;
+}
+
+.dropdownIndicator {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #636363;
+}
