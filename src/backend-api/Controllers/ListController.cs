@@ -141,13 +141,13 @@ namespace backend_api.Controllers
 
         /* GET: api/List/Departments
         * Returns [ {
-        *          Department ID, 
-        *          Department Name,
-        *          Number of employees in that department,
-        *          Total cost of the software owned by the employees in that department,
-        *         } ] for every department in  CQL
+        *          departmentId: string,
+        *          departmentName: string,
+        *          numOfEmp: int,
+        *          costOfPrograms: decimal,
+        *          icon: string,
+        *         } ,.. ] for every department in CQL
         */
-
         [Route("Departments")]
         [HttpGet]
         [EnableQuery()]
@@ -156,7 +156,6 @@ namespace backend_api.Controllers
         {
             // List that will be returned containing the list of employees
             var ListOfDepartments = new List<object>();
-
 
             foreach (var dep in _context.Department)
             {
@@ -209,8 +208,10 @@ namespace backend_api.Controllers
 
 
                     }
+                    // TODO: Add the icon string once we figure out how to store it on the db.
+                    string icon = "";
                     //creating list of returnables
-                    var Department = new { dep.DepartmentId, dep.DepartmentName, numOfEmp, CostOfPrograms };
+                    var Department = new { dep.DepartmentId, dep.DepartmentName, numOfEmp, CostOfPrograms, icon };
                     ListOfDepartments.Add(Department);
                 }
             }
@@ -218,15 +219,17 @@ namespace backend_api.Controllers
 
         }
 
-        /* GET: api/list/Servers?$select=serverId,fqdn,numberOfCores,ram,renewalDate,mfg 
-         * Use OData to query.
+        /* GET: api/list/Servers 
          * Returns: [ {
-         *            ServerId: int,
-         *            Fdqn: string,
-         *            NumberOfCores: int,
-         *            Ram: int,
-         *            Renewaldate: date
-         *            Mfg: string
+         *            serverId: int,
+         *            fdqn: string,
+         *            numberOfCores: int,
+         *            ram: int,
+         *            renewaldate: date
+         *            mfg: string,
+         *            employeeFirstName: string,
+         *            employeeLastName: string,
+         *            icon: string,
          *          } ... ] for every server in CQL.
          */
         [Route("Servers")]
@@ -234,18 +237,46 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfServers()
         {
-            return Ok(_context.Server.ToList());
+            // List that will be returned containing the list of servers
+            var listOfservers = new List<object>();
+
+            // Employee list to be used later.
+            var Employees = _context.Employee;
+
+            // Servers that are not deleted
+            var Servers = _context.Server.Where(sv => sv.IsDeleted == false);
+
+            // Loop through the servers to see if it is assigned
+            foreach (Server sv in Servers)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (sv.EmployeeId != null)
+                {
+                    // Get the name of the employee the server is assigned to.
+                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == sv.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+                string icon = "";
+                // Create a server object to be returned.
+                var Server = new { sv.ServerId, sv.Fqdn, sv.NumberOfCores, sv.Ram, sv.Mfg, employeeFirstName, employeeLastName, icon };
+                listOfservers.Add(Server);
+            }
+            return Ok(listOfservers);
         }
 
-        /* Get: api/list/Laptops?$select=computerId,cpu,ramgb,ssdgb,isAssigned,mfg
-         * Use OData to query.
+        /* GET: api/list/Laptops
          * Returns: [ {
-         *            ComputerId: int,
-         *            Cpu: string,
-         *            Ramgb: int,
-         *            Ssdgb: int,
-         *            IsAssigned: bool,
-         *            Mfg: string
+         *            computerId: int,
+         *            cpu: string,
+         *            ramgb: int,
+         *            ssdgb: int,
+         *            isAssigned: bool,
+         *            mfg: string,
+         *            employeeFirstName: string,
+         *            employeeLastName: string,
+         *            icon: string,
          *          ] ... } for every laptop at CQL.
          */
         [Route("Laptops")]
@@ -253,17 +284,45 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfLaptops()
         {
-            return Ok(_context.Computer.ToList());
+            // List that will be returned containing the list of computers
+            var listOfComputers = new List<object>();
+
+            // Employee list to be used later.
+            var Employees = _context.Employee;
+
+            // Computers that are not deleted
+            var Computers = _context.Computer.Where(cp => cp.IsDeleted == false);
+
+            // Loop through the computers to see if it is assigned
+            foreach (Computer cp in Computers)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (cp.EmployeeId != null)
+                {
+                    // Get the name of the employee the computers is assigned to.
+                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == cp.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+                string icon = "";
+                // Create a Computer object to be returned.
+                var Computer = new { cp.ComputerId, cp.Cpu, cp.Ramgb, cp.Ssdgb, cp.IsAssigned, cp.Mfg, employeeFirstName, employeeLastName, icon };
+                listOfComputers.Add(Computer);
+            }
+            return Ok(listOfComputers);
         }
 
-        /* GET: api/list/monitors?$select=monitorId,make,screenSize,resolution,inputs
-         * Use OData to query.
+        /* GET: api/list/monitors
          * Returns: [ {
-         *             MonitorId: int,
-         *             Make: string,
-         *             ScreenSize: float,
-         *             Resolution: int,
-         *             Inputs: string
+         *             monitorId: int,
+         *             make: string,
+         *             screenSize: float,
+         *             resolution: int,
+         *             inputs: string,
+         *             employeeFirstName: string,
+         *             employeeLastName: string,
+         *             icon: string,
          *           ] ... } for every monitor at CQL.
          */
         [Route("Monitors")]
@@ -271,18 +330,45 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfMonitors()
         {
-            return Ok(_context.Monitor.ToList());
+            // TODO: This is a lot of repeated code from the last two endpoints. Maybe make the endpoints more generic??
+            // List that will be returned containing the list of monitors
+            var listOfMonitors = new List<object>();
+
+            // Monitors that are not deleted
+            var Monitors = _context.Monitor.Where(mn => mn.IsDeleted == false);
+
+            // Loop through the monitors to see if it is assigned
+            foreach (Monitor mn in Monitors)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (mn.EmployeeId != null)
+                {
+                    // Get the name of the employee the monitors is assigned to.
+                    var ownerEmployee = _context.Employee.Where(emp => emp.EmployeeId == mn.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+
+                // Create a Monitor object to be returned.
+                string icon = "";
+                var Monitor = new { mn.MonitorId, mn.Make, mn.ScreenSize, mn.Resolution, mn.Inputs, employeeFirstName, employeeLastName, icon };
+                listOfMonitors.Add(Monitor);
+            }
+            return Ok(listOfMonitors);
         }
 
-        /* GET: api/list/peripherals?$select=peripheralId,peripheralName,peripheralType,purchaseDate,isAssigned
-         * Use OData to query.
+        /* GET: api/list/peripherals
          * Returns: [ { 
-         *             PeripheralId: int,
-         *             PeripheralName: string,
-         *             PeripheralType: string,
-         *             PurchaseDate: date,
-         *             IsAssigned: bool
-         *          ] ... } for every peripheral at CQL.
+         *             peripheralId: int,
+         *             peripheralName: string,
+         *             peripheralType: string,
+         *             purchaseDate: date,
+         *             isAssigned: bool,
+         *             employeeFirstName: string,
+         *             employeeLastName: string,
+         *             icon: string,
+         *          } ,.. ] for every peripheral at CQL.
          * 
          * 
          */
@@ -291,7 +377,32 @@ namespace backend_api.Controllers
         [EnableQuery()]
         public IActionResult GetListOfPeripherals()
         {
-            return Ok(_context.Peripheral.ToList());
+            // TODO: This is a lot of repeated code from the last two endpoints. Maybe make the endpoints more generic??
+            // List that will be returned containing the list of peripherals
+            var listOfPeripherals = new List<object>();
+
+            // Peripherals that are not deleted
+            var Peripherals = _context.Peripheral.Where(pr => pr.IsDeleted == false);
+
+            // Loop through the Peripherals to see if it is assigned
+            foreach (Peripheral pr in Peripherals)
+            {
+                string employeeFirstName = "";
+                string employeeLastName = "";
+                if (pr.EmployeeId != null)
+                {
+                    // Get the name of the employee the peripherals is assigned to.
+                    var ownerEmployee = _context.Employee.Where(emp => emp.EmployeeId == pr.EmployeeId);
+                    employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
+                    employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
+                }
+
+                // Create a Peripheral object to be returned.
+                string icon = "";
+                var Peripheral = new { pr.PeripheralId, pr.PeripheralName, pr.PeripheralType, pr.PurchaseDate, pr.IsAssigned, employeeFirstName, employeeLastName, icon };
+                listOfPeripherals.Add(Peripheral);
+            }
+            return Ok(listOfPeripherals);
         }
         /* GET: api/List/programs
          * Returns [ {
