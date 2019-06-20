@@ -1,0 +1,33 @@
+/* .App {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+} */
+
+.icon {
+    max-height: 75px;
+    max-width: 75px;
+    padding: 25px;
+}
+
+.alignLeft {
+    text-align: left;
+    padding: 5px;
+}
+.alignLeftAndPadding {
+    text-align: left;
+    padding-left: 34px;
+    color: #979797;
+}
+.employees {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.employeeName {
+    color: #009eff;
+}
+.role {
+    color: #979797;
+}

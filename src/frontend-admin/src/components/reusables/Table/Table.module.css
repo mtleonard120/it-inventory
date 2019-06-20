@@ -1,0 +1,35 @@
+.table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tr {
+    border: 1px solid #979797;
+    cursor: pointer;
+    height: 100px;
+
+    border-radius: 2px;
+}
+.tr:hover {
+    background-color: rgba(151, 151, 151, 0.15);
+}
+
+.arrow {
+    border-left: 8px solid #636363;
+    border-right: 8px solid #636363;
+    border-top: 2px solid #636363;
+    border-bottom: none;
+    height: 2px;
+    position: relative;
+    top: 15px;
+    left: 5px;
+}
+
+.header {
+    color: #a5a5a5;
+    font-size: 24px;
+    padding: 32px;
+    display: flex;
+    cursor: pointer;
+}

@@ -1,0 +1,25 @@
+.programs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.name {
+    color: #009eff;
+}
+
+.icon {
+    max-height: 75px;
+    max-width: 75px;
+    padding: 25px;
+}
+
+.alignLeft {
+    text-align: left;
+    padding: 5px;
+}
+.alignLeftAndPadding {
+    text-align: left;
+    padding-left: 34px;
+    color: #979797;
+}
