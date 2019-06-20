@@ -28,7 +28,7 @@ interface ITableDatum {
     dateHired: string
     daysEmployed: number
     hardwareCost: number
-    programCost: number
+    programsCost: number
 }
 
 const initListData: ITableDatum[] = [
@@ -65,7 +65,7 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                         dateHired: i.hireDate,
                         daysEmployed: 0,
                         hardwareCost: i.hardwareCostForEmp,
-                        programCost: i.programCostForEmp,
+                        programsCost: i.programCostForEmp,
                     })
                 )
             )
@@ -75,10 +75,12 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     }, [setListData])
 
     useEffect(() => {
+        console.log(listData)
         // Search through listData based on current value
         // of search bar and save results in filtered
         let filteredTableInput = listData
         filteredTableInput = listData.filter((row: any) => {
+            console.log(row)
             return (
                 row[selected.value]
                     .toString()
@@ -86,8 +88,10 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                     .search(search.toLowerCase()) !== -1
             )
         })
+        console.log(listData)
         setFiltered(filteredTableInput)
         listData[0] && setColumns(Object.keys(listData[0]))
+        // setColumns(['name', 'role', 'dateHired', 'daysEmployed', 'hardwareCost', 'programsCost'])
     }, [search, selected, listData])
 
     useEffect(() => {
@@ -126,8 +130,11 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
         return <td className={styles.alignLeftAndPadding}>{data.daysEmployed} days</td>
     }
 
-    const concatenatedCost = (data: any) => {
-        return <td className={styles.alignLeftAndPadding}>${data.cost}</td>
+    const concatenatedHWCost = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>${data.hardwareCost}</td>
+    }
+    const concatenatedProgCost = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>${data.programsCost}</td>
     }
     return (
         <div className={styles.employeesListMain}>
@@ -142,18 +149,17 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                     setSelected={setSelected}
                 />
             </Group>
-            {console.log(listData)}
 
             <Table
                 headers={['Employees', 'Date Hired', 'Days Employed', 'Hardware Cost', 'Programs Cost']}
-                propData={listData}
-                dataKeys={Object.keys(listData)}
+                propData={filtered}
+                dataKeys={columns}
                 concatonations={[
                     concatenateName,
                     concatenateDateHired,
                     concatenateDaysEmployed,
-                    concatenatedCost,
-                    concatenatedCost,
+                    concatenatedHWCost,
+                    concatenatedProgCost,
                 ]}
             />
         </div>
