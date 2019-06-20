@@ -171,6 +171,7 @@ namespace backend_api.Controllers
          *            mfg: string,
          *            employeeFirstName: string,
          *            employeeLastName: string,
+         *            icon: string,
          *          } ... ] for every server in CQL.
          */
         [Route("Servers")]
@@ -199,9 +200,9 @@ namespace backend_api.Controllers
                     employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
                     employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
                 }
-
+                string icon = "";
                 // Create a server object to be returned.
-                var Server = new { sv.ServerId, sv.Fqdn, sv.NumberOfCores, sv.Ram, sv.Mfg, employeeFirstName, employeeLastName };
+                var Server = new { sv.ServerId, sv.Fqdn, sv.NumberOfCores, sv.Ram, sv.Mfg, employeeFirstName, employeeLastName, icon };
                 listOfservers.Add(Server);
             }
             return Ok(listOfservers);
@@ -217,6 +218,7 @@ namespace backend_api.Controllers
          *            mfg: string,
          *            employeeFirstName: string,
          *            employeeLastName: string,
+         *            icon: string,
          *          ] ... } for every laptop at CQL.
          */
         [Route("Laptops")]
@@ -245,9 +247,9 @@ namespace backend_api.Controllers
                     employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
                     employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
                 }
-
+                string icon = "";
                 // Create a Computer object to be returned.
-                var Computer = new { cp.ComputerId, cp.Cpu, cp.Ramgb, cp.Ssdgb, cp.IsAssigned, cp.Mfg, employeeFirstName, employeeLastName };
+                var Computer = new { cp.ComputerId, cp.Cpu, cp.Ramgb, cp.Ssdgb, cp.IsAssigned, cp.Mfg, employeeFirstName, employeeLastName, icon };
                 listOfComputers.Add(Computer);
             }
             return Ok(listOfComputers);
@@ -262,6 +264,7 @@ namespace backend_api.Controllers
          *             inputs: string,
          *             employeeFirstName: string,
          *             employeeLastName: string,
+         *             icon: string,
          *           ] ... } for every monitor at CQL.
          */
         [Route("Monitors")]
@@ -272,9 +275,6 @@ namespace backend_api.Controllers
             // TODO: This is a lot of repeated code from the last two endpoints. Maybe make the endpoints more generic??
             // List that will be returned containing the list of monitors
             var listOfMonitors = new List<object>();
-
-            // Employee list to be used later.
-            var Employees = _context.Employee;
 
             // Monitors that are not deleted
             var Monitors = _context.Monitor.Where(mn => mn.IsDeleted == false);
@@ -287,13 +287,14 @@ namespace backend_api.Controllers
                 if (mn.EmployeeId != null)
                 {
                     // Get the name of the employee the monitors is assigned to.
-                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == mn.EmployeeId);
+                    var ownerEmployee = _context.Employee.Where(emp => emp.EmployeeId == mn.EmployeeId);
                     employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
                     employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
                 }
 
                 // Create a Monitor object to be returned.
-                var Monitor = new { mn.MonitorId, mn.Make, mn.ScreenSize, mn.Resolution, mn.Inputs, employeeFirstName, employeeLastName };
+                string icon = "";
+                var Monitor = new { mn.MonitorId, mn.Make, mn.ScreenSize, mn.Resolution, mn.Inputs, employeeFirstName, employeeLastName, icon };
                 listOfMonitors.Add(Monitor);
             }
             return Ok(listOfMonitors);
@@ -301,14 +302,15 @@ namespace backend_api.Controllers
 
         /* GET: api/list/peripherals
          * Returns: [ { 
-         *             PeripheralId: int,
-         *             PeripheralName: string,
-         *             PeripheralType: string,
-         *             PurchaseDate: date,
-         *             IsAssigned: bool,
+         *             peripheralId: int,
+         *             peripheralName: string,
+         *             peripheralType: string,
+         *             purchaseDate: date,
+         *             isAssigned: bool,
          *             employeeFirstName: string,
          *             employeeLastName: string,
-         *          ] ... } for every peripheral at CQL.
+         *             icon: string,
+         *          } ,.. ] for every peripheral at CQL.
          * 
          * 
          */
@@ -321,9 +323,6 @@ namespace backend_api.Controllers
             // List that will be returned containing the list of peripherals
             var listOfPeripherals = new List<object>();
 
-            // Employee list to be used later.
-            var Employees = _context.Employee;
-
             // Peripherals that are not deleted
             var Peripherals = _context.Peripheral.Where(pr => pr.IsDeleted == false);
 
@@ -335,13 +334,14 @@ namespace backend_api.Controllers
                 if (pr.EmployeeId != null)
                 {
                     // Get the name of the employee the peripherals is assigned to.
-                    var ownerEmployee = Employees.Where(emp => emp.EmployeeId == pr.EmployeeId);
+                    var ownerEmployee = _context.Employee.Where(emp => emp.EmployeeId == pr.EmployeeId);
                     employeeFirstName = ownerEmployee.Select(emp => emp.FirstName).FirstOrDefault().ToString();
                     employeeLastName = ownerEmployee.Select(emp => emp.LastName).FirstOrDefault().ToString();
                 }
 
                 // Create a Peripheral object to be returned.
-                var Peripheral = new { pr.PeripheralId, pr.PeripheralName, pr.PeripheralType, pr.PurchaseDate, pr.IsAssigned, employeeFirstName, employeeLastName };
+                string icon = "";
+                var Peripheral = new { pr.PeripheralId, pr.PeripheralName, pr.PeripheralType, pr.PurchaseDate, pr.IsAssigned, employeeFirstName, employeeLastName, icon };
                 listOfPeripherals.Add(Peripheral);
             }
             return Ok(listOfPeripherals);
