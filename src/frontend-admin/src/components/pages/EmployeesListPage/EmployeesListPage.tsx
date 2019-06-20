@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Route, Switch, BrowserRouter as Router} from 'react-router-dom'
 import {AxiosService} from '../../../services/AxiosService/AxiosService'
 
 // Components
@@ -32,7 +31,7 @@ interface ITableDatum {
 }
 
 const initListData: ITableDatum[] = [
-    // {name: '', role: '', dateHired: '', daysEmployed: 0, hardwareCost: 0, programCost: 0},
+    // {name: '', role: '', dateHired: '', daysEmployed: 0, hardwareCost: 0, programsCost: 0},
 ]
 const initColumns: string[] = []
 const initOptions: {value: string; label: string}[] = []
@@ -46,15 +45,18 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const axios = new AxiosService(accessToken, refreshToken)
 
     // state
-    const [listData, setListData] = useState(initListData)
+    const [listData, setListData] = useState([...initListData])
     const [columns, setColumns] = useState(initColumns)
     const [options, setOptions] = useState(initOptions)
-    const [filtered, setFiltered] = useState(listData) //this is what is used in the list
+    const [filtered, setFiltered] = useState([...initListData]) //this is what is used in the list
     const [search, setSearch] = useState('')
     const [selected, setSelected] = useState({label: 'name', value: 'name'})
 
     useEffect(() => {
+        console.log(initListData)
         initListData.length = 0
+        console.log(initListData)
+
         axios
             .get('/list/employees')
             .then((data: any) =>
@@ -63,7 +65,7 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                         name: i.employeeName,
                         role: i.role,
                         dateHired: i.hireDate,
-                        daysEmployed: 0,
+                        daysEmployed: 0, //TODO: calculate days employed
                         hardwareCost: i.hardwareCostForEmp,
                         programsCost: i.programCostForEmp,
                     })
@@ -71,14 +73,15 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
             )
             .catch((err: any) => console.log(err))
 
+        console.log(initListData)
         setListData(initListData)
-    }, [setListData])
+    }, [])
 
     useEffect(() => {
-        console.log(listData)
         // Search through listData based on current value
         // of search bar and save results in filtered
-        let filteredTableInput = listData
+        var filteredTableInput = listData
+
         filteredTableInput = listData.filter((row: any) => {
             console.log(row)
             return (
@@ -88,17 +91,15 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                     .search(search.toLowerCase()) !== -1
             )
         })
-        console.log(listData)
         setFiltered(filteredTableInput)
+
         listData[0] && setColumns(Object.keys(listData[0]))
-        // setColumns(['name', 'role', 'dateHired', 'daysEmployed', 'hardwareCost', 'programsCost'])
-    }, [search, selected, listData])
+        setColumns(['name', 'role', 'dateHired', 'daysEmployed', 'hardwareCost', 'programsCost'])
+    }, [listData, search, selected])
 
     useEffect(() => {
         initOptions.length = 0
-        columns.map(i => {
-            initOptions.push({value: i, label: i.replace(/([a-zA-Z])(?=[A-Z])/g, '$1 ').toLowerCase()})
-        })
+        columns.map(i => initOptions.push({value: i, label: i.replace(/([a-zA-Z])(?=[A-Z])/g, '$1 ').toLowerCase()}))
         setOptions(initOptions)
     }, [columns])
 
@@ -113,10 +114,10 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     function concatenateName(data: any) {
         return (
             <td className={styles.employees}>
-                <img className={styles.icon} src={icon} />
+                <img className={styles.icon} src={icon} alt={''} />
                 <div className={styles.alignLeft}>
-                    <text className={styles.employeeName}>{data.name}</text> <br />
-                    <text className={styles.role}>{data.role}</text>
+                    <div className={styles.employeeName}>{data.name}</div> <br />
+                    <div className={styles.role}>{data.role}</div>
                 </div>
             </td>
         )
