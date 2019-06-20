@@ -25,6 +25,7 @@ namespace backend_api.Models
         public string Make { get; set; }
         public string Fqdn { get; set; }
         public string Location { get; set; }
+        public string Model { get; set; }
 
 
         public Employee Employee { get; set; }

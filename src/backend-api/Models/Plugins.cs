@@ -12,6 +12,9 @@ namespace backend_api.Models
         public string TextField { get; set; }
         public decimal? PluginCostPerYear { get; set; }
         public bool IsDeleted { get; set; }
+        public string ProgramName { get; set; }
+        public DateTime? RenewalDate  { get; set; }
+        public int? MonthsPerRenewal { get; set; }
 
   
        

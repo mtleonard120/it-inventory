@@ -61,10 +61,10 @@
 }
 
 .pieCard {
-    margin: 0 100px 0 50px;
-    padding-top: 0px;
+    /* padding: 20px; */
+    /* width: 90%; */
 }
 
 .software {
-    width: 90%;
+    width: 98%;
 }
