@@ -23,9 +23,9 @@ namespace backend_api.Models
         public string Mfg { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
-        public string Ipaddress { get; set; }
-        public string San { get; set; }
-        public string LocalHhd { get; set; }
+        public string IPAddress { get; set; }
+        public string SAN { get; set; }
+        public string LocalHHD { get; set; }
         public string Location { get; set; }
 
         public Employee Employee { get; set; }
