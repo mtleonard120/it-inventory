@@ -64,48 +64,44 @@ export const App: React.FC = () => {
 
                 <Router>
                     {loginContextVariables.givenName === '' && <Redirect to='/login' />}
-                    {loginContextVariables.givenName !== '' && (
-                        <div className={styles.navContainer}>
-                            <Redirect to='/dashboard' />
-                            <HelloUser name={loginContextVariables.givenName} className={styles.helloMesssage} />
-                            <nav className={styles.navBar}>
-                                <h1>CQL</h1>
-                                <div className={styles.navEllipse} />
-                                <div className={styles.navRectangle} />
+                    {/* {loginContextVariables.givenName !== '' && ( */}
+                    <div className={styles.navContainer}>
+                        <Redirect to='/employees' />
+                        <HelloUser name={loginContextVariables.givenName} className={styles.helloMesssage} />
+                        <nav className={styles.navBar}>
+                            <h1>CQL</h1>
+                            <div className={styles.navEllipse} />
+                            <div className={styles.navRectangle} />
 
-                                <div className={styles.linkContainer}>
-                                    <NavLink
-                                        className={styles.navTab}
-                                        activeClassName={styles.active}
-                                        to='/departments'
-                                    >
-                                        <div className={styles.navTabRectangle} />
-                                        <label>Departments</label>
-                                    </NavLink>
+                            <div className={styles.linkContainer}>
+                                <NavLink className={styles.navTab} activeClassName={styles.active} to='/departments'>
+                                    <div className={styles.navTabRectangle} />
+                                    <label>Departments</label>
+                                </NavLink>
 
-                                    <NavLink className={styles.navTab} activeClassName={styles.active} to='/hardware'>
-                                        <div className={styles.navTabRectangle} />
-                                        <label>Hardware</label>
-                                    </NavLink>
+                                <NavLink className={styles.navTab} activeClassName={styles.active} to='/hardware'>
+                                    <div className={styles.navTabRectangle} />
+                                    <label>Hardware</label>
+                                </NavLink>
 
-                                    <NavLink className={styles.navTab} activeClassName={styles.active} to='/programs'>
-                                        <div className={styles.navTabRectangle} />
-                                        <label>Programs</label>
-                                    </NavLink>
+                                <NavLink className={styles.navTab} activeClassName={styles.active} to='/programs'>
+                                    <div className={styles.navTabRectangle} />
+                                    <label>Programs</label>
+                                </NavLink>
 
-                                    <NavLink className={styles.navTab} activeClassName={styles.active} to='/employees'>
-                                        <div className={styles.navTabRectangle} />
-                                        <label>Employees</label>
-                                    </NavLink>
+                                <NavLink className={styles.navTab} activeClassName={styles.active} to='/employees'>
+                                    <div className={styles.navTabRectangle} />
+                                    <label>Employees</label>
+                                </NavLink>
 
-                                    <NavLink className={styles.navTab} activeClassName={styles.active} to='/dashboard'>
-                                        <div className={styles.navTabRectangle} />
-                                        <label>Dashboard</label>
-                                    </NavLink>
-                                </div>
-                            </nav>
-                        </div>
-                    )}
+                                <NavLink className={styles.navTab} activeClassName={styles.active} to='/dashboard'>
+                                    <div className={styles.navTabRectangle} />
+                                    <label>Dashboard</label>
+                                </NavLink>
+                            </div>
+                        </nav>
+                    </div>
+                    {/* )} */}
                     <Switch>
                         {/* <Route />'s go here */}
                         <Route path='/dashboard' component={DashboardPage} />

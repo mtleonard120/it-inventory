@@ -5,6 +5,8 @@ import {Route, Switch} from 'react-router-dom'
 import {FilteredSearch} from '../../reusables/FilteredSearch/FilteredSearch'
 import {Button} from '../../reusables/Button/Button'
 import {Group} from '../../reusables/Group/Group'
+import {Table} from '../../reusables/Table/Table'
+import icon from '../../../content/Images/CQL-favicon.png'
 
 // Styles
 import styles from './ProgramsListPage.module.css'
@@ -54,6 +56,26 @@ export const ProgramsListPage: React.SFC<IProgramsListPageProps> = props => {
     const handleRowClick = (name: string) => {
         history.push(`/programs/${name}`)
     }
+    function concatenateName(data: any) {
+        return (
+            <td className={styles.programs}>
+                <img className={styles.icon} src={icon} />
+                <text className={styles.name}>{data.name}</text>
+            </td>
+        )
+    }
+
+    const concatenateRenewalDate = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>{data.renewalDate}</td>
+    }
+
+    const concatenateTotalUsers = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>{data.totalUsers} users</td>
+    }
+
+    const concatenatedCost = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>${data.cost}</td>
+    }
 
     return (
         <div className={styles.programsListMain}>
@@ -79,6 +101,19 @@ export const ProgramsListPage: React.SFC<IProgramsListPageProps> = props => {
             </Group>
 
             {/*<List />*/}
+
+            <Table
+                headers={['Programs', 'Renewal Date', 'Total Users', 'Cost']}
+                propData={[
+                    {name: 'Jira', renewalDate: '2012/09/12', totalUsers: 0, cost: 350},
+                    {name: 'Office 365', renewalDate: '2012/09/11', totalUsers: 1, cost: 200},
+                    {name: 'Minecraft', renewalDate: '2012/09/13', totalUsers: 154, cost: 575},
+                    {name: 'Adobe CC', renewalDate: '2010/09/12', totalUsers: 16, cost: 154},
+                    {name: 'Atlassian', renewalDate: '2014/09/12', totalUsers: 15, cost: 764},
+                ]}
+                dataKeys={['name', 'renewalDate', 'totalUsers', 'cost']}
+                concatonations={[concatenateName, concatenateRenewalDate, concatenateTotalUsers, concatenatedCost]}
+            />
         </div>
     )
 }

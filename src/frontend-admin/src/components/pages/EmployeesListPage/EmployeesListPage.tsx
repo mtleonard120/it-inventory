@@ -6,7 +6,9 @@ import {AxiosService} from '../../../services/AxiosService/AxiosService'
 import {FilteredSearch} from '../../reusables/FilteredSearch/FilteredSearch'
 import {Button} from '../../reusables/Button/Button'
 import {Group} from '../../reusables/Group/Group'
-//import {Table, ITableDatum} from '../../reusables/Table/Table'
+
+import {Table} from '../../reusables/Table/Table'
+import icon from '../../../content/Images/CQL-favicon.png'
 
 // Context
 import {LoginContext} from '../../App/App'
@@ -20,16 +22,18 @@ interface IEmployeesListPageProps {
     match: any
 }
 
-//TODO: remove this
 interface ITableDatum {
     name: string
-    dept: string
+    role: string
     dateHired: string
+    daysEmployed: number
     hardwareCost: number
     programCost: number
 }
 
-const initListData: ITableDatum[] = [{name: '', dept: '', dateHired: '', hardwareCost: 0, programCost: 0}]
+const initListData: ITableDatum[] = [
+    // {name: '', role: '', dateHired: '', daysEmployed: 0, hardwareCost: 0, programCost: 0},
+]
 const initColumns: string[] = []
 const initOptions: {value: string; label: string}[] = []
 
@@ -50,15 +54,16 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const [selected, setSelected] = useState({label: 'name', value: 'name'})
 
     useEffect(() => {
-        let list: ITableDatum[] = []
+        initListData.length = 0
         axios
             .get('/list/employees')
             .then((data: any) =>
                 data.map((i: any) =>
-                    list.push({
+                    initListData.push({
                         name: i.employeeName,
-                        dept: i.role,
+                        role: i.role,
                         dateHired: i.hireDate,
+                        daysEmployed: 0,
                         hardwareCost: i.hardwareCostForEmp,
                         programCost: i.programCostForEmp,
                     })
@@ -66,7 +71,7 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
             )
             .catch((err: any) => console.log(err))
 
-        setListData(list)
+        setListData(initListData)
     }, [setListData])
 
     useEffect(() => {
@@ -100,7 +105,30 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const handleRowClick = (id: number) => {
         history.push(`${match.url}/${id}`)
     }
+    const {} = props
+    function concatenateName(data: any) {
+        return (
+            <td className={styles.employees}>
+                <img className={styles.icon} src={icon} />
+                <div className={styles.alignLeft}>
+                    <text className={styles.employeeName}>{data.name}</text> <br />
+                    <text className={styles.role}>{data.role}</text>
+                </div>
+            </td>
+        )
+    }
 
+    const concatenateDateHired = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>{data.dateHired}</td>
+    }
+
+    const concatenateDaysEmployed = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>{data.daysEmployed} days</td>
+    }
+
+    const concatenatedCost = (data: any) => {
+        return <td className={styles.alignLeftAndPadding}>${data.cost}</td>
+    }
     return (
         <div className={styles.employeesListMain}>
             <Group direction='row' justify='between'>
@@ -114,7 +142,20 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                     setSelected={setSelected}
                 />
             </Group>
-            {/*<List />*/}
+            {console.log(listData)}
+
+            <Table
+                headers={['Employees', 'Date Hired', 'Days Employed', 'Hardware Cost', 'Programs Cost']}
+                propData={listData}
+                dataKeys={Object.keys(listData)}
+                concatonations={[
+                    concatenateName,
+                    concatenateDateHired,
+                    concatenateDaysEmployed,
+                    concatenatedCost,
+                    concatenatedCost,
+                ]}
+            />
         </div>
     )
 }
