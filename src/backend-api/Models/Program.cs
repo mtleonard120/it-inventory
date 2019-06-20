@@ -25,7 +25,7 @@ namespace backend_api.Models
         public bool IsCostPerYear { get; set; }
         public DateTime? DateBought { get; set; }
         public DateTime? RenewalDate { get; set; }
-        public int MonthsPerRenewal { get; set; }
+        public int? MonthsPerRenewal { get; set; }
 
         //public Employee Employee { get; set; }
         //public ICollection<Plugins> Plugins { get; set; }
