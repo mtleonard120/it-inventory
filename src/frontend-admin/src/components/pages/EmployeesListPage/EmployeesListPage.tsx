@@ -30,12 +30,6 @@ interface ITableDatum {
     programsCost: number
 }
 
-const initListData: ITableDatum[] = [
-    // {name: '', role: '', dateHired: '', daysEmployed: 0, hardwareCost: 0, programsCost: 0},
-]
-const initColumns: string[] = []
-const initOptions: {value: string; label: string}[] = []
-
 // Primary Component
 export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const {history, match} = props
@@ -45,23 +39,21 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const axios = new AxiosService(accessToken, refreshToken)
 
     // state
-    const [listData, setListData] = useState([...initListData])
-    const [columns, setColumns] = useState(initColumns)
-    const [options, setOptions] = useState(initOptions)
-    const [filtered, setFiltered] = useState([...initListData]) //this is what is used in the list
+    const [listData, setListData] = useState<any[]>([])
+    const [filteredData, setFilteredData] = useState<any[]>([]) //this is what is used in the list
     const [search, setSearch] = useState('')
     const [selected, setSelected] = useState({label: 'name', value: 'name'})
 
-    useEffect(() => {
-        console.log(initListData)
-        initListData.length = 0
-        console.log(initListData)
+    const columns = ['name', 'role', 'dateHired', 'daysEmployed', 'hardwareCost', 'programsCost']
+    const options = columns.map(c => ({label: c, value: c}))
 
+    useEffect(() => {
         axios
             .get('/list/employees')
-            .then((data: any) =>
+            .then((data: any) => {
+                const employees: any[] = []
                 data.map((i: any) =>
-                    initListData.push({
+                    employees.push({
                         name: i.employeeName,
                         role: i.role,
                         dateHired: i.hireDate,
@@ -70,20 +62,15 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                         programsCost: i.programCostForEmp,
                     })
                 )
-            )
-            .catch((err: any) => console.log(err))
-
-        console.log(initListData)
-        setListData(initListData)
+                setListData(employees)
+            })
+            .catch((err: any) => console.error(err))
     }, [])
 
     useEffect(() => {
         // Search through listData based on current value
         // of search bar and save results in filtered
-        var filteredTableInput = listData
-
-        filteredTableInput = listData.filter((row: any) => {
-            console.log(row)
+        var filteredTableInput = listData.filter((row: any) => {
             return (
                 row[selected.value]
                     .toString()
@@ -91,17 +78,8 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
                     .search(search.toLowerCase()) !== -1
             )
         })
-        setFiltered(filteredTableInput)
-
-        listData[0] && setColumns(Object.keys(listData[0]))
-        setColumns(['name', 'role', 'dateHired', 'daysEmployed', 'hardwareCost', 'programsCost'])
+        setFilteredData(filteredTableInput)
     }, [listData, search, selected])
-
-    useEffect(() => {
-        initOptions.length = 0
-        columns.map(i => initOptions.push({value: i, label: i.replace(/([a-zA-Z])(?=[A-Z])/g, '$1 ').toLowerCase()}))
-        setOptions(initOptions)
-    }, [columns])
 
     const handleClick = () => {
         history.push(`${match.url}/new`)
@@ -110,7 +88,7 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const handleRowClick = (id: number) => {
         history.push(`${match.url}/${id}`)
     }
-    const {} = props
+
     function concatenateName(data: any) {
         return (
             <td className={styles.employees}>
@@ -134,9 +112,17 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
     const concatenatedHWCost = (data: any) => {
         return <td className={styles.alignLeftAndPadding}>${data.hardwareCost}</td>
     }
+
     const concatenatedProgCost = (data: any) => {
         return <td className={styles.alignLeftAndPadding}>${data.programsCost}</td>
     }
+
+    const rows: any[] = []
+
+    filteredData.forEach(rowObj => {
+        rows.push(Object.values(rowObj).map((val: any) => <td>{val}</td>))
+    })
+
     return (
         <div className={styles.employeesListMain}>
             <Group direction='row' justify='between'>
@@ -152,16 +138,9 @@ export const EmployeesListPage: React.SFC<IEmployeesListPageProps> = props => {
             </Group>
 
             <Table
-                headers={['Employees', 'Date Hired', 'Days Employed', 'Hardware Cost', 'Programs Cost']}
-                propData={filtered}
+                headers={['Employees', 'Roles', 'Date Hired', 'Days Employed', 'Hardware Cost', 'Programs Cost']}
+                rows={rows}
                 dataKeys={columns}
-                concatonations={[
-                    concatenateName,
-                    concatenateDateHired,
-                    concatenateDaysEmployed,
-                    concatenatedHWCost,
-                    concatenatedProgCost,
-                ]}
             />
         </div>
     )

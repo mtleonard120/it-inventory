@@ -66,7 +66,6 @@ export const App: React.FC = () => {
                     {loginContextVariables.givenName === '' && <Redirect to='/login' />}
                     {/* {loginContextVariables.givenName !== '' && ( */}
                     <div className={styles.navContainer}>
-                        <Redirect to='/employees' />
                         <HelloUser name={loginContextVariables.givenName} className={styles.helloMesssage} />
                         <nav className={styles.navBar}>
                             <h1>CQL</h1>

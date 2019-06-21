@@ -102,7 +102,7 @@ export const ProgramsListPage: React.SFC<IProgramsListPageProps> = props => {
 
             {/*<List />*/}
 
-            <Table
+            {/* <Table
                 headers={['Programs', 'Renewal Date', 'Total Users', 'Cost']}
                 propData={[
                     {name: 'Jira', renewalDate: '2012/09/12', totalUsers: 0, cost: 350},
@@ -113,7 +113,7 @@ export const ProgramsListPage: React.SFC<IProgramsListPageProps> = props => {
                 ]}
                 dataKeys={['name', 'renewalDate', 'totalUsers', 'cost']}
                 concatonations={[concatenateName, concatenateRenewalDate, concatenateTotalUsers, concatenatedCost]}
-            />
+            /> */}
         </div>
     )
 }
